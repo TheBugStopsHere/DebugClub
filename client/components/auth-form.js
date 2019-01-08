@@ -94,10 +94,13 @@ const mapDispatch = dispatch => {
       const formName = evt.target.name
       const email = evt.target.email.value
       const password = evt.target.password.value
-      const firstName = evt.target.firstName.value
-      const lastName = evt.target.lastName.value
-      const imageURL = evt.target.imageURL.value
-      const address = evt.target.address.value
+      let firstName, lastName, imageURL, address
+      if(formName === 'signup'){
+        firstName = evt.target.firstName.value
+        lastName = evt.target.lastName.value
+        imageURL = evt.target.imageURL.value
+        address = evt.target.address.value
+      }
       dispatch(auth(email, password, formName, firstName, lastName, imageURL, address))
     }
   }
