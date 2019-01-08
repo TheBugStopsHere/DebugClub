@@ -26,6 +26,12 @@ const itemsData = [
     category: 'live bugs'
   },
   {
+    name: 'Live Bug Holder',
+    price: 9.99,
+    description: 'description',
+    category: 'live bugs'
+  },
+  {
     name: 'CryptoLocker',
     imageUrl: 'https://cdn.arstechnica.net/wp-content/uploads/2013/11/CryptoLocker_20131120_Bitcoin-640x496.png',
     price: 7500.00,
@@ -35,43 +41,59 @@ const itemsData = [
   {
     name: 'ILOVEYOU',
     imageUrl: 'https://people.carleton.edu/~brodiej/example2.gif',
-    price: 3.50,
+    price: 250.00,
     description: 'ILOVEYOU is one of the most well-known and destructive viruses of all time. In 2000, The virus came in an email with a subject line that said “I love you”. The malware was a worm that was downloaded by clicking on an attachment called "LOVE-LETTER-FOR-YOU.TXT.vbs". ILOVEYOU overwrote system files and personal files and spread itself over and over and over again.',
     category: 'bad bugs'
   },
   {
     name: 'MyDoom',
-    imageUrl: 'https://irp-cdn.multiscreensite.com/ed883b94/dms3rep/multi/mobile/a53e985a43c4489dabf6c38d196501e9-608x681.dm.edit_rRHlBn.jpg',
+    imageUrl: 'http://virus.wdfiles.com/local--files/mydoom/Mydomess.png',
     price: 3.50,
-    description: 'A bumblebee (or bumble bee, bumble-bee or humble-bee) is any of over 250 species in the genus Bombus, part of Apidae, one of the bee families.',
+    description: 'MyDoom is considered to be the most damaging virus and fastest-spreading email-based worm ever. It launched Distributed Denial of Service attacks against tech companies like SCO, Microsoft, and Google. In 2004, roughly somewhere between 16-25% of all emails had been infected by MyDoom.',
     category: 'bad bugs'
   },
   {
-    name: 'Bumblebee',
-    imageUrl: 'https://irp-cdn.multiscreensite.com/ed883b94/dms3rep/multi/mobile/a53e985a43c4489dabf6c38d196501e9-608x681.dm.edit_rRHlBn.jpg',
-    price: 3.50,
-    description: 'A bumblebee (or bumble bee, bumble-bee or humble-bee) is any of over 250 species in the genus Bombus, part of Apidae, one of the bee families.',
-    category: 'live bugs'
+    name: 'Bad Bug Holder',
+    price: 9.99,
+    description: 'description',
+    category: 'bad bugs'
   },
   {
-    name: 'Bumblebee',
-    imageUrl: 'https://irp-cdn.multiscreensite.com/ed883b94/dms3rep/multi/mobile/a53e985a43c4489dabf6c38d196501e9-608x681.dm.edit_rRHlBn.jpg',
-    price: 3.50,
-    description: 'A bumblebee (or bumble bee, bumble-bee or humble-bee) is any of over 250 species in the genus Bombus, part of Apidae, one of the bee families.',
-    category: 'live bugs'
+    name: 'Raid',
+    imageUrl: 'https://www.lumierehealingcenters.com/wp-content/uploads/2018/07/RAID-245x300.jpg',
+    price: 5.99,
+    description: 'Kills bugs dead.',
+    category: 'debugging'
   },
   {
-    name: 'Bumblebee',
-    imageUrl: 'https://irp-cdn.multiscreensite.com/ed883b94/dms3rep/multi/mobile/a53e985a43c4489dabf6c38d196501e9-608x681.dm.edit_rRHlBn.jpg',
-    price: 3.50,
-    description: 'A bumblebee (or bumble bee, bumble-bee or humble-bee) is any of over 250 species in the genus Bombus, part of Apidae, one of the bee families.',
-    category: 'live bugs'
+    name: 'Chrome Dev Tools',
+    imageUrl: 'https://lh3.googleusercontent.com/GjX6Q3_FVJfc0DqE2wiPKkgOfth6otzV-D7GV-wB6sH5_t1oodMaHOBLsYOLeydb85bKWu6X=w640-h400-e365',
+    price: 0.99,
+    description: 'Chrome DevTools is a set of web developer tools built directly into the Google Chrome browser. DevTools can help you edit pages on-the-fly and diagnose problems quickly, which ultimately helps you build better websites, faster.',
+    category: 'debugging'
+  },
+  {
+    name: 'McAfee',
+    imageUrl: 'https://assets.pcmag.com/media/images/487974-mcafee-logo.png?width=810&height=456',
+    price: 0.00,
+    description: "Everyone's favorite default software.",
+    category: 'debugging'
+  },
+  {
+    name: 'Debug Holder',
+    price: 9.99,
+    description: 'description',
+    category: 'debugging'
   }
 ]
 
 async function seed() {
   await db.sync({force: true})
   console.log('db synced!')
+
+  for (const item of itemsData) {
+    await Items.create(item);
+  }
 
   const users = await Promise.all([
     User.create({email: 'cody@email.com', password: '123'}),
