@@ -1,7 +1,7 @@
 {
-  "name": "boilermaker",
+  "name": "thebugstopshere",
   "version": "1.0.0",
-  "description": "Some boilerplate code to get you started - get shakin'!",
+  "description": "Fullstack Academy 1810 Grace Shopper Project - The Bug Stops Here",
   "engines": {
     "node": ">= 7.0.0"
   },
