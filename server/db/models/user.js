@@ -70,7 +70,7 @@ User.prototype.correctPassword = function(candidatePwd) {
 /**
  * classMethods
  */
-User.beforeValidate(user => {
+User.beforeValidate('Capitalize', user => {
   let firstName = user.firstName.split(' ');
   let lastName = user.lastName.split(' ');
   user.firstName = firstName.map(function(firstName){
