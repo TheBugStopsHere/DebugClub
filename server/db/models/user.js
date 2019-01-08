@@ -70,6 +70,17 @@ User.prototype.correctPassword = function(candidatePwd) {
 /**
  * classMethods
  */
+User.beforeValidate(user => {
+  let firstName = user.firstName.split(' ');
+  let lastName = user.lastName.split(' ');
+  user.firstName = firstName.map(function(firstName){
+      return firstName[0].toUpperCase().concat(firstName.slice(1).toLowerCase())
+  }).join(' ')
+  user.lastName = lastName.map(function(lastName){
+      return lastName[0].toUpperCase().concat(lastName.slice(1).toLowerCase())
+  }).join(' ')
+})
+
 User.generateSalt = function() {
   return crypto.randomBytes(16).toString('base64')
 }
