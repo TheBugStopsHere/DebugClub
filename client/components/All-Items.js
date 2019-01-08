@@ -1,19 +1,24 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import React, {Component} from 'react'
 import {connect} from 'react-redux'
+import {getItemsThunk} from '../store/item'
 
-/**
- * COMPONENT
- */
-export const AllItems = props => {
-//   const {email} = props
+export class AllItems extends Component {
+    constructor(){
+        super()
+    }
 
-  return (
-    <div>
-        <h1>All Items Component</h1>
-      {/* <h3>Welcome, {email}</h3> */}
-    </div>
-  )
+    componentDidMount(){
+        this.props.fetchItems()
+    }
+    
+    render(){
+        return (
+        <div>
+            <h1>All Items Component</h1>
+            {/* <h3>Welcome, {email}</h3> */}
+        </div>
+        )
+    }
 }
 
 /**
@@ -21,18 +26,19 @@ export const AllItems = props => {
  */
 const mapState = state => {
   return {
-    email: state.user.email
+    item: state.item.allItems
   }
 }
 
-export default connect(mapState)(AllItems)
+const mapDispatch = dispatch => {
+    return {
+        //Thunk to display all items from the allItems state
+        fetchItems: () => dispatch(getItemsThunk())
+    }
+}
+
+export default connect(mapState, mapDispatch)(AllItems)
 
 /**
  * PROP TYPES
  */
-AllItems.propTypes = {
-  name: PropTypes.string,
-  imageUrl: PropTypes.string,
-  price: PropTypes.decimal,
-  description: PropTypes.string
-}
