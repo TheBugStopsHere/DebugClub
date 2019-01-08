@@ -3,10 +3,34 @@ const Sequelize = require('sequelize')
 const db = require('../db')
 
 const User = db.define('user', {
+  firstName: {
+    type: Sequelize.STRING,
+    allowNull: false,
+    validate: {
+      notEmpty: true
+    }
+  },
+  lastName: {
+    type: Sequelize.STRING,
+    allowNull: false,
+    validate: {
+      notEmpty: true
+    }
+  },
+  imageURL: {
+    type: Sequelize.STRING,
+    defaultValue: 'https://www.fillmurray.com/g/155/300'
+  },
+  address: {
+    type: Sequelize.STRING
+  },
   email: {
     type: Sequelize.STRING,
     unique: true,
-    allowNull: false
+    allowNull: false,
+    validate: {
+      isEmail: true
+    }
   },
   password: {
     type: Sequelize.STRING,
@@ -26,7 +50,12 @@ const User = db.define('user', {
   },
   googleId: {
     type: Sequelize.STRING
-  }
+  },
+  admin: { 
+    type: Sequelize.BOOLEAN, 
+    allowNull: false, 
+    defaultValue: false 
+  },
 })
 
 module.exports = User
