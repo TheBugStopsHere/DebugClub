@@ -36,12 +36,12 @@ module.exports = Item
  * hooks
  */
 //Forces the text to be capitalized when items are added & updated
-Item.beforeValidate = item => {
+Item.beforeValidate(item => {
     let itemName = item.name.split(' ');
     item.name = item.map(function(name){
         return name[0].toUpperCase().concat(name.slice(1).toLowerCase())
     }).join(' ')
-}
+})
 
 
 
