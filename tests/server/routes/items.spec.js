@@ -9,10 +9,11 @@ const Item = db.model('item')
 
 describe('Item api routes', () => {
   const fakeClient = supertest(app)
+  let riley
 
   beforeEach(() => db.sync({force: true}))
   beforeEach(async () => {
-    await Item.create({
+    riley = await Item.create({
       name: 'Riley',
       price: 1000000
     })
@@ -23,4 +24,9 @@ describe('Item api routes', () => {
     expect(res.body).to.be.an('array')
     expect(res.body[0].name).to.be.equal('Riley')
   }) // end describe('gets all items')
+
+  it('gets a single item', async () => {
+    const res = await fakeClient.get(`/api/items/${riley.dataValues.id}`)
+    expect(res.body.id).to.be.equal(1)
+  }) // end describe('gets a single item')
 }) // end describe('Item routes')
