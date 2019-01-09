@@ -54,7 +54,8 @@ export const getItemsThunk = () => {
 export const getItemThunk = (itemId) => {
     console.log('Thunk thunk thunk')
     return async (dispatch) => {
-        const {data} = axios.get(`/api/items/${itemId}`)
+        const {data} = await axios.get(`/api/items/${itemId}`)
+        dispatch(getItem(data));
     }
 }
 
@@ -68,6 +69,11 @@ export default function(state = initialState, action) {
           ...state,
           allItems: action.allItems
       };
+    case GET_ITEM:
+      return {
+          ...state,
+          selectedItem: action.selectedItem
+      }
     default:
       return state
   }
