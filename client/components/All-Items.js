@@ -1,6 +1,8 @@
 import React, {Component} from 'react'
+import {Link} from 'react-router-dom';
 import {connect} from 'react-redux'
 import {getItemsThunk} from '../store/item'
+
 
 class AllItems extends Component {
     constructor(){
@@ -12,12 +14,27 @@ class AllItems extends Component {
     }
     
     render(){
-        const items = this.props;
-        console.log('items', items)
+        const {items} = this.props;
         return (
         <div>
-            <h1>Rendering All Items..</h1>
-            {/* {this.props}  */}
+            {items.map(function(item){
+                return (
+                    <div key={item.id}>
+
+                        <div id='linkToSingle'>
+                            <Link to={`/${item.id}`} > 
+                                <h4>{item.name} </h4>
+                                <img src={item.imageURL} height={200} width={300} />
+                            </Link>
+                        </div>
+                        <h4> {item.price} </h4>
+
+                        <button type='button' id='addToCard'> Add To Cart </button>
+
+                    </div>
+
+                )
+            })}
         </div>
         )
     }
