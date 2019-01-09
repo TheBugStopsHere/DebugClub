@@ -7,13 +7,21 @@ import AllItems from './All-Items';
  * COMPONENT
  */
 export const UserHome = props => {
-  const {firstName, imageURL, email} = props
+  const {firstName, imageURL, email, admin} = props
 
   return (
     <div>
     <div className='flex'>
       <img src={imageURL} width="200" />
       <h1>Welcome back, {(firstName || email)}!</h1>
+      {admin 
+      ? (
+        <div>
+          <small><p>You are an <strong>admin</strong> user!</p></small>
+        </div>
+      ) 
+      : ''}
+      
     </div>
   </div>
   )
@@ -26,7 +34,8 @@ const mapState = state => {
   return {
     firstName: state.user.firstName,
     imageURL: state.user.imageURL,
-    email: state.user.email
+    email: state.user.email,
+    admin: state.user.admin
   }
 }
 
