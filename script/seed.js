@@ -1,7 +1,7 @@
 'use strict'
 
 const db = require('../server/db')
-const { User, Items } = require('../server/db/models')
+const { User, Item } = require('../server/db/models')
 
 const itemsData = [
   {
@@ -92,7 +92,7 @@ async function seed() {
   console.log('db synced!')
 
   for (const item of itemsData) {
-    await Items.create(item);
+    await Item.create(item);
   }
 
   const users = await Promise.all([
