@@ -2,11 +2,37 @@ const crypto = require('crypto')
 const Sequelize = require('sequelize')
 const db = require('../db')
 
+
+const defaultImgURL = '/img/defaultImg.png'
 const User = db.define('user', {
+  firstName: {
+    type: Sequelize.STRING,
+    allowNull: false,
+    validate: {
+      notEmpty: true
+    }
+  },
+  lastName: {
+    type: Sequelize.STRING,
+    allowNull: false,
+    validate: {
+      notEmpty: true
+    }
+  },
+  imageURL: {
+    type: Sequelize.STRING,
+    defaultValue: defaultImgURL
+  },
+  address: {
+    type: Sequelize.STRING
+  },
   email: {
     type: Sequelize.STRING,
     unique: true,
-    allowNull: false
+    allowNull: false,
+    validate: {
+      isEmail: true
+    }
   },
   password: {
     type: Sequelize.STRING,
@@ -26,8 +52,22 @@ const User = db.define('user', {
   },
   googleId: {
     type: Sequelize.STRING
+  },
+  admin: { 
+    type: Sequelize.BOOLEAN, 
+    allowNull: false, 
+    defaultValue: false 
+  },
+}, 
+{
+  hooks: {
+    beforeValidate: user => {
+      if(user.imageURL === '') user.imageURL = defaultImgURL
+      if(user.address === '') user.address = null
+    }
   }
-})
+}
+)
 
 module.exports = User
 
@@ -41,6 +81,17 @@ User.prototype.correctPassword = function(candidatePwd) {
 /**
  * classMethods
  */
+User.beforeValidate('Capitalize', user => {
+  let firstName = user.firstName.split(' ');
+  let lastName = user.lastName.split(' ');
+  user.firstName = firstName.map(function(firstName){
+      return firstName[0].toUpperCase().concat(firstName.slice(1).toLowerCase())
+  }).join(' ')
+  user.lastName = lastName.map(function(lastName){
+      return lastName[0].toUpperCase().concat(lastName.slice(1).toLowerCase())
+  }).join(' ')
+})
+
 User.generateSalt = function() {
   return crypto.randomBytes(16).toString('base64')
 }

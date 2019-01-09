@@ -30,10 +30,15 @@ export const me = () => async dispatch => {
   }
 }
 
-export const auth = (email, password, method) => async dispatch => {
+export const auth = (formData) => async dispatch => {
   let res
+  const {email, password, method, firstName, lastName, imageURL, address} = formData;
+  const signupData = {email, password, firstName, lastName, imageURL, address}
+  let body 
   try {
-    res = await axios.post(`/auth/${method}`, {email, password})
+    method === 'signup' ? body = signupData : body = {email, password};
+    console.log('>>>>>>>>>>>>> New User Signup:', method, body)
+    res = await axios.post(`/auth/${method}`, body)
   } catch (authError) {
     return dispatch(getUser({error: authError}))
   }
