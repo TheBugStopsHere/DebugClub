@@ -22,7 +22,7 @@ router.get('/:itemId', async (req, res, next) => {
     }
 })
 
-//this route is only accessible to admin users. This route allows admin users to create new items and add them to the database. 
+//this route is only accessible to admin users. This route allows admin users to create new items and add them to the database.
 router.post('/', async (req, res, next) => {
     try {
         if (!req.body){
