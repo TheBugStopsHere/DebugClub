@@ -22,7 +22,7 @@ class AllItems extends Component {
                     <div key={item.id}>
 
                         <div id='linkToSingle'>
-                            <Link to={`/${item.id}`} > 
+                            <Link to={`item/${item.id}`} > 
                                 <h4>{item.name} </h4>
                                 <img src={item.imageURL} height={200} width={300} />
                             </Link>

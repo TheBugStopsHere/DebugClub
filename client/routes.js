@@ -22,7 +22,7 @@ class Routes extends Component {
       <Switch>
         {/* Routes placed here are available to all visitors */}
         <Route exact path="/" component={AllItems} />
-        <Route exact path="/:itemId" component={SingleItem} />
+        <Route exact path="/item/:itemId" component={SingleItem} />
         <Route exact path="/login" component={Login} />
         <Route exact path="/signup" component={Signup} />
         {isLoggedIn && (
