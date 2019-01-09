@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {getItemsThunk} from '../store/item'
 
-export class AllItems extends Component {
+class AllItems extends Component {
     constructor(){
         super()
     }
@@ -12,10 +12,12 @@ export class AllItems extends Component {
     }
     
     render(){
+        const items = this.props;
+        console.log('items', items)
         return (
         <div>
-            <h1>All Items Component</h1>
-            {/* <h3>Welcome, {email}</h3> */}
+            <h1>Rendering All Items..</h1>
+            {/* {this.props}  */}
         </div>
         )
     }
@@ -24,20 +26,20 @@ export class AllItems extends Component {
 /**
  * CONTAINER
  */
-const mapState = state => {
+const mapStateToProps = (state, ownProps) => {
   return {
-    item: state.item.allItems
+    items: state.item.allItems
   }
 }
 
-const mapDispatch = dispatch => {
+const mapDispatchToProps = dispatch => {
     return {
         //Thunk to display all items from the allItems state
         fetchItems: () => dispatch(getItemsThunk())
     }
 }
 
-export default connect(mapState, mapDispatch)(AllItems)
+export default connect(mapStateToProps, mapDispatchToProps)(AllItems)
 
 /**
  * PROP TYPES

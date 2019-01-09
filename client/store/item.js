@@ -21,7 +21,7 @@ const initialState = {
  */
 //this action will receive an an array of items. We will those items to our allItems array.
 const getItems = items => {
-    console.log('action creator')
+    // console.log('action creator initiated')
     return(
         {
             type: GET_ITEMS, 
@@ -36,7 +36,7 @@ const getItems = items => {
  */
 //This thunk will fetch the items from the server and will use the getItems action creator to add them to the allItems array on state.
 export const getItemsThunk = () => {
-    console.log('Thunk thunk thunk')
+    // console.log('Thunk thunk thunk')
     return async (dispatch) => {
         const {data} = await axios.get('/api/items');
         dispatch(getItems(data));
