@@ -36,26 +36,21 @@ describe('Item api routes', () => {
     expect(res.body.id).to.be.equal(1)
   }) // end describe('gets a single item')
 
-  // ADMIN routes TBD:
-  // post/items
-
-  // it('creates an item', async () => {
-  //   // console.log(riley.dataValues)
-  //   const res = await fakeClient.post(`/api/items`, riley.dataValues)
-  //   console.log(res.body)
-  //   // expect(res.body.id).to.be.equal(1)
-  // }) // end describe('creates an item')
+  /* 
+  ADMIN routes: 
+  post, put, delete:
+  */
 
   it('creates an item', function(done) {
     request(app)
       .post('/api/items')
-      .send(riley.dataValues)
+      .send(roo)
       .expect(function(res) {
         res.body.name = 'Roo'
       })
       .expect(201, done)
   })
 
-  // put/items/:itemId
-  // del/items/:itemId
+  // ADMIN route: put/items/:itemId
+  // ADMIN route: del/items/:itemId
 }) // end describe('Item routes')
