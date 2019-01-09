@@ -2,6 +2,8 @@ const crypto = require('crypto')
 const Sequelize = require('sequelize')
 const db = require('../db')
 
+
+const defaultImgURL = '/img/defaultImg.png'
 const User = db.define('user', {
   firstName: {
     type: Sequelize.STRING,
@@ -19,7 +21,7 @@ const User = db.define('user', {
   },
   imageURL: {
     type: Sequelize.STRING,
-    defaultValue: 'https://www.fillmurray.com/g/155/300'
+    defaultValue: defaultImgURL
   },
   address: {
     type: Sequelize.STRING
@@ -56,7 +58,16 @@ const User = db.define('user', {
     allowNull: false, 
     defaultValue: false 
   },
-})
+}, 
+{
+  hooks: {
+    beforeValidate: user => {
+      if(user.imageURL === '') user.imageURL = defaultImgURL
+      if(user.address === '') user.address = null
+    }
+  }
+}
+)
 
 module.exports = User
 
