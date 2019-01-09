@@ -34,10 +34,11 @@ describe('Item api routes', () => {
   // ADMIN routes TBD:
   // post/items
 
-  // it('creates an item', async () => {
-  //   const res = await fakeClient.post(`/api/items`).send(riley)
-  //   expect(res.body.id).to.be.equal(1)
-  // }) // end describe('creates an item')
+  it('creates an item', async () => {
+    const res = await fakeClient.post(`/api/items`, riley)
+    console.log(res.body)
+    // expect(res.body.id).to.be.equal(1)
+  }) // end describe('creates an item')
 
   // put/items/:itemId
   // del/items/:itemId
