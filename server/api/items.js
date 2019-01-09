@@ -4,7 +4,7 @@ module.exports = router
 
 //These routes are mounted on /api/items
 
-//this route gets all items. It's accessible to all users
+//this route gets all items. It's accessible to all users.
 router.get('/', async (req, res, next) => {
   try {
     res.json(await Item.findAll())
@@ -13,7 +13,7 @@ router.get('/', async (req, res, next) => {
   }
 })
 
-//this route gets all a single item. It's accessible to all users
+//this route gets all a single item. It's accessible to all users.
 router.get('/:itemId', async (req, res, next) => {
     try {
       res.json(await Item.findById(req.params.itemId))
@@ -72,7 +72,3 @@ router.put('/:itemId', async (req, res, next) => {
         next(error)
     }
 })
-
-
-
-
