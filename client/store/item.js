@@ -4,8 +4,7 @@ import axios from 'axios'
  * ACTION TYPES
  */
 const GET_ITEMS = 'GET_ITEMS'
-// const GET_ITEM = 'GET_ITEM'
-// const REMOVE_ITEM = 'REMOVE_ITEM'
+const GET_ITEM = 'GET_ITEM'
 
 /**
  * INITIAL STATE
@@ -19,9 +18,8 @@ const initialState = {
 /**
  * ACTION CREATORS
  */
-//this action will receive an an array of items. We will those items to our allItems array.
+//this action will receive an an array of items. We will set those items as our allItems array.
 const getItems = items => {
-    // console.log('action creator initiated')
     return(
         {
             type: GET_ITEMS, 
@@ -30,16 +28,33 @@ const getItems = items => {
     )
 }
 
+//this action will receive an item object. We will set the item as our selected item object
+const getItem = item => {
+    // console.log('action creator initiated')
+    return(
+        {
+            type: GET_ITEM, 
+            selectedItem: item
+        }
+    )
+}
 
 /**
  * THUNK CREATORS
  */
 //This thunk will fetch the items from the server and will use the getItems action creator to add them to the allItems array on state.
 export const getItemsThunk = () => {
-    // console.log('Thunk thunk thunk')
     return async (dispatch) => {
         const {data} = await axios.get('/api/items');
         dispatch(getItems(data));
+    }
+}
+
+//This thunk will fetch the item from the server and will use the getItem action creator to add it to the selectedItem object on state.
+export const getItemThunk = (itemId) => {
+    console.log('Thunk thunk thunk')
+    return async (dispatch) => {
+        const {data} = axios.get(`/api/items/${itemId}`)
     }
 }
 
