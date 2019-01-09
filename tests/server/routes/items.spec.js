@@ -11,6 +11,10 @@ const Item = db.model('item')
 describe('Item api routes', () => {
   const fakeClient = supertest(app)
   let riley
+  let roo = {
+    name: 'roo',
+    price: 1000000
+  }
 
   beforeEach(() => db.sync({force: true}))
   beforeEach(async () => {
@@ -18,6 +22,7 @@ describe('Item api routes', () => {
       name: 'Riley',
       price: 1000000
     })
+    // return db.sync({force: true})
   })
 
   it('gets all items', async () => {
@@ -34,11 +39,22 @@ describe('Item api routes', () => {
   // ADMIN routes TBD:
   // post/items
 
-  it('creates an item', async () => {
-    const res = await fakeClient.post(`/api/items`, riley)
-    console.log(res.body)
-    // expect(res.body.id).to.be.equal(1)
-  }) // end describe('creates an item')
+  // it('creates an item', async () => {
+  //   // console.log(riley.dataValues)
+  //   const res = await fakeClient.post(`/api/items`, riley.dataValues)
+  //   console.log(res.body)
+  //   // expect(res.body.id).to.be.equal(1)
+  // }) // end describe('creates an item')
+
+  it('creates an item', function(done) {
+    request(app)
+      .post('/api/items')
+      .send(riley.dataValues)
+      .expect(function(res) {
+        res.body.name = 'Roo'
+      })
+      .expect(201, done)
+  })
 
   // put/items/:itemId
   // del/items/:itemId
