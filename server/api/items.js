@@ -16,7 +16,7 @@ router.get('/', async (req, res, next) => {
 //this route gets all a single item. It's accessible to all users
 router.get('/:itemId', async (req, res, next) => {
     try {
-      res.json(await Item.findByPk(req.params.itemId))
+      res.json(await Item.findById(req.params.itemId))
     } catch (err) {
       next(err)
     }
