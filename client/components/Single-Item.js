@@ -1,22 +1,32 @@
 import React, {Component} from 'react'
-import {Link} from 'react-router-dom';
 import {connect} from 'react-redux'
+import { getItemThunk } from '../store/item';
 
 
-class SingleItems extends Component {
+class SingleItem extends Component {
     constructor(){
         super()
     }
 
     componentDidMount(){
-        this.props.fetchItems()
+        this.props.fetchItem(this.props.match.params.itemId)
     }
     
     render(){
-
+        const {item} = this.props
         return (
             <div>
-                <h1>THIS IS THE SINGLE ITEM Component</h1>
+                
+                <div>
+                    <h1>{item.name}</h1>
+                    <h1>{item.price}</h1>
+                    <img src={item.imageURL} height={500} width={800} />
+                    <h4>Type: {item.category}</h4>
+                    <p>{item.description}</p>
+                </div>
+
+                <button type='button' id='addToCard'> Add To Cart </button>
+
             </div>
         )
     }
@@ -27,18 +37,18 @@ class SingleItems extends Component {
  */
 const mapStateToProps = (state, ownProps) => {
   return {
-    items: state.item.selectedItem
+    item: state.item.selectedItem
   }
 }
 
 const mapDispatchToProps = dispatch => {
     return {
-        //Thunk to display all items from the allItems state
-        fetchItems: () => dispatch(getItemsThunk())
+        //Thunk to display an item from the selectedItem state
+        fetchItem: (itemId) => dispatch(getItemThunk(itemId))
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(AllItems)
+export default connect(mapStateToProps, mapDispatchToProps)(SingleItem)
 
 /**
  * PROP TYPES
