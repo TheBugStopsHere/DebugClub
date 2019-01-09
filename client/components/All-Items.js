@@ -28,8 +28,10 @@ class AllItems extends Component {
                             </Link>
                         </div>
                         <h4> {item.price} </h4>
-
-                        <button type='button' id='addToCard'> Add To Cart </button>
+                        
+                        <Link to={'/cart'}>
+                            <button type='button' id='addToCard'> Add To Cart </button>
+                        </Link>
 
                     </div>
 
