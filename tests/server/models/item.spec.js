@@ -60,5 +60,19 @@ describe('Item model', () => {
         }
       )
     })
-  })
+  }) // end describe columns/validations
+
+  describe('hooks', () => {
+    it('capitalizes item names for the user', async () => {
+      let ladybug = await Item.create({
+        name: 'ladybug',
+        imageURL: '',
+        price: parseInt(5.99).toFixed(2),
+        description: '',
+        category: 'live bugs'
+      })
+      await ladybug.update({name: 'Ladybug'})
+      expect(ladybug.name).to.equal('Ladybug')
+    })
+  }) // end describe('hooks')
 }) // end describe('Item model')
