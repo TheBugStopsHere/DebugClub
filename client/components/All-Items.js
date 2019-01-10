@@ -77,3 +77,4 @@ export default connect(mapStateToProps, mapDispatchToProps)(AllItems)
 /**
  * PROP TYPES
  */
+
