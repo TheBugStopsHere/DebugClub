@@ -5,7 +5,7 @@ import Routes from './routes'
 
 const App = () => {
   return (
-    <div class="container-fluid">
+    <div className="container-fluid">
       <Navbar />
       <Routes />
     </div>
