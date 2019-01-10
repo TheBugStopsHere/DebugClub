@@ -87,11 +87,16 @@ router.put('/:orderId', async (req, res, next) => {
           id: req.params.orderId  
       }})
       res.json(await Order.findById(req.params.orderId, {
-      include: [{model: LineItem, include: [
-        {model: Item}
-      ]}]
-    }))
+        include: [{model: LineItem, include: [
+          {model: Item}
+        ]}]
+      }))
     } else { // if it's not a number, it's a string. It's a guest user
+      await Order.update(
+        req.body,
+        {where: {
+          guestSessionId: req.params.orderId
+      }})
       res.json(await Order.findOne({
         where: {
           guestSessionId: req.params.orderId
@@ -101,12 +106,6 @@ router.put('/:orderId', async (req, res, next) => {
         ]}]
       }))
     }
-  }
-    
-      const response = await Order.findAll({
-        include: [{model: Student}]
-      });
-      res.send(response)
   }
   catch (err) {
     next(err)
