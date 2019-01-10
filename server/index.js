@@ -60,12 +60,28 @@ const createApp = () => {
       saveUninitialized: false
     })
   )
+
+  
+  app.use((req, res, next) => {
+    req.session.guest = true
+    console.log('SESSION: ', req.session)
+    next()
+  })
+
   app.use(passport.initialize())
   app.use(passport.session())
+
+  //logging middleware, for development.  Can get rid of when we are done.
+  app.use((req, res, next) => {
+    console.log('>>>>>>>>>>>>>>>req.session.id: ', req.session.id)
+    next()
+  })
+  // end logging middleware we can get rid of
 
   // auth and api routes
   app.use('/auth', require('./auth'))
   app.use('/api', require('./api'))
+  app.use('/charge', require('./charge'))
 
   // static file-serving middleware
   app.use(express.static(path.join(__dirname, '..', 'public')))

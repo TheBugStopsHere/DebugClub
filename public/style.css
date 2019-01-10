@@ -2,12 +2,36 @@ body {
   font-family: sans-serif;
 }
 
+h1 {
+  color: white;
+  font-family: 'Fontdiner Swanky', cursive;
+  /* font-family: 'Slackey', cursive; */
+  text-align: center;
+}
+
+a,
+h2,
+h3,
+h4,
+p,
+button {
+  /* font-family: 'Oswald', sans-serif; */
+  font-family: 'Source Sans Pro', sans-serif;
+}
+
 a {
   text-decoration: none;
 }
 
 label {
   display: block;
+}
+
+#navItems {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: center;
 }
 
 nav a {

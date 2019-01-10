@@ -1,0 +1,26 @@
+[
+  {
+    "status": "in-progress",
+    "guestSessionId": "testSessionId",
+    "userId": 1,
+    "lineItemId": 1
+  },
+  {
+    "status": "in-progress",
+    "guestSessionId": "testSessionId",
+    "userId": 1,
+    "lineItemId": 2
+  },
+  {
+    "status": "in-progress",
+    "guestSessionId": "testSessionId2",
+    "userId": 2,
+    "lineItemId": 1
+  },
+  {
+    "status": "in-progress",
+    "guestSessionId": "testSessionId2",
+    "userId": 2,
+    "lineItemId": 2
+  }
+]

@@ -19,15 +19,21 @@ class AllItems extends Component {
     const numRows = Math.ceil(items.length / 3)
     let grid = []
     for (let i = 0; i < numRows; i++) {
-      let children = []
+      let row = []
       for (let j = 0; j < 3; j++) {
         let item = items[j + 3 * i]
-        children.push(
-          <div key={'td_' + i + '_' + j} class="col-md-4">
+        row.push(
+          <div key={'td_' + i + '_' + j} className="col-md-4">
             <div id="linkToSingle">
               <Link to={`item/${item.id}`}>
                 <h4>{item.name} </h4>
-                <img src={item.imageURL} height={200} width={300} />
+                <img
+                  src={item.imageURL}
+                  className="center-block img-rounded"
+                  alt="Responsive image"
+                  height={200}
+                  width={300}
+                />
               </Link>
             </div>
             <h4> {addDecimal(item.price)} </h4>
@@ -40,8 +46,8 @@ class AllItems extends Component {
         )
       }
       grid.push(
-        <div key={'tr_' + i} class="row">
-          {children}
+        <div key={'tr_' + i} className="row">
+          {row}
         </div>
       )
     }
@@ -49,7 +55,7 @@ class AllItems extends Component {
   }
 
   render() {
-    return <div class="container-fluid">{this.createGrid()}</div>
+    return <div className="container-fluid">{this.createGrid()}</div>
   }
 }
 
@@ -63,9 +69,8 @@ const mapStateToProps = (state, ownProps) => {
 }
 
 const mapDispatchToProps = {
-    //Thunk to display all items from the allItems state
-    fetchItems: getItemsThunk
-    
+  //Thunk to display all items from the allItems state
+  fetchItems: getItemsThunk
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(AllItems)
