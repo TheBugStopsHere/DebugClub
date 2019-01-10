@@ -4,9 +4,6 @@ import { getItemThunk } from '../store/item';
 
 
 class SingleItem extends Component {
-    constructor(){
-        super()
-    }
 
     componentDidMount(){
         this.props.fetchItem(this.props.match.params.itemId)
@@ -19,7 +16,7 @@ class SingleItem extends Component {
                 
                 <div>
                     <h1>{item.name}</h1>
-                    <h1>{item.price}</h1>
+                    <h1>{item.price/100}</h1>
                     <img src={item.imageURL} height={500} width={800} />
                     <h4>Type: {item.category}</h4>
                     <p>{item.description}</p>
@@ -37,15 +34,14 @@ class SingleItem extends Component {
  */
 const mapStateToProps = (state, ownProps) => {
   return {
-    item: state.item.selectedItem
+    item: state.item
   }
 }
 
-const mapDispatchToProps = dispatch => {
-    return {
-        //Thunk to display an item from the selectedItem state
-        fetchItem: (itemId) => dispatch(getItemThunk(itemId))
-    }
+const mapDispatchToProps = {
+    //Thunk to display an item from the selectedItem state. Takes an itemId as input to invoke the function.
+    fetchItem: getItemThunk
+    
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(SingleItem)

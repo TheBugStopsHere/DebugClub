@@ -6,11 +6,11 @@ module.exports = router
 
 //this route gets all items. It's accessible to all users.
 router.get('/', async (req, res, next) => {
-  try {
-    res.json(await Item.findAll())
-  } catch (err) {
-    next(err)
-  }
+    try {
+        res.json(await Item.findAll())
+    } catch (err) {
+        next(err)
+    }
 })
 
 //this route gets all a single item. It's accessible to all users.
@@ -25,11 +25,7 @@ router.get('/:itemId', async (req, res, next) => {
 //this route is only accessible to admin users. This route allows admin users to create new items and add them to the database.
 router.post('/', async (req, res, next) => {
     try {
-        if (!req.body){
-            res.sendStatus(400)
-        } else {
-            res.status(201).json(await Item.create(req.body))
-        }
+        res.status(201).json(await Item.create(req.body))
     } catch (error) {
         next(error)
     }

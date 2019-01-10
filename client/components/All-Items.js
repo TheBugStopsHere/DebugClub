@@ -1,13 +1,10 @@
 import React, {Component} from 'react'
 import {Link} from 'react-router-dom';
 import {connect} from 'react-redux'
-import {getItemsThunk} from '../store/item'
+import {getItemsThunk} from '../store/items'
 
 
 class AllItems extends Component {
-    constructor(){
-        super()
-    }
 
     componentDidMount(){
         this.props.fetchItems()
@@ -27,7 +24,7 @@ class AllItems extends Component {
                                 <img src={item.imageURL} height={200} width={300} />
                             </Link>
                         </div>
-                        <h4> {item.price} </h4>
+                        <h4> {item.price/100} </h4>
 
                         <button type='button' id='addToCard'> Add To Cart </button>
 
@@ -45,15 +42,14 @@ class AllItems extends Component {
  */
 const mapStateToProps = (state, ownProps) => {
   return {
-    items: state.item.allItems
+    items: state.items
   }
 }
 
-const mapDispatchToProps = dispatch => {
-    return {
-        //Thunk to display all items from the allItems state
-        fetchItems: () => dispatch(getItemsThunk())
-    }
+const mapDispatchToProps = {
+    //Thunk to display all items from the allItems state
+    fetchItems: getItemsThunk
+    
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(AllItems)
@@ -61,3 +57,4 @@ export default connect(mapStateToProps, mapDispatchToProps)(AllItems)
 /**
  * PROP TYPES
  */
+
