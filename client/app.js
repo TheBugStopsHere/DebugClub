@@ -7,7 +7,9 @@ const App = () => {
   return (
     <div className="container-fluid">
       <Navbar />
-      <Routes />
+      <div className="pageContent">
+        <Routes />
+      </div>
     </div>
   )
 }

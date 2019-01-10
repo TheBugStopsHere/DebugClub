@@ -6,12 +6,14 @@ import {logout} from '../store'
 
 const Navbar = ({handleClick, isLoggedIn}) => (
   <nav className="navbar navbar-inverse navbar-default navbar-fixed-top">
-    <h1>The Bug Stops Here</h1>
+    <Link to="/">
+      <img id="logo" src="bugRed.png" />
+      <h1>The Bug Stops Here</h1>
+    </Link>
     <div id="navItems">
       {isLoggedIn ? (
         <div>
           {/* The navbar will show these links after you log in */}
-          <Link to="/">Home</Link>
           <Link to="/home">My Profile</Link>
           <a href="#" onClick={handleClick}>
             Logout
@@ -21,15 +23,13 @@ const Navbar = ({handleClick, isLoggedIn}) => (
       ) : (
         <div>
           {/* The navbar will show these links before you log in */}
-          
+
           <Link to="/">Home</Link>
           <Link to="/login">Login</Link>
           <Link to="/signup">Sign Up</Link>
           <Link to="/cart">My Cart</Link>
         </div>
-        
       )}
-
     </div>
   </nav>
 )
