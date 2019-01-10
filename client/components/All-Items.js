@@ -12,7 +12,7 @@ class AllItems extends Component {
     componentDidMount(){
         this.props.fetchItems()
     }
-    
+
     render(){
         const {items} = this.props;
         return (
@@ -22,7 +22,7 @@ class AllItems extends Component {
                     <div key={item.id}>
 
                         <div id='linkToSingle'>
-                            <Link to={`item/${item.id}`} > 
+                            <Link to={`item/${item.id}`} >
                                 <h4>{item.name} </h4>
                                 <img src={item.imageURL} height={200} width={300} />
                             </Link>
@@ -49,6 +49,12 @@ const mapStateToProps = (state, ownProps) => {
   }
 }
 
+// OB/JD: fun trick with mapDispatchToProps—shorthand it can be an OBJECT!
+/*
+const mapDispatchToProps = {
+    fetchItems: getItemsThunk
+};
+*/
 const mapDispatchToProps = dispatch => {
     return {
         //Thunk to display all items from the allItems state

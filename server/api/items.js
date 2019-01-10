@@ -2,6 +2,8 @@ const router = require('express').Router()
 const {Item} = require('../db/models')
 module.exports = router
 
+// OB/JD: different indentation levels in this file
+
 //These routes are mounted on /api/items
 
 //this route gets all items. It's accessible to all users.
@@ -25,6 +27,8 @@ router.get('/:itemId', async (req, res, next) => {
 //this route is only accessible to admin users. This route allows admin users to create new items and add them to the database.
 router.post('/', async (req, res, next) => {
     try {
+        // OB/JD: req.body will always be truthy, even if it's an empty object
+        // OB/JD: instead of detecting something about the input, just let it fail
         if (!req.body){
             res.sendStatus(400)
         } else {

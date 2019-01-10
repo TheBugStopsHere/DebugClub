@@ -21,6 +21,7 @@ describe('Item model', () => {
       })
     })
 
+    // OB/JD: this tests sequelize more than your code
     it('has correct `name` property', async () => {
       expect(bumblebee.name).to.equal('Bumblebee')
     })
@@ -66,6 +67,7 @@ describe('Item model', () => {
 
     it('`name` and `price` are required', async () => {
       const bug = Item.build()
+      // OB/JD: can use await instead of `.then` (but `.then` is actually better here)
       return bug.validate().then(
         () => {
           throw new Error('Validation should have failed!')
@@ -86,6 +88,7 @@ describe('Item model', () => {
         description: '',
         category: 'live bugs'
       })
+      // OB/JD: line below leads to false positive
       await ladybug.update({name: 'Ladybug'})
       expect(ladybug.name).to.equal('Ladybug')
     })

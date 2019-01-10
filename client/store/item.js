@@ -10,6 +10,7 @@ const GET_ITEM = 'GET_ITEM'
  * INITIAL STATE
  */
 //items will need to be accessed as state.item.allItems and state.item.selectedItem
+// OB/JD: recommend flattening out your store state, have two separate reducers
 const initialState = {
     allItems: [],
     selectedItem: {}
@@ -22,7 +23,7 @@ const initialState = {
 const getItems = items => {
     return(
         {
-            type: GET_ITEMS, 
+            type: GET_ITEMS,
             allItems: items
         }
     )
@@ -33,7 +34,7 @@ const getItem = item => {
     // console.log('action creator initiated')
     return(
         {
-            type: GET_ITEM, 
+            type: GET_ITEM,
             selectedItem: item
         }
     )
@@ -52,6 +53,7 @@ export const getItemsThunk = () => {
 
 //This thunk will fetch the item from the server and will use the getItem action creator to add it to the selectedItem object on state.
 export const getItemThunk = (itemId) => {
+    // OB/JD: code hygeien cleanup, twigs
     console.log('Thunk thunk thunk')
     return async (dispatch) => {
         const {data} = await axios.get(`/api/items/${itemId}`)

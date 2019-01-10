@@ -31,6 +31,7 @@ describe('Item api routes', () => {
     expect(res.body.id).to.be.equal(1)
   }) // end describe('gets a single item')
 
+  // OB/JD: move these comments to an issue or something (instead of leaving dead code in the repo)
   // ADMIN routes TBD:
   // post/items
 

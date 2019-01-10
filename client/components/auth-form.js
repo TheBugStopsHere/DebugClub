@@ -41,6 +41,7 @@ const AuthForm = props => {
               </div>
             </div>
           ) : ''
+          // OB/JD: could use && instead
       }
         <div>
           <label htmlFor="email">
@@ -98,7 +99,7 @@ const mapDispatch = dispatch => {
       if(method === 'signup'){
         firstName = evt.target.firstName.value
         lastName = evt.target.lastName.value
-        imageURL = evt.target.imageURL.value 
+        imageURL = evt.target.imageURL.value
         address = evt.target.address.value
       }
       const formdata = {email, password, method, firstName, lastName, imageURL, address}
