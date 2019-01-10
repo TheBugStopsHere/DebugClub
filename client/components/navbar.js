@@ -7,8 +7,8 @@ import {logout} from '../store'
 const Navbar = ({handleClick, isLoggedIn}) => (
   <nav className="navbar navbar-inverse navbar-default navbar-fixed-top">
     <Link to="/">
-      <img id="logo" src="bugRed.png" />
-      <h1>The Bug Stops Here</h1>
+      <img id="logo" src="/bugRed.png" />
+      <h1 id="title">The Bug Stops Here</h1>
     </Link>
     <div id="navItems">
       {isLoggedIn ? (
