@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const {Order, LineItem} = require('../db/models')
+const {Order, LineItem, Item} = require('../db/models')
 module.exports = router
 
 //These routes are mounted on /api/orders
@@ -21,7 +21,9 @@ router.get('/', async (req, res, next) => {
 router.get('/:orderId', async (req, res, next) => {
   try {
     res.json(await Order.findById(req.params.orderId, {
-      include: [{model: LineItem}]
+      include: [{model: LineItem, include: [
+        {model: Item}
+      ]}]
     }))
   } catch (err) {
     next(err)
