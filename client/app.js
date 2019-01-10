@@ -1,15 +1,12 @@
 import React from 'react'
 
-import { Navbar } from './components'
-import AllItems from './components/All-Items';
+import {Navbar} from './components'
 import Routes from './routes'
-
 
 const App = () => {
   return (
-    <div>
+    <div className="container-fluid">
       <Navbar />
-      <AllItems />
       <Routes />
     </div>
   )

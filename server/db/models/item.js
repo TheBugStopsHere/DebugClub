@@ -9,16 +9,31 @@ const Item = db.define('item', {
   imageURL: {
     type: Sequelize.STRING,
     defaultValue:
-      'https://www.clipartmax.com/png/middle/245-2454629_ants-clipart-cute-bug-clipart-my-cute-graphics.png'
+      'https://www.clipartmax.com/png/middle/245-2454629_ants-clipart-cute-bug-clipart-my-cute-graphics.png',
+    validate: {
+      isUrl: true
+    }
   },
   price: {
-    type: Sequelize.DECIMAL(10, 2),
-    allowNull: false
+    type: Sequelize.INTEGER,
+    allowNull: false,
+    validate: {
+      min: 0
+    }
   },
   category: {
-    type: Sequelize.ENUM('live bugs', 'bad bugs', 'debugging')
+    type: Sequelize.STRING,
+    validate: {
+      isIn: [['live bugs', 'bad bugs', 'debugging']]
+    }
   },
-  description: Sequelize.TEXT
+  description: Sequelize.TEXT,
+  inStock: {
+    type: Sequelize.INTEGER,
+    validate: {
+      min: 0
+    }
+  }
 })
 
 module.exports = Item
