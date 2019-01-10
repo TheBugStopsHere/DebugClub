@@ -5,7 +5,7 @@ import {Link} from 'react-router-dom'
 import {logout} from '../store'
 
 const Navbar = ({handleClick, isLoggedIn}) => (
-  <nav className="navbar navbar-default">
+  <nav className="navbar navbar-inverse navbar-default navbar-fixed-top">
     <h1>The Bug Stops Here</h1>
     <div>
       {isLoggedIn ? (
