@@ -18,15 +18,21 @@ class AllItems extends Component {
     const numRows = Math.ceil(items.length / 3)
     let grid = []
     for (let i = 0; i < numRows; i++) {
-      let children = []
+      let row = []
       for (let j = 0; j < 3; j++) {
         let item = items[j + 3 * i]
-        children.push(
+        row.push(
           <div key={'td_' + i + '_' + j} class="col-md-4">
             <div id="linkToSingle">
               <Link to={`item/${item.id}`}>
                 <h4>{item.name} </h4>
-                <img src={item.imageURL} height={200} width={300} />
+                <img
+                  src={item.imageURL}
+                  class="center-block img-rounded"
+                  alt="Responsive image"
+                  height={200}
+                  width={300}
+                />
               </Link>
             </div>
             <h4> {item.price} </h4>
@@ -40,7 +46,7 @@ class AllItems extends Component {
       }
       grid.push(
         <div key={'tr_' + i} class="row">
-          {children}
+          {row}
         </div>
       )
     }
