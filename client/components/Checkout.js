@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import Payment from './Payment'
+import {Elements, StripeProvider} from 'react-stripe-elements'
 
 class Checkout extends Component {
   constructor () {
@@ -47,9 +48,13 @@ class Checkout extends Component {
               value={email} />
           </label>
         </form>
-        <Payment /> 
-      </div>  
-    ) // IF WANTED, pass down handleShippingSubmit to be invoked when payment submitted
+        <StripeProvider apiKey='pk_test_1nc2USEcAeJ5cuoTGVU9wDw1'>
+          <Elements>
+            <Payment /> 
+          </Elements>
+        </StripeProvider>
+      </div> 
+    ) // IF WANTED, pass down handleShippingSubmit to Payment to be invoked when payment submitted
   }
 }
 
