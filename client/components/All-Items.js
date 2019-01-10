@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import {Link} from 'react-router-dom'
 import {connect} from 'react-redux'
 import {getItemsThunk} from '../store/items'
+import {addDecimal} from '../../script/util'
 
 class AllItems extends Component {
   constructor() {
@@ -35,7 +36,7 @@ class AllItems extends Component {
                 />
               </Link>
             </div>
-            <h4> {item.price / 100} </h4>
+            <h4> {addDecimal(item.price)} </h4>
 
             <button type="button" id="addToCard">
               {' '}
