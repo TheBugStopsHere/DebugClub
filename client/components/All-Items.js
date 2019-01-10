@@ -36,7 +36,7 @@ class AllItems extends Component {
                 />
               </Link>
             </div>
-            <h4> {addDecimal(item.price)} </h4>
+            <h4> ${addDecimal(item.price)} </h4>
 
             <button type="button" id="addToCard">
               {' '}

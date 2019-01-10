@@ -20,7 +20,7 @@ class SingleItem extends Component {
                 <div>
                     <h1>{item.name}</h1>
                     {item.price
-                        ? <h1>{addDecimal(item.price)}</h1>
+                        ? <h1>${addDecimal(item.price)}</h1>
                         : null
                     }
                     

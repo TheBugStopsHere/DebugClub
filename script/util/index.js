@@ -17,4 +17,8 @@ utils.addDecimal = (price) => {
     return value;
 }
 
+// utils.checkStock = (stock) => {
+//     if stock 
+// }
+
 module.exports = utils;
