@@ -60,8 +60,24 @@ const createApp = () => {
       saveUninitialized: false
     })
   )
+
+  
+  app.use((req, res, next) => {
+    req.user = {
+      id: req.session.id
+    }
+    console.log('SESSION ID: ', req.session.id)
+    console.log('SESSION: ', req.session)
+    next()
+  })
+
   app.use(passport.initialize())
   app.use(passport.session())
+
+  app.use((req, res, next) => {
+    console.log('>>>>>>>>>>>>>>>req.user.id: ', req.user.id, 'type', typeof(req.user.id))
+    next()
+  })
 
   // auth and api routes
   app.use('/auth', require('./auth'))
