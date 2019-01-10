@@ -1,0 +1,14 @@
+[
+  {
+    "price": 350,
+    "quantity": 1,
+    "itemId": 1,
+    "orderId": 1
+  },
+  {
+    "price": 199,
+    "quantity": 1,
+    "itemId": 2,
+    "orderId": 1
+  }
+]

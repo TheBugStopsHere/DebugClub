@@ -1,0 +1,14 @@
+[
+  {
+    "status": "in-progress",
+    "guestSessionId": "testSessionId",
+    "userId": 1,
+    "lineItemId": 1
+  },
+  {
+    "status": "in-progress",
+    "guestSessionId": "testSessionId",
+    "userId": 1,
+    "lineItemId": 2
+  }
+]
