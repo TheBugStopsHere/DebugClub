@@ -2,13 +2,6 @@ body {
   font-family: sans-serif;
 }
 
-h1 {
-  color: white;
-  font-family: 'Fontdiner Swanky', cursive;
-  /* font-family: 'Slackey', cursive; */
-  text-align: center;
-}
-
 a,
 h2,
 h3,
@@ -27,11 +20,22 @@ label {
   display: block;
 }
 
+#logo {
+  height: 50px;
+  width: 50px;
+  margin: 15px;
+}
+
+h1 {
+  color: white;
+  font-family: 'Fontdiner Swanky', cursive;
+  /* font-family: 'Slackey', cursive; */
+}
+
 #navItems {
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
-  justify-content: center;
 }
 
 nav a {
@@ -42,4 +46,8 @@ nav a {
 form div {
   margin: 1em;
   display: inline-block;
+}
+
+.pageContent {
+  margin-top: 200px;
 }
