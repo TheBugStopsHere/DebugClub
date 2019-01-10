@@ -24,9 +24,10 @@ label {
   height: 50px;
   width: 50px;
   margin: 15px;
+  float: left;
 }
 
-h1 {
+#title {
   color: white;
   font-family: 'Fontdiner Swanky', cursive;
   /* font-family: 'Slackey', cursive; */
