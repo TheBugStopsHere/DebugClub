@@ -63,7 +63,6 @@ const createApp = () => {
 
   
   app.use((req, res, next) => {
-    
     req.session.guest = true
     console.log('SESSION: ', req.session)
     next()
