@@ -1,5 +1,6 @@
 const router = require('express').Router()
-const stripe = require('stripe')('API_KEY_HERE!!!!!') // Test key: 'pk_test_TYooMQauvdEDq54NiTphI7jx'
+const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY)
+
 module.exports = router
 
 router.post('/', async (req, res, next) => {
