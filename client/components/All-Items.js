@@ -1,43 +1,55 @@
 import React, {Component} from 'react'
-import {Link} from 'react-router-dom';
+import {Link} from 'react-router-dom'
 import {connect} from 'react-redux'
-import {getItemsThunk} from '../store/item'
-
+import {getItemsThunk} from '../store/items'
 
 class AllItems extends Component {
-    constructor(){
-        super()
-    }
+  constructor() {
+    super()
+    this.createGrid = this.createGrid.bind(this)
+  }
 
-    componentDidMount(){
-        this.props.fetchItems()
-    }
-    
-    render(){
-        const {items} = this.props;
-        return (
-        <div>
-            {items.map(function(item){
-                return (
-                    <div key={item.id}>
+  componentDidMount() {
+    this.props.fetchItems()
+  }
 
-                        <div id='linkToSingle'>
-                            <Link to={`item/${item.id}`} > 
-                                <h4>{item.name} </h4>
-                                <img src={item.imageURL} height={200} width={300} />
-                            </Link>
-                        </div>
-                        <h4> {item.price} </h4>
+  createGrid() {
+    const {items} = this.props
+    const numRows = Math.ceil(items.length / 3)
+    let grid = []
+    for (let i = 0; i < numRows; i++) {
+      let children = []
+      for (let j = 0; j < 3; j++) {
+        let item = items[j + 3 * i]
+        children.push(
+          <div key={'td_' + i + '_' + j} class="col-md-4">
+            <div id="linkToSingle">
+              <Link to={`item/${item.id}`}>
+                <h4>{item.name} </h4>
+                <img src={item.imageURL} height={200} width={300} />
+              </Link>
+            </div>
+            <h4> {item.price/100} </h4>
 
-                        <button type='button' id='addToCard'> Add To Cart </button>
-
-                    </div>
-
-                )
-            })}
-        </div>
+            <button type="button" id="addToCard">
+              {' '}
+              Add To Cart{' '}
+            </button>
+          </div>
         )
+      }
+      grid.push(
+        <div key={'tr_' + i} class="row">
+          {children}
+        </div>
+      )
     }
+    return grid
+  }
+
+  render() {
+    return <div class="container-fluid">{this.createGrid()}</div>
+  }
 }
 
 /**
@@ -45,15 +57,14 @@ class AllItems extends Component {
  */
 const mapStateToProps = (state, ownProps) => {
   return {
-    items: state.item.allItems
+    items: state.items
   }
 }
 
-const mapDispatchToProps = dispatch => {
-    return {
-        //Thunk to display all items from the allItems state
-        fetchItems: () => dispatch(getItemsThunk())
-    }
+const mapDispatchToProps = {
+    //Thunk to display all items from the allItems state
+    fetchItems: getItemsThunk
+    
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(AllItems)
@@ -61,3 +72,4 @@ export default connect(mapStateToProps, mapDispatchToProps)(AllItems)
 /**
  * PROP TYPES
  */
+
