@@ -1,7 +1,10 @@
 'use strict'
 
 const db = require('../server/db')
-const { User, Item } = require('../server/db/models')
+const { User, Item, Order, LineItem } = require('../server/db/models')
+
+const ordersData = require('./ordersData.json')
+const lineItemsData = require('./lineItemsData.json')
 
 const usersData = [
   {
@@ -131,6 +134,16 @@ async function seed() {
     await Item.create(item);
   }
   console.log(`seeded ${itemsData.length} items`)
+  
+  for (const order of ordersData) {
+    await Order.create(order);
+  }
+  console.log(`seeded ${ordersData.length} orders`)
+
+  for (const lineItem of lineItemsData) {
+    await LineItem.create(lineItem);
+  }
+  console.log(`seeded ${lineItemsData.length} lineItems`)
   
   console.log(`seeded successfully`)
 }

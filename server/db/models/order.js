@@ -9,8 +9,7 @@ const Order = db.define('order', {
     }
   },
   guestSessionId: {
-    type: Sequelize.STRING,
-    allowNull: false
+    type: Sequelize.STRING
   }
 })
 
