@@ -63,10 +63,8 @@ const createApp = () => {
 
   
   app.use((req, res, next) => {
-    req.user = {
-      id: req.session.id
-    }
-    console.log('SESSION ID: ', req.session.id)
+    
+    req.session.guest = true
     console.log('SESSION: ', req.session)
     next()
   })
@@ -74,10 +72,12 @@ const createApp = () => {
   app.use(passport.initialize())
   app.use(passport.session())
 
+  //logging middleware, for development.  Can get rid of when we are done.
   app.use((req, res, next) => {
-    console.log('>>>>>>>>>>>>>>>req.user.id: ', req.user.id, 'type', typeof(req.user.id))
+    console.log('>>>>>>>>>>>>>>>req.session.id: ', req.session.id)
     next()
   })
+  // end logging middleware we can get rid of
 
   // auth and api routes
   app.use('/auth', require('./auth'))

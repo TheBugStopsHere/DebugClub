@@ -36,4 +36,3 @@ git branch -D [yourBranchName]-#<issueNumber>
 #Deleting the branch on git (Once merged)
 git push origin --delete [yourBranchName]-#<issueNumber>
 <!-- alternatively you can delete your branch by clicking the trash can by your branch after clicking the branches option from the repository on git-hub. -->
-
