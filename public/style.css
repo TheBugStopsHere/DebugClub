@@ -20,6 +20,18 @@ label {
   display: block;
 }
 
+nav {
+  height: 100px;
+}
+
+#linkHome {
+  margin: 5;
+  width: 800px;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
 #logo {
   height: 50px;
   width: 50px;
@@ -31,12 +43,18 @@ label {
   color: white;
   font-family: 'Fontdiner Swanky', cursive;
   /* font-family: 'Slackey', cursive; */
+  /* display: inline; */
 }
 
 #navItems {
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
+  justify-content: flex-end;
+}
+
+.navItem {
+  vertical-align: middle;
 }
 
 nav a {
