@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import { getItemThunk } from '../store/item';
+import {addDecimal} from '../../script/util';
 
 
 class SingleItem extends Component {
@@ -8,15 +9,21 @@ class SingleItem extends Component {
     componentDidMount(){
         this.props.fetchItem(this.props.match.params.itemId)
     }
+
     
     render(){
+
         const {item} = this.props
         return (
             <div>
                 
                 <div>
                     <h1>{item.name}</h1>
-                    <h1>{item.price/100}</h1>
+                    {item.price
+                        ? <h1>{addDecimal(item.price)}</h1>
+                        : null
+                    }
+                    
                     <img src={item.imageURL} height={500} width={800} />
                     <h4>Type: {item.category}</h4>
                     <p>{item.description}</p>
