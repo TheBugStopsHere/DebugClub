@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import { getItemThunk } from '../store/item';
-import {addDecimal, checkStock} from '../../script/util';
+import {addDecimal, stockToArr} from '../../script/util';
 
 
 class SingleItem extends Component {
@@ -14,7 +14,6 @@ class SingleItem extends Component {
     render(){
 
         const {item} = this.props
-        console.log(item.inStock)
         return (
             <div>
                 
@@ -24,19 +23,37 @@ class SingleItem extends Component {
                         ? <h1>${addDecimal(item.price)}</h1>
                         : null
                     }
-                    <h1>THINGS ARE WORKING</h1>
-                    <h1>{item.inStock}</h1>
-                    {item.inStock
-                        ? <h1>{checkStock(item.inStock)}</h1>
-                        : null
-                    }
                     
                     <img src={item.imageURL} height={500} width={800} />
+                    {item.inStock<10 && item.inStock>0
+                        ? <div id="buyNowWarning">
+                            <h4>There are only {item.inStock} left in stock!</h4>
+                        </div>
+                        : null
+                    }
+
                     <h4>Type: {item.category}</h4>
                     <p>{item.description}</p>
                 </div>
 
+                {item.inStock > 0
+                        ? <div id='inStock'>
+                            <label name="purchaseQuanity">Quantity</label>
+                                <select name="purchaseQuanity">
+                                    {stockToArr(item.inStock).map(function(num){
+                                        return (
+                                            <option key={num} value={num}> {num} </option>
+                                        )
+                                    })}
+                                </select>
+                        </div>
+                        : <div id='outOfStock'>
+                            <h4>This is is current out of stock</h4>
+                        </div>
+                }
+
                 <button type='button' id='addToCard'> Add To Cart </button>
+
 
             </div>
         )
