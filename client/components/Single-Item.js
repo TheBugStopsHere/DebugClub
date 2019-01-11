@@ -6,13 +6,35 @@ import {addDecimal, stockToArr} from '../../script/util';
 
 class SingleItem extends Component {
 
+    constructor(){
+        super()
+        //default state is one
+        this.state = {
+            quantity:1
+        }
+
+        this.handleChange = this.handleChange.bind(this);
+        this.handleClick = this.handleClick.bind(this);
+    }
+
     componentDidMount(){
         this.props.fetchItem(this.props.match.params.itemId)
     }
 
+    handleChange(event) {
+        //this captures the option being selected, but not submitted
+        const quantity = Number(event.target.value)
+        this.setState({
+            quantity
+        })
+    }
+
+    handleClick() {
+        console.log('state', this.state)
+        //dispatch thunk. Send data to cart.
+    }
     
     render(){
-
         const {item} = this.props
         return (
             <div>
@@ -39,7 +61,7 @@ class SingleItem extends Component {
                 {item.inStock > 0
                         ? <div id='inStock'>
                             <label name="purchaseQuanity">Quantity</label>
-                                <select name="purchaseQuanity">
+                                <select onChange={this.handleChange} name="purchaseQuanity">
                                     {stockToArr(item.inStock).map(function(num){
                                         return (
                                             <option key={num} value={num}> {num} </option>
@@ -52,7 +74,7 @@ class SingleItem extends Component {
                         </div>
                 }
 
-                <button type='button' id='addToCard'> Add To Cart </button>
+                <button type='button' id='addToCard' onClick={this.handleClick}> Add To Cart </button>
 
 
             </div>
