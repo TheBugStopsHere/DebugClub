@@ -15,13 +15,13 @@ class Cart extends Component {
         await this.props.fetchOrder(this.props.user.id)
         this.handleClick = this.handleClick.bind(this);
       }
-    async handleClick(lineItemId, orderId) {
-        await this.props.removeFromCart(lineItemId, orderId)
+    async handleClick(lineItemId, userId) {
+        await this.props.removeFromCart(lineItemId, userId)
         //dispatch thunk. Send data to cart.
     }
     
     render(){
-        const{order} = this.props;        
+        const{order, user} = this.props;        
         const lineItems = order.lineItems //items in the cart
         return (
             <div>
@@ -37,7 +37,7 @@ class Cart extends Component {
                             <img src={currLineItem.item.imageURL} />
                             <p>Current Quantity: {currLineItem.quantity}</p>
                             <p>item price: {currLineItem.price/100}</p>
-                            <button type='button' id='remove' onClick={() => this.handleClick(currLineItem.id, order.id)}> Remove Item </button>
+                            <button type='button' id='remove' onClick={() => this.handleClick(currLineItem.id, user.id)}> Remove Item </button>
                         </div>
                     )
                 })

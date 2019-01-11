@@ -18,18 +18,21 @@ router.get('/', async (req, res, next) => {
 })
 
 //this route gets a single order. It's accessible to all users.  When logged in as a user, it is their cart data. When logged in as an ADMIN user, it is a specific order (usually a completed order, but could also be in progress)
-router.get('/:orderId', async (req, res, next) => {
+router.get('/:userId', async (req, res, next) => {
   try {
-    if(!isNaN(req.params.orderId)) { //number means it's a user id
-      res.json(await Order.findById(req.params.orderId, {
-      include: [{model: LineItem, include: [
-        {model: Item}
-      ]}]
-    }))
+    if(!isNaN(req.params.userId)) { //number means it's a user id
+      res.json(await Order.findOne({
+        where: {
+          userId: req.params.userId
+        },
+        include: [{model: LineItem, include: [
+          {model: Item}
+        ]}]
+      }))
     } else { // if it's not a number, it's a string. It's a guest user
       res.json(await Order.findOne({
         where: {
-          guestSessionId: req.params.orderId
+          guestSessionId: req.params.userId
         },
         include: [{model: LineItem, include: [
           {model: Item}
