@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {getOrderThunk} from '../store/order'
+import {getOrderThunk, removeFromCart} from '../store/order'
 import {me} from '../store'
 import { addDecimal, getTotal } from '../../script/util';
 
@@ -8,12 +8,17 @@ import { addDecimal, getTotal } from '../../script/util';
 class Cart extends Component {
     constructor(){
         super()
+        this.handleClick = this.handleClick.bind(this)
     }
     async componentDidMount() {
         await this.props.loadInitialData()
         await this.props.fetchOrder(this.props.user.id)
-
+        this.handleClick = this.handleClick.bind(this);
       }
+    async handleClick(lineItemId, orderId) {
+        await this.props.removeFromCart(lineItemId, orderId)
+        //dispatch thunk. Send data to cart.
+    }
     
     render(){
         const{order} = this.props;        
@@ -30,7 +35,9 @@ class Cart extends Component {
                                 {currLineItem.item.name} 
                             </div>
                             <img src={currLineItem.item.imageURL} />
+                            <p>Current Quantity: {currLineItem.quantity}</p>
                             <p>item price: {currLineItem.price/100}</p>
+                            <button type='button' id='remove' onClick={() => this.handleClick(currLineItem.id, order.id)}> Remove Item </button>
                         </div>
                     )
                 })
@@ -69,8 +76,9 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = {
     //Thunk to display all orders from the allOrders state
     fetchOrder: getOrderThunk,
+    removeFromCart: removeFromCart,
     loadInitialData: me
-  }
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(Cart)
 
