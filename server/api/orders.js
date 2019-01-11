@@ -9,6 +9,7 @@ router.use('/line-items', require('./line-items'))
 // this route gets all orders. It's accessible to only ADMIN users. 
 router.get('/', async (req, res, next) => {
   try {
+      //THIS NEEDS TO BE PROTECTS FOR ADMINS ONLY
       res.json(await Order.findAll({
         include: [{model: LineItem}]
       }))
