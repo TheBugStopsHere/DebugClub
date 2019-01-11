@@ -30,25 +30,33 @@ export const getOrder = order => {
  * THUNK CREATORS
  */
 //This thunk will fetch the order from the server and will use the getOrder action creator to add it to the selectedOrder object on state.
-export const getOrderThunk = (orderId) => {
+export const getOrderThunk = (userId) => {
     return async (dispatch) => {
-        const {data} = await axios.get(`/api/orders/${orderId}`)
+        const {data} = await axios.get(`/api/orders/${userId}`)
         dispatch(getOrder(data));
     }
 }
 
-export const removeFromCart = (lineItemId, orderId) => {
+export const removeFromCart = (lineItemId, userId) => {
     return async (dispatch) => {
         await axios.delete(`/api/orders/line-items/${lineItemId}`);
-        const {data} = await axios.get(`/api/orders/${orderId}`)
+        const {data} = await axios.get(`/api/orders/${userId}`)
         dispatch(getOrder(data))
     }
 }
 
-export const addToCart = (item, orderId) => {
+export const newOrder = (order, userId) => {
+    return async (dispatch) => {
+        await axios.post(`/api/orders/`, order);
+        const {data} = await axios.get(`/api/orders/${userId}`)
+        dispatch(getOrder(data))
+    }
+}
+
+export const addToCart = (item, userId) => {
     return async (dispatch) => {
         await axios.post(`/api/orders/line-items/`, item);
-        const {data} = await axios.get(`/api/orders/${orderId}`)
+        const {data} = await axios.get(`/api/orders/${userId}`)
         dispatch(getOrder(data))
     }
 }
