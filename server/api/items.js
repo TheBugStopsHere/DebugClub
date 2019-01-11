@@ -22,6 +22,20 @@ router.get('/:itemId', async (req, res, next) => {
     }
 })
 
+//this route gets all items by category. It's accessible to all users.
+router.get('/category/:category', async (req, res, next) => {
+    try {
+        const category = await Item.findAll({
+            where: {
+                category: req.params.category
+            }
+        })
+        res.json(category)
+    } catch (error) {
+        next(error)
+    }
+})
+
 //this route is only accessible to admin users. This route allows admin users to create new items and add them to the database.
 router.post('/', async (req, res, next) => {
     try {
