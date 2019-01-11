@@ -96,7 +96,7 @@ class SingleItem extends Component {
                         </div>
                 }
 
-                <button type='button' id='addToCard' onClick={this.handleClick}> Add To Cart </button>
+                <button type='button' id='addToCart' onClick={this.handleClick}> Add To Cart </button>
 
 
             </div>
