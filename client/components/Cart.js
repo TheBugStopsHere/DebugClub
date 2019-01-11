@@ -44,7 +44,7 @@ class Cart extends Component {
                             Order Total
                         </h1>
                         <h4>
-                            {addDecimal(order.getTotal())}
+                            {addDecimal(getTotal(lineItems))}
                         </h4>
                     </div>
                 )

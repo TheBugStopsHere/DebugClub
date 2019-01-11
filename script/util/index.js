@@ -19,7 +19,7 @@ utils.addDecimal = (price) => {
 //prototype method not working, so here is a utility function to get the total of prices off an array of items objects
 utils.getTotal = (items) => {
   const total = items.reduce((accum, currVal) => {
-    return accum + currVal.item.price  
+    return accum + currVal.price  
   }, 0)
   return total
 }

@@ -22,13 +22,13 @@ Item.hasMany(LineItem); // this one is confusing, but it is necessary because an
 //Prototype method to get the total of an order
 
 Order.prototype.getTotal = async function(){
-  const lineItems = await LineItem.findAll({
+  let lineItems = await LineItem.findAll({
     where: {
       orderId: this.id
     }
   })
   const total = lineItems.reduce((accum, currVal) => {
-    return accum + currVal.item.price  
+    return accum + currVal.price  
   }, 0)
   return total
 }
