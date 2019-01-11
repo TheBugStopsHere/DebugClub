@@ -24,4 +24,12 @@ utils.getTotal = (items) => {
   return total
 }
 
+utils.stockToArr = (stock) => {
+    let arr = [];
+    for (let i=1; i<=stock; i++){
+        arr.push(i)
+    }
+    return arr;
+}
+
 module.exports = utils;
