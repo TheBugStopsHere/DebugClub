@@ -19,7 +19,19 @@ Order.hasMany(LineItem);
 LineItem.belongsTo(Item);
 Item.hasMany(LineItem); // this one is confusing, but it is necessary because an item can be defined multiple times in the line_items table.
 
+//Prototype method to get the total of an order
 
+Order.prototype.getTotal = async function(){
+  let lineItems = await LineItem.findAll({
+    where: {
+      orderId: this.id
+    }
+  })
+  const total = lineItems.reduce((accum, currVal) => {
+    return accum + currVal.price  
+  }, 0)
+  return total
+}
 
 /**
  * We'll export all of our models here, so that any time a module needs a model,

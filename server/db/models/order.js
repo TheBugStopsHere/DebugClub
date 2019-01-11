@@ -11,8 +11,13 @@ const Order = db.define('order', {
   },
   guestSessionId: {
     type: Sequelize.STRING
+  },
+  total: {
+    type: Sequelize.INTEGER
   }
 })
+
+
 
 module.exports = Order
 
