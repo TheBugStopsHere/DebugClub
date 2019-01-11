@@ -17,4 +17,12 @@ utils.addDecimal = (price) => {
     return value;
 }
 
+utils.stockToArr = (stock) => {
+    let arr = [];
+    for (let i=1; i<=stock; i++){
+        arr.push(i)
+    }
+    return arr;
+}
+
 module.exports = utils;

@@ -1,18 +1,40 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import { getItemThunk } from '../store/item';
-import {addDecimal} from '../../script/util';
+import {addDecimal, stockToArr} from '../../script/util';
 
 
 class SingleItem extends Component {
+
+    constructor(){
+        super()
+        //default state is one
+        this.state = {
+            quantity:1
+        }
+
+        this.handleChange = this.handleChange.bind(this);
+        this.handleClick = this.handleClick.bind(this);
+    }
 
     componentDidMount(){
         this.props.fetchItem(this.props.match.params.itemId)
     }
 
+    handleChange(event) {
+        //this captures the option being selected, but not submitted
+        const quantity = Number(event.target.value)
+        this.setState({
+            quantity
+        })
+    }
+
+    handleClick() {
+        console.log('state', this.state)
+        //dispatch thunk. Send data to cart.
+    }
     
     render(){
-
         const {item} = this.props
         return (
             <div>
@@ -20,16 +42,40 @@ class SingleItem extends Component {
                 <div>
                     <h1>{item.name}</h1>
                     {item.price
-                        ? <h1>{addDecimal(item.price)}</h1>
+                        ? <h1>${addDecimal(item.price)}</h1>
                         : null
                     }
                     
                     <img src={item.imageURL} height={500} width={800} />
+                    {item.inStock<10 && item.inStock>0
+                        ? <div id="buyNowWarning">
+                            <h4>There are only {item.inStock} left in stock!</h4>
+                        </div>
+                        : null
+                    }
+
                     <h4>Type: {item.category}</h4>
                     <p>{item.description}</p>
                 </div>
 
-                <button type='button' id='addToCard'> Add To Cart </button>
+                {item.inStock > 0
+                        ? <div id='inStock'>
+                            <label name="purchaseQuanity">Quantity</label>
+                                <select onChange={this.handleChange} name="purchaseQuanity">
+                                    {stockToArr(item.inStock).map(function(num){
+                                        return (
+                                            <option key={num} value={num}> {num} </option>
+                                        )
+                                    })}
+                                </select>
+                        </div>
+                        : <div id='outOfStock'>
+                            <h4>This is is current out of stock</h4>
+                        </div>
+                }
+
+                <button type='button' id='addToCard' onClick={this.handleClick}> Add To Cart </button>
+
 
             </div>
         )
