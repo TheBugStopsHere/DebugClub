@@ -31,8 +31,8 @@ label {
   margin: 5;
   width: 800px;
   position: absolute;
-  left: 0;
-  top: 0;
+  left: 5px;
+  top: 15px;
 }
 
 #logo {
@@ -46,6 +46,7 @@ label {
 #title {
   color: rgb(35, 0, 92);
   font-family: 'Fontdiner Swanky', cursive;
+  font-size: 28pt;
   /* font-family: 'Slackey', cursive; */
   /* display: inline; */
 }
@@ -56,12 +57,19 @@ label {
   flex-wrap: nowrap;
   justify-content: flex-end;
   vertical-align: baseline;
+  margin-right: 5px;
 }
 
-#navItems * {
+#navLinks * {
+  height: 100%;
+  font-size: 18pt;
   display: inline-block;
-  margin: 1em;
   vertical-align: baseline;
+  padding: 20px 10px;
+}
+
+.navItem {
+  margin: 0;
 }
 
 .navItem:hover {

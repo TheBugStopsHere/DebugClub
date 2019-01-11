@@ -14,11 +14,11 @@ const Navbar = ({handleClick, isLoggedIn}) => (
       <h1 id="title">The Bug Stops Here</h1>
     </Link>
     {isLoggedIn ? (
-      <Fragment>
+      <div id="navLinks">
         {/* The navbar will show these links after you log in */}
         <div className="navItem">
           <span class="glyphicon glyphicon-user" aria-hidden="true" />
-          <Link to="/home">My Profile</Link>
+          <Link to="/home">Profile</Link>
         </div>
         <div className="navItem">
           <span class="glyphicon glyphicon-log-out" aria-hidden="true" />
@@ -28,11 +28,11 @@ const Navbar = ({handleClick, isLoggedIn}) => (
         </div>
         <div className="navItem">
           <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true" />
-          <Link to="/cart">My Cart</Link>
+          <Link to="/cart">Cart</Link>
         </div>
-      </Fragment>
+      </div>
     ) : (
-      <Fragment>
+      <div id="navLinks">
         {/* The navbar will show these links before you log in */}
         <div className="navItem">
           <span class="glyphicon glyphicon-log-in" aria-hidden="true" />
@@ -40,9 +40,9 @@ const Navbar = ({handleClick, isLoggedIn}) => (
         </div>
         <div className="navItem">
           <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true" />
-          <Link to="/cart">My Cart</Link>
+          <Link to="/cart">Cart</Link>
         </div>
-      </Fragment>
+      </div>
     )}
   </nav>
 )
