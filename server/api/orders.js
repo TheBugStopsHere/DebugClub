@@ -21,11 +21,14 @@ router.get('/', async (req, res, next) => {
 router.get('/:orderId', async (req, res, next) => {
   try {
     if(!isNaN(req.params.orderId)) { //number means it's a user id
-      res.json(await Order.findById(req.params.orderId, {
-      include: [{model: LineItem, include: [
-        {model: Item}
-      ]}]
-    }))
+      res.json(await Order.findOne({
+        where: {
+          userId: req.params.orderId
+        },
+        include: [{model: LineItem, include: [
+          {model: Item}
+        ]}]
+      }))
     } else { // if it's not a number, it's a string. It's a guest user
       res.json(await Order.findOne({
         where: {

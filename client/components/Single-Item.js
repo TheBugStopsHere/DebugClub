@@ -39,7 +39,7 @@ class SingleItem extends Component {
             price: this.props.item.price,
             quantity: this.state.quantity,
             orderId: this.props.order.id, //MUST BE CHANGED TO VARIABLE IN FUTURE!
-            itemId: this.props.item.id,
+            itemId: this.props.item.id
         }
         console.log('item', item)
         this.props.addToCart(item, 1) //MUST BE CHANGED TO VARIABLE IN FUTURE!!
