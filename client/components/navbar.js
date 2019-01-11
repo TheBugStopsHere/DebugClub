@@ -10,32 +10,45 @@ const Navbar = ({handleClick, isLoggedIn}) => (
     id="navItems"
   >
     <Link to="/" id="linkHome">
-      <img id="logo" src="/bugRed.png" />
+      <img id="logo" src="/darkRedLogo.png" />
       <h1 id="title">The Bug Stops Here</h1>
     </Link>
     {isLoggedIn ? (
-      <Fragment>
+      <div id="navLinks">
         {/* The navbar will show these links after you log in */}
-        <Link to="/home" className="navItem">
-          My Profile
-        </Link>
-        <a href="#" onClick={handleClick}>
-          Logout
-        </a>
-        <Link to="/cart" className="navItem">
-          My Cart
-        </Link>
-      </Fragment>
+        <div className="navItem">
+          <span className="glyphicon glyphicon-user" aria-hidden="true" />
+          <Link to="/home">Profile</Link>
+        </div>
+        <div className="navItem">
+          <span className="glyphicon glyphicon-log-out" aria-hidden="true" />
+          <a href="#" onClick={handleClick}>
+            Logout
+          </a>
+        </div>
+        <div className="navItem">
+          <span
+            className="glyphicon glyphicon-shopping-cart"
+            aria-hidden="true"
+          />
+          <Link to="/cart">Cart</Link>
+        </div>
+      </div>
     ) : (
-      <Fragment>
+      <div id="navLinks">
         {/* The navbar will show these links before you log in */}
-        <Link to="/login" className="navItem">
-          Login
-        </Link>
-        <Link to="/cart" className="navItem">
-          My Cart
-        </Link>
-      </Fragment>
+        <div className="navItem">
+          <span className="glyphicon glyphicon-log-in" aria-hidden="true" />
+          <Link to="/login">Login</Link>
+        </div>
+        <div className="navItem">
+          <span
+            className="glyphicon glyphicon-shopping-cart"
+            aria-hidden="true"
+          />
+          <Link to="/cart">Cart</Link>
+        </div>
+      </div>
     )}
   </nav>
 )
