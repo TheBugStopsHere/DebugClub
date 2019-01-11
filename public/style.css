@@ -23,7 +23,7 @@ label {
 }
 
 .navbar {
-  height: 125px;
+  height: 115px;
   background-color: rgb(211, 204, 195);
 }
 
@@ -40,6 +40,7 @@ label {
   width: 90px;
   margin: 15px;
   float: left;
+  margin-top: -5px;
 }
 
 #title {
@@ -54,15 +55,17 @@ label {
   flex-direction: row;
   flex-wrap: nowrap;
   justify-content: flex-end;
+  vertical-align: baseline;
 }
 
-.navItem {
-  vertical-align: middle;
-}
-
-nav a {
+#navItems * {
   display: inline-block;
   margin: 1em;
+  vertical-align: baseline;
+}
+
+.navItem:hover {
+  background-color: rgba(174, 167, 158, 0.906);
 }
 
 form div {
