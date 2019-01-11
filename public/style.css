@@ -2,6 +2,11 @@ body {
   font-family: sans-serif;
 }
 
+.container-fluid {
+  margin: 0;
+  padding: 0;
+}
+
 a,
 a:hover,
 a:visited {
@@ -24,6 +29,7 @@ label {
 
 .navbar {
   height: 115px;
+  width: 100%;
   background-color: rgb(211, 204, 195);
 }
 
@@ -82,6 +88,6 @@ form div {
 }
 
 .pageContent {
-  margin-top: 400px;
+  margin-top: 115px;
   background-color: rgb(60, 60, 60);
 }
