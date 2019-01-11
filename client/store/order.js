@@ -37,18 +37,26 @@ export const getOrderThunk = (userId) => {
     }
 }
 
-export const removeFromCart = (lineItemId, orderId) => {
+export const removeFromCart = (lineItemId, userId) => {
     return async (dispatch) => {
         await axios.delete(`/api/orders/line-items/${lineItemId}`);
-        const {data} = await axios.get(`/api/orders/${orderId}`)
+        const {data} = await axios.get(`/api/orders/${userId}`)
         dispatch(getOrder(data))
     }
 }
 
-export const addToCart = (item, orderId) => {
+export const newOrder = (order, userId) => {
+    return async (dispatch) => {
+        await axios.post(`/api/orders/`, order);
+        const {data} = await axios.get(`/api/orders/${userId}`)
+        dispatch(getOrder(data))
+    }
+}
+
+export const addToCart = (item, userId) => {
     return async (dispatch) => {
         await axios.post(`/api/orders/line-items/`, item);
-        const {data} = await axios.get(`/api/orders/${orderId}`)
+        const {data} = await axios.get(`/api/orders/${userId}`)
         dispatch(getOrder(data))
     }
 }
