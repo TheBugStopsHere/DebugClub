@@ -2,16 +2,36 @@ import React, {Component} from 'react'
 import {Link} from 'react-router-dom'
 import {connect} from 'react-redux'
 import {getItemsThunk} from '../store/items'
-import {addDecimal} from '../../script/util'
+import {addDecimal, stockToArr} from '../../script/util' //utility functions
 
 class AllItems extends Component {
   constructor() {
     super()
-    this.createGrid = this.createGrid.bind(this)
+    this.state = {
+      quantity: 1
+    }
+    this.createGrid = this.createGrid.bind(this) //for styling
+    this.handleChange = this.handleChange.bind(this) //for the quantity of items
+    this.handleClick = this.handleClick.bind(this) //for adding to cart
   }
 
   componentDidMount() {
     this.props.fetchItems()
+  }
+
+  handleChange(event) {
+    //sets the quantity selected on state before add to cart selected. The default is otherwise one
+    //this captures the option being selected, but not submitted
+    const quantity = Number(event.target.value)
+    this.setState({
+      quantity
+    })
+  }
+
+  handleClick() {
+    //this is for adding a quantity of an item to the cart
+    console.log('state', this.state)
+    //dispatch thunk. Send data to cart.
   }
 
   createGrid() {
@@ -24,6 +44,7 @@ class AllItems extends Component {
         let item = items[j + 3 * i]
         row.push(
           <div key={'td_' + i + '_' + j} className="col-sm-6 col-md-4">
+            {/* Name and image link to a component rendering the individual item */}
             <div id="linkToSingle">
               <Link to={`item/${item.id}`}>
                 <h4>{item.name} </h4>
@@ -36,13 +57,40 @@ class AllItems extends Component {
                 />
               </Link>
             </div>
-            <h4> ${addDecimal(item.price)} </h4>
-            <h1>{item.inStock}</h1>
 
-            <button type="button" id="addToCard">
-              {' '}
-              Add To Cart{' '}
-            </button>
+            <h4> ${addDecimal(item.price)} </h4>
+
+            {/* If the item is in stock, renders a drop down starting at 1 to allow the user to choose the quantity of the items they want to add to their cart. This puts the quantity on local state of this component using handleChange. If the item is not in stock, renders a string indicating such. */}
+            {item.inStock > 0 ? (
+              <div id="inStock">
+                <label name="purchaseQuanity">Quantity</label>
+                <select onChange={this.handleChange} name="purchaseQuanity">
+                  {stockToArr(item.inStock).map(function(num) {
+                    return (
+                      <option key={num} value={num}>
+                        {' '}
+                        {num}{' '}
+                      </option>
+                    )
+                  })}
+                </select>
+              </div>
+            ) : (
+              <div id="outOfStock">
+                <h4>This item is current out of stock</h4>
+              </div>
+            )}
+
+            {/* disables the 'Add To Cart' button if the item is no longer in stock */}
+            {item.inStock > 0 ? (
+              <button type="button" id="addToCard">
+                Add To Cart
+              </button>
+            ) : (
+              <button type="button" id="disabled" disabled>
+                Add To Cart
+              </button>
+            )}
           </div>
         )
       }
