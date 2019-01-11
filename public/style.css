@@ -30,7 +30,8 @@ label {
 .navbar {
   height: 115px;
   width: 100%;
-  background-color: rgb(211, 204, 195);
+  background-color: rgb(41, 41, 41);
+  background-image: linear-gradient(rgb(65, 65, 65), rgba(34, 34, 34, 0.516));
 }
 
 #linkHome {
@@ -49,8 +50,12 @@ label {
   margin-top: -5px;
 }
 
+.glyphicon {
+  color: rgb(244, 243, 240);
+}
+
 #title {
-  color: rgb(35, 0, 92);
+  color: rgb(244, 243, 240);
   font-family: 'Fontdiner Swanky', cursive;
   font-size: 28pt;
   /* font-family: 'Slackey', cursive; */
@@ -90,4 +95,8 @@ form div {
 .pageContent {
   margin-top: 115px;
   background-color: rgb(60, 60, 60);
+}
+
+.allItems {
+  padding: 30px;
 }

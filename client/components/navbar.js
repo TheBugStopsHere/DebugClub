@@ -17,17 +17,20 @@ const Navbar = ({handleClick, isLoggedIn}) => (
       <div id="navLinks">
         {/* The navbar will show these links after you log in */}
         <div className="navItem">
-          <span class="glyphicon glyphicon-user" aria-hidden="true" />
+          <span className="glyphicon glyphicon-user" aria-hidden="true" />
           <Link to="/home">Profile</Link>
         </div>
         <div className="navItem">
-          <span class="glyphicon glyphicon-log-out" aria-hidden="true" />
+          <span className="glyphicon glyphicon-log-out" aria-hidden="true" />
           <a href="#" onClick={handleClick}>
             Logout
           </a>
         </div>
         <div className="navItem">
-          <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true" />
+          <span
+            className="glyphicon glyphicon-shopping-cart"
+            aria-hidden="true"
+          />
           <Link to="/cart">Cart</Link>
         </div>
       </div>
@@ -35,11 +38,14 @@ const Navbar = ({handleClick, isLoggedIn}) => (
       <div id="navLinks">
         {/* The navbar will show these links before you log in */}
         <div className="navItem">
-          <span class="glyphicon glyphicon-log-in" aria-hidden="true" />
+          <span className="glyphicon glyphicon-log-in" aria-hidden="true" />
           <Link to="/login">Login</Link>
         </div>
         <div className="navItem">
-          <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true" />
+          <span
+            className="glyphicon glyphicon-shopping-cart"
+            aria-hidden="true"
+          />
           <Link to="/cart">Cart</Link>
         </div>
       </div>

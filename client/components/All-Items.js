@@ -23,7 +23,7 @@ class AllItems extends Component {
       for (let j = 0; j < 3; j++) {
         let item = items[j + 3 * i]
         row.push(
-          <div key={'td_' + i + '_' + j} className="col-md-4">
+          <div key={'td_' + i + '_' + j} className="col-sm-6 col-md-4">
             <div id="linkToSingle">
               <Link to={`item/${item.id}`}>
                 <h4>{item.name} </h4>
@@ -56,7 +56,7 @@ class AllItems extends Component {
   }
 
   render() {
-    return <div className="container-fluid">{this.createGrid()}</div>
+    return <div className="container-fluid allItems">{this.createGrid()}</div>
   }
 }
 
@@ -79,4 +79,3 @@ export default connect(mapStateToProps, mapDispatchToProps)(AllItems)
 /**
  * PROP TYPES
  */
-
