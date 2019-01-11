@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {getOrderThunk} from '../store/order'
 import {me} from '../store'
+import { addDecimal, getTotal } from '../../script/util';
 
 
 class Cart extends Component {
@@ -16,23 +17,39 @@ class Cart extends Component {
     
     render(){
         const{order} = this.props;        
-        const cartItems = order.lineItems
+        const lineItems = order.lineItems //items in the cart
         return (
             <div>
                <h1>Your Cart</h1>
-               {cartItems 
-                ? cartItems.map(item => {
+               {lineItems 
+                ? 
+                lineItems.map(currLineItem => {
                     return (
-                        <div key={item.id}>
+                        <div key={currLineItem.id}>
                             <div>
-                                {item.item.name}
+                                {currLineItem.item.name} 
                             </div>
-                            <img src={item.item.imageURL} />
-                            <p>item price: {item.price/100}</p>
+                            <img src={currLineItem.item.imageURL} />
+                            <p>item price: {currLineItem.price/100}</p>
                         </div>
                     )
                 })
-               : ''}
+                
+               : <p>Your cart has no items in it.</p>}
+               {lineItems 
+                ? 
+                (
+                    <div>
+                        <h1>
+                            Order Total
+                        </h1>
+                        <h4>
+                            {addDecimal(order.getTotal())}
+                        </h4>
+                    </div>
+                )
+                : ''
+                }
                <button type='button' id='Checkout'> Checkout </button>
             </div>
         )
