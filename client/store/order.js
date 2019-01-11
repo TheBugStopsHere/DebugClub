@@ -15,7 +15,7 @@ const selectedOrder = {}
  * ACTION CREATORS
  */
 //this action will receive an order object. We will set the order as our selected order object
-const getOrder = order => {
+export const getOrder = order => {
     // console.log('action creator initiated')
     return(
         {
@@ -25,6 +25,7 @@ const getOrder = order => {
     )
 }
 
+
 /**
  * THUNK CREATORS
  */
@@ -33,6 +34,22 @@ export const getOrderThunk = (orderId) => {
     return async (dispatch) => {
         const {data} = await axios.get(`/api/orders/${orderId}`)
         dispatch(getOrder(data));
+    }
+}
+
+export const removeFromCart = (lineItemId, orderId) => {
+    return async (dispatch) => {
+        await axios.delete(`/api/orders/line-items/${lineItemId}`);
+        const {data} = await axios.get(`/api/orders/${orderId}`)
+        dispatch(getOrder(data))
+    }
+}
+
+export const addToCart = (item, orderId) => {
+    return async (dispatch) => {
+        await axios.post(`/api/orders/line-items/`, item);
+        const {data} = await axios.get(`/api/orders/${orderId}`)
+        dispatch(getOrder(data))
     }
 }
 

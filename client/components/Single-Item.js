@@ -1,6 +1,8 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import { getItemThunk } from '../store/item';
+import {addToCart, getOrderThunk} from '../store/order'
+import {me} from '../store'
 import {addDecimal, stockToArr} from '../../script/util';
 
 
@@ -17,8 +19,10 @@ class SingleItem extends Component {
         this.handleClick = this.handleClick.bind(this);
     }
 
-    componentDidMount(){
-        this.props.fetchItem(this.props.match.params.itemId)
+    async componentDidMount() {
+        await this.props.loadInitialData()
+        await this.props.fetchOrder(this.props.user.id)
+        await this.props.fetchItem(this.props.match.params.itemId)
     }
 
     handleChange(event) {
@@ -30,7 +34,15 @@ class SingleItem extends Component {
     }
 
     handleClick() {
-        console.log('state', this.state)
+        //price, quantity, orderId, itemId
+        let item = {
+            price: this.props.item.price,
+            quantity: this.state.quantity,
+            orderId: this.props.order.id, //MUST BE CHANGED TO VARIABLE IN FUTURE!
+            itemId: this.props.item.id,
+        }
+        console.log('item', item)
+        this.props.addToCart(item, 1) //MUST BE CHANGED TO VARIABLE IN FUTURE!!
         //dispatch thunk. Send data to cart.
     }
     
@@ -87,14 +99,18 @@ class SingleItem extends Component {
  */
 const mapStateToProps = (state, ownProps) => {
   return {
-    item: state.item
+    item: state.item,
+    order: state.order,
+    user: state.user
   }
 }
 
 const mapDispatchToProps = {
     //Thunk to display an item from the selectedItem state. Takes an itemId as input to invoke the function.
-    fetchItem: getItemThunk
-    
+    fetchItem: getItemThunk,
+    addToCart: addToCart,
+    fetchOrder: getOrderThunk,
+    loadInitialData: me
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(SingleItem)
