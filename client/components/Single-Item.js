@@ -4,6 +4,7 @@ import { getItemThunk } from '../store/item';
 import {addToCart, getOrderThunk, newOrder} from '../store/order'
 import {me} from '../store'
 import {addDecimal, stockToArr} from '../../script/util';
+import {getGuest} from '../store/guest'
 
 
 class SingleItem extends Component {
@@ -21,7 +22,8 @@ class SingleItem extends Component {
 
     async componentDidMount() {
         await this.props.loadInitialData()
-        await this.props.fetchOrder(this.props.user.id)
+        await this.props.getGuest()
+        await this.props.fetchOrder(this.props.user.id || this.props.guest.id)
         await this.props.fetchItem(this.props.match.params.itemId)
     }
 
@@ -35,14 +37,22 @@ class SingleItem extends Component {
 
     async handleClick() {
         //Before adding to cart, check first if there is an order. 
-        const userId = this.props.user.id
-        console.log('Is there an order? If so this.props.order is: ', this.props.order)
-        if(!this.props.order) { //if there's no order, create one.
+        let idToPass
+        if(this.props.user){
+            idToPass = this.props.user.id
+        } else {
+            idToPass = this.props.guest.id
+        }
+        if(!this.props.order) { 
             const order = {
                 status: "in-progress",
-                userId
+                guestSessionId: this.props.guest.id
             }
-            await this.props.newOrder(order, userId)
+            if(this.props.user) {
+                order.userId = this.props.user.id
+            }
+            console.log('order: ', order)
+            await this.props.newOrder(order, idToPass)
         }
         //price, quantity, orderId, itemId
         let item = {
@@ -52,7 +62,7 @@ class SingleItem extends Component {
             itemId: this.props.item.id
         }
         console.log('item', item)
-        this.props.addToCart(item, userId) //MUST BE CHANGED TO VARIABLE IN FUTURE!!
+        this.props.addToCart(item, idToPass) //MUST BE CHANGED TO VARIABLE IN FUTURE!!
         //dispatch thunk. Send data to cart.
     }
     
@@ -111,6 +121,7 @@ const mapStateToProps = (state, ownProps) => {
   return {
     item: state.item,
     order: state.order,
+    guest: state.guest,
     user: state.user
   }
 }
@@ -119,6 +130,7 @@ const mapDispatchToProps = {
     //Thunk to display an item from the selectedItem state. Takes an itemId as input to invoke the function.
     fetchItem: getItemThunk,
     addToCart: addToCart,
+    getGuest: getGuest,
     newOrder: newOrder,
     fetchOrder: getOrderThunk,
     loadInitialData: me

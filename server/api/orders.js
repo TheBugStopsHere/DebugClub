@@ -25,7 +25,7 @@ router.get('/', async (req, res, next) => {
 router.get('/:userId', async (req, res, next) => {
   try {
     if(!isNaN(req.params.userId)) { //number means it's a user id
-      if(req.user && req.user.id == req.params.userId || req.user.admin === true){
+      if(req.user){
         //user has the same id as the id for whom the order belongs to or is an admin and they should not have access to this data.
         res.json(await Order.findOne({
           where: {
@@ -101,7 +101,7 @@ router.delete('/:orderId', async (req, res, next) => {
 router.put('/:orderId', async (req, res, next) => {
   try {
     if(!isNaN(req.params.orderId)) { //number means it's a user id
-      if(req.user){
+      // if(req.user){
         //user has the same id as the id for whom the order belongs to and should not have access to this data.
         await Order.update(
           req.body,
@@ -113,10 +113,10 @@ router.put('/:orderId', async (req, res, next) => {
             {model: Item}
           ]}]
         }))
-      } else {
-        //user is getting a 401 because they do not have the same id as the id for whom the order belongs to and should not be able to make posts to this order.
-        res.sendStatus(401)
-      }
+      // } else {
+      //   //user is getting a 401 because they do not have the same id as the id for whom the order belongs to and should not be able to make posts to this order.
+      //   res.sendStatus(401)
+      // }
     } else { // if it's not a number, it's a string. It's a guest user
       await Order.update(
         req.body,
