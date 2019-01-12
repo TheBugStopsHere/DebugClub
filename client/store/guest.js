@@ -21,7 +21,7 @@ const gotGuest = guest => ({type: GET_GUEST, guest})
  */
 export const getGuest = () => async dispatch => {
   try {
-    const {data} = await axios.get('/users/session')
+    const {data} = await axios.get('/api/users/session')
     const response = {
       id: data
     }

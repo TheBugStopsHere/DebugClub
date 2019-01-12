@@ -3,6 +3,8 @@ import {connect} from 'react-redux'
 import {getOrderThunk, removeFromCart, orderUpdate} from '../store/order'
 import {me} from '../store'
 import { addDecimal, getTotal } from '../../script/util';
+import {getGuest} from '../store/guest'
+
 
 class Cart extends Component {
     constructor(){
@@ -12,11 +14,13 @@ class Cart extends Component {
     }
     async componentDidMount() {
         await this.props.loadInitialData()
-        await this.props.fetchOrder(this.props.user.id)
+        await this.props.getGuest()
+        await this.props.fetchOrder(this.props.user.id || this.props.guest.id)
         this.handleClick = this.handleClick.bind(this);
       }
-    async handleClick(lineItemId, userId) {
-        await this.props.removeFromCart(lineItemId, userId)
+    handleClick(lineItemId, userId) {
+        this.props.removeFromCart(lineItemId, userId)
+        // await this.props.fetchOrder(this.props.user.id || this.props.guest.id)
         //dispatch thunk. Send data to cart.
     }
     async handleCheckout() {
@@ -37,7 +41,7 @@ class Cart extends Component {
                 </div>
             )
         }
-        const{order, user} = this.props;        
+        const{order, user, guest} = this.props;        
         const lineItems = order.lineItems //items in the cart
         return (
             <div>
@@ -53,7 +57,7 @@ class Cart extends Component {
                             <img src={currLineItem.item.imageURL} />
                             <p>Current Quantity: {currLineItem.quantity}</p>
                             <p>item price: {currLineItem.price/100}</p>
-                            <button type='button' id='remove' onClick={() => this.handleClick(currLineItem.id, user.id)}> Remove Item </button>
+                            <button type='button' id='remove' onClick={() => this.handleClick(currLineItem.id, (user.id || guest.id))}> Remove Item </button>
                         </div>
                     )
                 })
@@ -85,7 +89,8 @@ class Cart extends Component {
 const mapStateToProps = (state) => {
     return {
         order: state.order,
-        user: state.user
+        user: state.user,
+        guest: state.guest
     }
 }
 
@@ -94,6 +99,7 @@ const mapDispatchToProps = {
     fetchOrder: getOrderThunk,
     removeFromCart: removeFromCart,
     orderUpdate: orderUpdate,
+    getGuest: getGuest,
     loadInitialData: me
 }
 
