@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import {Link} from 'react-router-dom'
 import {connect} from 'react-redux'
 import {getItemsThunk} from '../store/items'
-import {addToCart, getOrderThunk, newOrder, fetchOrder} from '../store/order'
+import {addToCart, getOrderThunk, newOrder} from '../store/order'
 import {me} from '../store'
 import {addDecimal, stockToArr} from '../../script/util' 
 import {getGuest} from '../store/guest'
@@ -20,10 +20,10 @@ class AllItems extends Component {
   }
 
   async componentDidMount() {
-    this.props.fetchItems()
     await this.props.loadInitialData()
     await this.props.getGuest()
     await this.props.fetchOrder(this.props.user.id || this.props.guest.id)
+    await this.props.fetchItems()
   }
 
   handleChange(event) {
@@ -54,7 +54,6 @@ class AllItems extends Component {
             console.log('order: ', order)
             await this.props.newOrder(order, idToPass)
         }
-        await this.props.fetchOrder(idToPass)
     //price, quantity, orderId, itemId
     let item = {
         price: singleItem.price,
