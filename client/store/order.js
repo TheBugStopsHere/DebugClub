@@ -61,6 +61,14 @@ export const addToCart = (item, userId) => {
     }
 }
 
+export const orderUpdate = (order, orderId, userId) => {
+    return async (dispatch) => {
+        await axios.put(`/api/orders/${orderId}`, order);
+        const {data} = await axios.get(`/api/orders/${userId}`)
+        dispatch(getOrder(data))
+    }
+}
+
 /**
  * REDUCER
  */

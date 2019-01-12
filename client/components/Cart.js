@@ -1,14 +1,14 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {getOrderThunk, removeFromCart} from '../store/order'
+import {getOrderThunk, removeFromCart, orderUpdate} from '../store/order'
 import {me} from '../store'
 import { addDecimal, getTotal } from '../../script/util';
-
 
 class Cart extends Component {
     constructor(){
         super()
         this.handleClick = this.handleClick.bind(this)
+        this.handleCheckout = this.handleCheckout.bind(this)
     }
     async componentDidMount() {
         await this.props.loadInitialData()
@@ -19,8 +19,24 @@ class Cart extends Component {
         await this.props.removeFromCart(lineItemId, userId)
         //dispatch thunk. Send data to cart.
     }
+    async handleCheckout() {
+        const order = {
+            total: getTotal(this.props.order.lineItems)
+        }
+        await this.props.orderUpdate(order, this.props.order.id, this.props.user.id)
+        //dispatch thunk. Send data to cart.
+        this.props.history.push('/checkout')
+    }
     
     render(){
+        if(!this.props.order) {
+            return (
+                <div>
+                    <h1>Your Cart</h1>
+                    <p>Your Cart Is Empty!</p>
+                </div>
+            )
+        }
         const{order, user} = this.props;        
         const lineItems = order.lineItems //items in the cart
         return (
@@ -57,7 +73,7 @@ class Cart extends Component {
                 )
                 : ''
                 }
-               <button type='button' id='Checkout'> Checkout </button>
+               <button type='button' id='Checkout' onClick={this.handleCheckout}> Checkout </button>
             </div>
         )
     }
@@ -77,6 +93,7 @@ const mapDispatchToProps = {
     //Thunk to display all orders from the allOrders state
     fetchOrder: getOrderThunk,
     removeFromCart: removeFromCart,
+    orderUpdate: orderUpdate,
     loadInitialData: me
 }
 

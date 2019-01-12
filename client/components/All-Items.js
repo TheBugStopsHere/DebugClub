@@ -35,7 +35,7 @@ class AllItems extends Component {
   async handleClick(singleItem) {
     //Before adding to cart, check first if there is an order. 
     const userId = this.props.user.id
-    console.log('Is there an order? If so this.props.order is: ', this.props.order)
+    
     if(!this.props.order) { //if there's no order, create one.
         const order = {
             status: "in-progress",
