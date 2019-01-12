@@ -4,6 +4,7 @@ import { getItemThunk } from '../store/item';
 import {addToCart, getOrderThunk, newOrder} from '../store/order'
 import {me} from '../store'
 import {addDecimal, stockToArr} from '../../script/util';
+import {getGuest} from '../store/guest'
 
 
 class SingleItem extends Component {
@@ -111,6 +112,7 @@ const mapStateToProps = (state, ownProps) => {
   return {
     item: state.item,
     order: state.order,
+    guest: state.guest,
     user: state.user
   }
 }
@@ -119,6 +121,7 @@ const mapDispatchToProps = {
     //Thunk to display an item from the selectedItem state. Takes an itemId as input to invoke the function.
     fetchItem: getItemThunk,
     addToCart: addToCart,
+    getGuest: getGuest,
     newOrder: newOrder,
     fetchOrder: getOrderThunk,
     loadInitialData: me

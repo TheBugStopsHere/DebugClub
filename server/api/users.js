@@ -15,3 +15,11 @@ router.get('/', async (req, res, next) => {
     next(err)
   }
 })
+
+router.get('/session', async (req, res, next) => {
+  try {
+    res.send(req.session.id)
+  } catch (err) {
+    next(err)
+  }
+})
