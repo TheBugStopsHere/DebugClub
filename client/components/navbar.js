@@ -16,38 +16,36 @@ const Navbar = ({handleClick, isLoggedIn}) => (
     {isLoggedIn ? (
       <div id="navLinks">
         {/* The navbar will show these links after you log in */}
-        <div className="navItem">
+        <Link to="/home" className="navItem">
           <span className="glyphicon glyphicon-user" aria-hidden="true" />
-          <Link to="/home">Profile</Link>
-        </div>
-        <div className="navItem">
+          <span>Profile</span>
+        </Link>
+        <a href="#" onClick={handleClick} className="navItem">
           <span className="glyphicon glyphicon-log-out" aria-hidden="true" />
-          <a href="#" onClick={handleClick}>
-            Logout
-          </a>
-        </div>
-        <div className="navItem">
+          <span>Logout</span>
+        </a>
+        <Link to="/cart" className="navItem">
           <span
             className="glyphicon glyphicon-shopping-cart"
             aria-hidden="true"
           />
-          <Link to="/cart">Cart</Link>
-        </div>
+          <span>Cart</span>
+        </Link>
       </div>
     ) : (
       <div id="navLinks">
         {/* The navbar will show these links before you log in */}
-        <div className="navItem">
+        <Link to="/login" className="navItem">
           <span className="glyphicon glyphicon-log-in" aria-hidden="true" />
-          <Link to="/login">Login</Link>
-        </div>
-        <div className="navItem">
+          <span>Login</span>
+        </Link>
+        <Link to="/cart" className="navItem">
           <span
             className="glyphicon glyphicon-shopping-cart"
             aria-hidden="true"
           />
-          <Link to="/cart">Cart</Link>
-        </div>
+          <div>Cart</div>
+        </Link>
       </div>
     )}
   </nav>
