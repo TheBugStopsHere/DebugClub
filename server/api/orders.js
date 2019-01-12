@@ -101,7 +101,7 @@ router.delete('/:orderId', async (req, res, next) => {
 router.put('/:orderId', async (req, res, next) => {
   try {
     if(!isNaN(req.params.orderId)) { //number means it's a user id
-      if(req.user.id == req.params.userId || req.user.admin === true){
+      if(req.user){
         //user has the same id as the id for whom the order belongs to and should not have access to this data.
         await Order.update(
           req.body,
