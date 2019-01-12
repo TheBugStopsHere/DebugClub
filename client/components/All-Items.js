@@ -2,9 +2,11 @@ import React, {Component} from 'react'
 import {Link} from 'react-router-dom'
 import {connect} from 'react-redux'
 import {getItemsThunk} from '../store/items'
-import {addToCart, getOrderThunk, newOrder} from '../store/order'
+import {addToCart, getOrderThunk, newOrder, fetchOrder} from '../store/order'
 import {me} from '../store'
-import {addDecimal, stockToArr} from '../../script/util' //utility functions
+import {addDecimal, stockToArr} from '../../script/util' 
+import {getGuest} from '../store/guest'
+
 
 class AllItems extends Component {
   constructor() {
@@ -20,7 +22,8 @@ class AllItems extends Component {
   async componentDidMount() {
     this.props.fetchItems()
     await this.props.loadInitialData()
-    await this.props.fetchOrder(this.props.user.id)
+    await this.props.getGuest()
+    await this.props.fetchOrder(this.props.user.id || this.props.guest.id)
   }
 
   handleChange(event) {
@@ -34,15 +37,24 @@ class AllItems extends Component {
 
   async handleClick(singleItem) {
     //Before adding to cart, check first if there is an order. 
-    const userId = this.props.user.id
-    
-    if(!this.props.order) { //if there's no order, create one.
-        const order = {
-            status: "in-progress",
-            userId
+    let idToPass
+        if(this.props.user){
+            idToPass = this.props.user.id
+        } else {
+            idToPass = this.props.guest.id
         }
-        await this.props.newOrder(order, userId)
-    }
+        if(!this.props.order) { 
+            const order = {
+                status: "in-progress",
+                guestSessionId: this.props.guest.id
+            }
+            if(this.props.user) {
+                order.userId = this.props.user.id
+            }
+            console.log('order: ', order)
+            await this.props.newOrder(order, idToPass)
+        }
+        await this.props.fetchOrder(idToPass)
     //price, quantity, orderId, itemId
     let item = {
         price: singleItem.price,
@@ -51,7 +63,7 @@ class AllItems extends Component {
         itemId: singleItem.id
     }
     console.log('item', item)
-    this.props.addToCart(item, userId) //MUST BE CHANGED TO VARIABLE IN FUTURE!!
+    this.props.addToCart(item, idToPass) //MUST BE CHANGED TO VARIABLE IN FUTURE!!
     //dispatch thunk. Send data to cart.
 }
 
@@ -136,6 +148,7 @@ const mapStateToProps = (state, ownProps) => {
   return {
     items: state.items,
     order: state.order,
+    guest: state.guest,
     user: state.user
   }
 }
@@ -145,6 +158,7 @@ const mapDispatchToProps = {
   fetchItems: getItemsThunk,
   addToCart: addToCart,
   newOrder: newOrder,
+  getGuest: getGuest,
   fetchOrder: getOrderThunk,
   loadInitialData: me
 }
