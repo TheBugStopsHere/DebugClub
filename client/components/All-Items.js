@@ -2,6 +2,8 @@ import React, {Component} from 'react'
 import {Link} from 'react-router-dom'
 import {connect} from 'react-redux'
 import {getItemsThunk} from '../store/items'
+import {addToCart, getOrderThunk, newOrder} from '../store/order'
+import {me} from '../store'
 import {addDecimal, stockToArr} from '../../script/util' //utility functions
 
 class AllItems extends Component {
@@ -15,8 +17,10 @@ class AllItems extends Component {
     this.handleClick = this.handleClick.bind(this) //for adding to cart
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     this.props.fetchItems()
+    await this.props.loadInitialData()
+    await this.props.fetchOrder(this.props.user.id)
   }
 
   handleChange(event) {
@@ -28,11 +32,28 @@ class AllItems extends Component {
     })
   }
 
-  handleClick() {
-    //this is for adding a quantity of an item to the cart
-    console.log('state', this.state)
+  async handleClick(singleItem) {
+    //Before adding to cart, check first if there is an order. 
+    const userId = this.props.user.id
+    
+    if(!this.props.order) { //if there's no order, create one.
+        const order = {
+            status: "in-progress",
+            userId
+        }
+        await this.props.newOrder(order, userId)
+    }
+    //price, quantity, orderId, itemId
+    let item = {
+        price: singleItem.price,
+        quantity: this.state.quantity,
+        orderId: this.props.order.id, //MUST BE CHANGED TO VARIABLE IN FUTURE!
+        itemId: singleItem.id
+    }
+    console.log('item', item)
+    this.props.addToCart(item, userId) //MUST BE CHANGED TO VARIABLE IN FUTURE!!
     //dispatch thunk. Send data to cart.
-  }
+}
 
   createGrid() {
     const {items} = this.props
@@ -83,7 +104,7 @@ class AllItems extends Component {
 
             {/* disables the 'Add To Cart' button if the item is no longer in stock */}
             {item.inStock > 0 ? (
-              <button type="button" id="addToCard">
+              <button type="button" id="addToCart" onClick={() => this.handleClick(item)}>
                 Add To Cart
               </button>
             ) : (
@@ -113,13 +134,19 @@ class AllItems extends Component {
  */
 const mapStateToProps = (state, ownProps) => {
   return {
-    items: state.items
+    items: state.items,
+    order: state.order,
+    user: state.user
   }
 }
 
 const mapDispatchToProps = {
   //Thunk to display all items from the allItems state
-  fetchItems: getItemsThunk
+  fetchItems: getItemsThunk,
+  addToCart: addToCart,
+  newOrder: newOrder,
+  fetchOrder: getOrderThunk,
+  loadInitialData: me
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(AllItems)

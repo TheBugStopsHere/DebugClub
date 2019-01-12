@@ -1,39 +1,79 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {getOrderThunk} from '../store/order'
+import {getOrderThunk, removeFromCart, orderUpdate} from '../store/order'
 import {me} from '../store'
-
+import { addDecimal, getTotal } from '../../script/util';
 
 class Cart extends Component {
     constructor(){
         super()
+        this.handleClick = this.handleClick.bind(this)
+        this.handleCheckout = this.handleCheckout.bind(this)
     }
     async componentDidMount() {
         await this.props.loadInitialData()
         await this.props.fetchOrder(this.props.user.id)
-
+        this.handleClick = this.handleClick.bind(this);
       }
+    async handleClick(lineItemId, userId) {
+        await this.props.removeFromCart(lineItemId, userId)
+        //dispatch thunk. Send data to cart.
+    }
+    async handleCheckout() {
+        const order = {
+            total: getTotal(this.props.order.lineItems)
+        }
+        await this.props.orderUpdate(order, this.props.order.id, this.props.user.id)
+        //dispatch thunk. Send data to cart.
+        this.props.history.push('/checkout')
+    }
     
     render(){
-        const{order} = this.props;        
-        const cartItems = order.lineItems
+        if(!this.props.order) {
+            return (
+                <div>
+                    <h1>Your Cart</h1>
+                    <p>Your Cart Is Empty!</p>
+                </div>
+            )
+        }
+        const{order, user} = this.props;        
+        const lineItems = order.lineItems //items in the cart
         return (
             <div>
                <h1>Your Cart</h1>
-               {cartItems 
-                ? cartItems.map(item => {
+               {lineItems 
+                ? 
+                lineItems.map(currLineItem => {
                     return (
-                        <div key={item.id}>
+                        <div key={currLineItem.id}>
                             <div>
-                                {item.item.name}
+                                {currLineItem.item.name} 
                             </div>
-                            <img src={item.item.imageURL} />
-                            <p>item price: {item.price/100}</p>
+                            <img src={currLineItem.item.imageURL} />
+                            <p>Current Quantity: {currLineItem.quantity}</p>
+                            <p>item price: {currLineItem.price/100}</p>
+                            <button type='button' id='remove' onClick={() => this.handleClick(currLineItem.id, user.id)}> Remove Item </button>
                         </div>
                     )
                 })
-               : ''}
-               <button type='button' id='Checkout'> Checkout </button>
+                
+               : <p>Your cart has no items in it.</p>}
+               {lineItems 
+                ? 
+                (
+                    <div>
+                        <h1>
+                            Order Total
+                        </h1>
+                        <h4>
+                            {addDecimal(getTotal(lineItems))}
+                        </h4>
+                    </div>
+                )
+                : ''
+                }
+               <button type='button' id='Checkout' onClick={this.handleCheckout}> Checkout </button>
             </div>
         )
     }
@@ -52,8 +92,10 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = {
     //Thunk to display all orders from the allOrders state
     fetchOrder: getOrderThunk,
+    removeFromCart: removeFromCart,
+    orderUpdate: orderUpdate,
     loadInitialData: me
-  }
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(Cart)
 
