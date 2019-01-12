@@ -13,7 +13,7 @@ class Payment extends React.Component {
     let {token} = await this.props.stripe.createToken({name: "Name"}); //ADD USER INFO HERE
     console.log('token returned', token);
     const stripePostBody = { //ADD TOTAL AMOUNT AND USER INFO IN DESC HERE FROM PROPS OR STATE
-      amount: 25000,
+      amount: this.props.total,
       currency: 'usd',
       description: `Charge for Tester`,
       source: token.id

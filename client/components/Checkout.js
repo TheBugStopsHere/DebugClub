@@ -1,6 +1,9 @@
 import React, {Component} from 'react'
+import {connect} from 'react-redux'
+import {getOrderThunk} from '../store/order'
 import Payment from './Payment'
 import {Elements, StripeProvider} from 'react-stripe-elements'
+
 
 class Checkout extends Component {
   constructor () {
@@ -13,6 +16,19 @@ class Checkout extends Component {
     }
     this.handleChange = this.handleChange.bind(this);
     this.handleShippingSubmit = this.handleShippingSubmit.bind(this);
+  }
+  componentDidMount() {
+    let {firstName, lastName, address, email} = this.props.user
+    if(this.props.user){
+      if (address === null) address = this.state.address
+      this.setState({
+      firstName,
+      lastName,
+      address,
+      email
+    })
+    }
+    
   }
   handleChange (evt) {
     this.setState({ [evt.target.name]: evt.target.value });
@@ -39,7 +55,7 @@ class Checkout extends Component {
           </label>
           <label>
             Address:
-            <input type='text' name='lastName' 
+            <input type='text' name='address' 
               value={address} />
           </label>
           <label>
@@ -50,7 +66,7 @@ class Checkout extends Component {
         </form>
         <StripeProvider apiKey='pk_test_1nc2USEcAeJ5cuoTGVU9wDw1'>
           <Elements>
-            <Payment /> 
+            <Payment total={this.props.order.total}/>
           </Elements>
         </StripeProvider>
       </div> 
@@ -58,4 +74,16 @@ class Checkout extends Component {
   }
 }
 
-export default Checkout
+const mapStateToProps = (state) => {
+  return {
+      order: state.order,
+      user: state.user
+  }
+}
+
+const mapDispatchToProps = {
+  //Thunk to display all orders from the allOrders state
+  fetchOrder: getOrderThunk
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Checkout)
