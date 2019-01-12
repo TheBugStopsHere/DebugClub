@@ -9,10 +9,13 @@ router.use('/line-items', require('./line-items'))
 // this route gets all orders. It's accessible to only ADMIN users. 
 router.get('/', async (req, res, next) => {
   try {
-      //THIS NEEDS TO BE PROTECTED FOR ADMINS ONLY
-      res.json(await Order.findAll({
-        include: [{model: LineItem}]
-      }))
+      if(req.user.admin === true){
+        res.json(await Order.findAll({
+          include: [{model: LineItem}]
+        }))
+      } else {
+        res.status(401).send('You are not authorized to access these bugs!', )
+      }
   } catch (err) {
       next(err)
   }
@@ -22,11 +25,8 @@ router.get('/', async (req, res, next) => {
 router.get('/:userId', async (req, res, next) => {
   try {
     if(!isNaN(req.params.userId)) { //number means it's a user id
-      if(req.user && req.user.id != req.params.userId){
-        //user is getting a 401 because they do not have the same id as the id for whom the order belongs to. Therefor they should not have access to this data.
-        res.status(401).send('These bugs are not your bugs!', )
-      } else {
-        //user has the same id as the id for whom the order belongs to. Therefor they should not have access to this data.
+      if(req.user && req.user.id == req.params.userId || req.user.admin === true){
+        //user has the same id as the id for whom the order belongs to or is an admin and they should not have access to this data.
         res.json(await Order.findOne({
           where: {
             userId: req.params.userId
@@ -35,6 +35,9 @@ router.get('/:userId', async (req, res, next) => {
             {model: Item}
           ]}]
         }))
+      } else {
+        //user is getting a 401 because they do not have the same id as the id for whom the order belongs to and should not have access to this data.
+        res.status(401).send('These bugs are not your bugs!')
       }
     } else { // if it's not a number, it's a string. It's a guest user
       //I DO NOT KNOW HOW TO HIT THESE...
@@ -75,16 +78,16 @@ router.post('/', async (req, res, next) => {
 //this would be used if a user empties their cart.
 router.delete('/:orderId', async (req, res, next) => {
   try {
-    if(req.user.id != req.params.userId){
-      //user is getting a 401 because they do not have the same id as the id for whom the order belongs to. Therefor they should not be able to delete this order.
-      res.sendStatus(401)
-    } else {
-      //user has the same id as the id for whom the order belongs to. Therefor they should not have access to delete this data.
+    if(req.user.id == req.params.userId || req.user.admin === true){
+      //user has the same id as the id for whom the order belongs to and should not have access to delete this data.
       await Order.destroy({
         where: {
           id: req.params.orderId
         }
       })
+    } else {
+      //user is getting a 401 because they do not have the same id as the id for whom the order belongs to and should not be able to delete this order.
+      res.sendStatus(401)
     }
     res.send('order has been deleted from the database')
   } catch (err) {
@@ -98,11 +101,8 @@ router.delete('/:orderId', async (req, res, next) => {
 router.put('/:orderId', async (req, res, next) => {
   try {
     if(!isNaN(req.params.orderId)) { //number means it's a user id
-      if(req.user.id != req.params.userId){
-        //user is getting a 401 because they do not have the same id as the id for whom the order belongs to. Therefor they should not be able to make posts to this order.
-        res.sendStatus(401)
-      } else {
-        //user has the same id as the id for whom the order belongs to. Therefor they should not have access to this data.
+      if(req.user.id == req.params.userId || req.user.admin === true){
+        //user has the same id as the id for whom the order belongs to and should not have access to this data.
         await Order.update(
           req.body,
           {where: {
@@ -113,6 +113,9 @@ router.put('/:orderId', async (req, res, next) => {
             {model: Item}
           ]}]
         }))
+      } else {
+        //user is getting a 401 because they do not have the same id as the id for whom the order belongs to and should not be able to make posts to this order.
+        res.sendStatus(401)
       }
     } else { // if it's not a number, it's a string. It's a guest user
       await Order.update(
