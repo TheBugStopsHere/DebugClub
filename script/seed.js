@@ -8,12 +8,21 @@ const lineItemsData = require('./lineItemsData.json')
 
 const usersData = [
   {
-    firstName: 'YourName',
-    lastName: 'User',
+    firstName: 'John',
+    lastName: 'Doe',
     imageURL: '',
     address: '',
     email: 'user@example.com',
     password: 'user',
+    admin: false
+  },
+  {
+    firstName: 'Betty',
+    lastName: 'Bear',
+    imageURL: '',
+    address: '',
+    email: 'person@email.com',
+    password: 'password',
     admin: false
   },
   {
