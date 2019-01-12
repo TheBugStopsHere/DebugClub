@@ -64,7 +64,7 @@ const createApp = () => {
   
   app.use((req, res, next) => {
     req.session.guest = true
-    console.log('SESSION: ', req.session)
+    // console.log('SESSION: ', req.session)
     next()
   })
 
@@ -73,7 +73,7 @@ const createApp = () => {
 
   //logging middleware, for development.  Can get rid of when we are done.
   app.use((req, res, next) => {
-    console.log('>>>>>>>>>>>>>>>req.session.id: ', req.session.id)
+    // console.log('>>>>>>>>>>>>>>>req.session.id: ', req.session.id)
     next()
   })
   // end logging middleware we can get rid of
