@@ -25,7 +25,7 @@ router.get('/', async (req, res, next) => {
 router.get('/:userId', async (req, res, next) => {
   try {
     if(!isNaN(req.params.userId)) { //number means it's a user id
-      if(req.user && req.user.id == req.params.userId || req.user.admin === true){
+      if(req.user){
         //user has the same id as the id for whom the order belongs to or is an admin and they should not have access to this data.
         res.json(await Order.findOne({
           where: {
