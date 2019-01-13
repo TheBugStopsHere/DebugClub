@@ -53,9 +53,7 @@ class UserInfo extends React.Component {
   }
 
   render(){
-    console.log('STATE IS', this.state)
     const {firstName, imageURL, email, admin} = this.props
-    console.log('*****this.props', this.props.firstName)
       return (
         <div>
         <div className='flex'>
@@ -109,10 +107,7 @@ class UserInfo extends React.Component {
     
           </form>
           
-    
-    
-    
-    
+
           {/* This is the admin section */}
           {admin 
           ? (
@@ -138,7 +133,8 @@ const mapState = state => {
     imageURL: state.update.imageURL,
     address: state.update.address,
     email: state.update.email,
-    admin: state.update.admin
+    admin: state.update.admin,
+    password: state.update.password
   }
 }
 
