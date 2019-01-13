@@ -30,6 +30,7 @@ export const me = () => async dispatch => {
   }
 }
 
+
 export const auth = (formData) => async dispatch => {
   let res
   const {email, password, method, firstName, lastName, imageURL, address} = formData;

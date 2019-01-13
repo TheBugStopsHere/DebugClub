@@ -23,3 +23,23 @@ router.get('/session', async (req, res, next) => {
     next(err)
   }
 })
+
+//this route is used when accessing the data of an existing user.
+router.get('/find', async (req, res, next) => {
+  try {
+    const user = await User.findById(req.user.id)
+    res.json(user)
+  } catch (err) {
+    next(err)
+  }
+})
+
+router.put('/', async(req, res, next) => {
+  const [instances, rows] = await User.update(req.body,{
+    where: {id: req.user.id},
+    returning: true,
+    plain: true
+  })
+  console.log(instances, 'total instances updated')
+  res.json(rows)
+})
