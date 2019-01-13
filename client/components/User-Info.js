@@ -5,30 +5,80 @@ import {connect} from 'react-redux'
 /**
  * COMPONENT
  */
-export const UserInfo = props => {
-  const {firstName, imageURL, email, admin} = props
+class UserInfo extends React.Component {
+  
 
-  return (
-    <div>
-    <div className='flex'>
-      <img src={imageURL} width="200" />
-      <h1>{(firstName)}, how would you like to update your information?</h1>
-      
-
-      {/* This is the admin section */}
-      {admin 
-      ? (
+  render(){
+    const {firstName, imageURL, email, admin} = this.props
+      return (
         <div>
-          <small><p>You are an <strong>admin</strong> user!</p></small>
-          <h4>Is this user an admin user?</h4>
+        <div className='flex'>
+          <img src={imageURL} width="200" />
+          <h1>{(firstName)}, how would you like to update your information?</h1>
+    
+          <form>
+                <div>
+                  <label htmlFor="firstName">
+                    First Name
+                  </label>
+                  <input name="firstName" type="text" />
+                </div>
+    
+                <div>
+                  <label htmlFor="lastName">
+                    Last Name
+                  </label>
+                  <input name="lastName" type="text" />
+                </div>
+    
+                <div>
+                  <label htmlFor="imageURL">
+                    Image URL
+                  </label>
+                  <input name="imageURL" type="text" />
+                </div>
+    
+                <div>
+                  <label htmlFor="address">
+                    Address
+                  </label>
+                  <input name="address" type="text" />
+                </div>
+    
+                <div>
+                  <label htmlFor="email">
+                    Email
+                  </label>
+                  <input name="email" type="text" />
+                </div>
+    
+                <div>
+                  <label htmlFor="password">
+                    Password
+                  </label>
+                  <input name="password" type="text" />
+                </div>
+    
+          </form>
+          
+    
+    
+    
+    
+          {/* This is the admin section */}
+          {admin 
+          ? (
+            <div>
+              {/* nothing needed in this section. Kept for future possibilities. */}
+            </div>
+          ) 
+          : ''}
+          
         </div>
-      ) 
-      : ''}
-      
-    </div>
-  </div>
-  )
-}
+      </div>
+      )
+    }
+  }
 
 /**
  * CONTAINER
