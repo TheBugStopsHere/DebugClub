@@ -3,87 +3,98 @@ import {connect} from 'react-redux'
 import {orderUpdate} from '../store/order'
 import Payment from './Payment'
 import {Elements, StripeProvider} from 'react-stripe-elements'
-
+import OrderConfirmation from './Order-Confirmation'
 
 class Checkout extends Component {
-  constructor () {
+  constructor() {
     super()
     this.state = {
       firstName: '',
       lastName: '',
       address: '',
-      email: ''
+      email: '',
+      orderNum: 0
     }
-    this.handleChange = this.handleChange.bind(this);
-    this.handleShippingSubmit = this.handleShippingSubmit.bind(this);
+    this.handleChange = this.handleChange.bind(this)
+    this.handleShippingSubmit = this.handleShippingSubmit.bind(this)
   }
   componentDidMount() {
     let {firstName, lastName, address, email} = this.props.user
-    if(this.props.user.id){
+    if (this.props.user.id) {
       if (address === null) address = this.state.address
       this.setState({
-      firstName,
-      lastName,
-      address,
-      email
-    })
+        firstName,
+        lastName,
+        address,
+        email,
+        orderNum: this.props.order.id
+      })
     }
-    
   }
-  handleChange (evt) {
-    this.setState({ [evt.target.name]: evt.target.value });
+  handleChange(evt) {
+    this.setState({[evt.target.name]: evt.target.value})
   }
 
-  handleShippingSubmit () {
-    const {order, user, guest, submit} = this.props;
+  handleShippingSubmit() {
+    const {order, user, guest, submit} = this.props
     const passId = user.id ? user.id : guest.id
-    submit({status: 'complete'}, order.id, passId);
+    submit({status: 'complete'}, order.id, passId)
   }
 
   render() {
-    const {firstName, lastName, address, email} = this.state;
+    const {firstName, lastName, address, email} = this.state
     return (
       <div>
-        <form onSubmit={this.handleSubmit} onChange={this.handleChange} >
+        <form onSubmit={this.handleSubmit} onChange={this.handleChange}>
           <label>
             First Name:
-            <input type='text' name='firstName' 
-              value={firstName} />
+            <input type="text" name="firstName" value={firstName} />
           </label>
           <label>
             Last Name:
-            <input type='text' name='lastName' 
-              value={lastName} />
+            <input type="text" name="lastName" value={lastName} />
           </label>
           <label>
             Address:
-            <input type='text' name='address' 
-              value={address} />
+            <input type="text" name="address" value={address} />
           </label>
           <label>
             Email:
-            <input type='email' name='email' 
-              value={email} />
+            <input type="email" name="email" value={email} />
           </label>
         </form>
-        <StripeProvider apiKey='pk_test_1nc2USEcAeJ5cuoTGVU9wDw1'>
+        <StripeProvider apiKey="pk_test_1nc2USEcAeJ5cuoTGVU9wDw1">
           <Elements>
-            <Payment 
-              total={this.props.order.total}
-              handleShippingSubmit={this.handleShippingSubmit}
-            />
+            <div>
+              {this.props.order ? (
+                <Payment
+                  total={this.props.order.total}
+                  name={this.props.user.firstName}
+                  id={this.props.order.id}
+                  handleShippingSubmit={this.handleShippingSubmit}
+                />
+              ) : (
+                <OrderConfirmation
+                  name={this.props.user.firstName}
+                  orderNum={this.state.orderNum}
+                  id="confirmation"
+                  className="modal fade"
+                  role="dialog"
+                />
+              )}
+            </div>
           </Elements>
         </StripeProvider>
-      </div> 
+      </div>
     ) // IF WANTED, pass down handleShippingSubmit to Payment to be invoked when payment submitted
   }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   return {
-      order: state.order,
-      user: state.user,
-      guest: state.guest
+    order: state.order,
+    user: state.user,
+    guest: state.guest
   }
 }
 
