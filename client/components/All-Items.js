@@ -4,9 +4,8 @@ import {connect} from 'react-redux'
 import {getItemsThunk} from '../store/items'
 import {addToCart, getOrderThunk, newOrder} from '../store/order'
 import {me} from '../store'
-import {addDecimal, stockToArr} from '../../script/util' 
+import {addDecimal, stockToArr} from '../../script/util'
 import {getGuest} from '../store/guest'
-
 
 class AllItems extends Component {
   constructor() {
@@ -36,34 +35,34 @@ class AllItems extends Component {
   }
 
   async handleClick(singleItem) {
-    //Before adding to cart, check first if there is an order. 
+    //Before adding to cart, check first if there is an order.
     let idToPass
-        if(this.props.user.id){
-            idToPass = this.props.user.id
-        } else {
-            idToPass = this.props.guest.id
-        }
-        if(!this.props.order) { 
-            const order = {
-                status: "in-progress",
-                guestSessionId: this.props.guest.id
-            }
-            if(this.props.user) {
-                order.userId = this.props.user.id
-            }
-            await this.props.newOrder(order, idToPass)
-        }
+    if (this.props.user.id) {
+      idToPass = this.props.user.id
+    } else {
+      idToPass = this.props.guest.id
+    }
+    if (!this.props.order) {
+      const order = {
+        status: 'in-progress',
+        guestSessionId: this.props.guest.id
+      }
+      if (this.props.user) {
+        order.userId = this.props.user.id
+      }
+      await this.props.newOrder(order, idToPass)
+    }
     //price, quantity, orderId, itemId
     let item = {
-        price: singleItem.price,
-        quantity: this.state.quantity,
-        orderId: this.props.order.id, //MUST BE CHANGED TO VARIABLE IN FUTURE!
-        itemId: singleItem.id
+      price: singleItem.price,
+      quantity: this.state.quantity,
+      orderId: this.props.order.id, //MUST BE CHANGED TO VARIABLE IN FUTURE!
+      itemId: singleItem.id
     }
     console.log('item', item)
     this.props.addToCart(item, idToPass) //MUST BE CHANGED TO VARIABLE IN FUTURE!!
     //dispatch thunk. Send data to cart.
-}
+  }
 
   createGrid() {
     const {items} = this.props
@@ -114,11 +113,21 @@ class AllItems extends Component {
 
             {/* disables the 'Add To Cart' button if the item is no longer in stock */}
             {item.inStock > 0 ? (
-              <button type="button" id="addToCart" onClick={() => this.handleClick(item)}>
+              <button
+                type="button"
+                id="addToCart"
+                className="btn btn-info btn-md"
+                onClick={() => this.handleClick(item)}
+              >
                 Add To Cart
               </button>
             ) : (
-              <button type="button" id="disabled" disabled>
+              <button
+                type="button"
+                className="btn btn-info btn-md"
+                id="disabled"
+                disabled
+              >
                 Add To Cart
               </button>
             )}

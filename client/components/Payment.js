@@ -7,6 +7,7 @@ class Payment extends React.Component {
   constructor(props) {
     super(props)
     this.handleSubmit = this.handleSubmit.bind(this)
+    this.modalBackdrop = this.modalBackdrop.bind(this)
     this.state = {
       complete: false
     }
@@ -31,18 +32,39 @@ class Payment extends React.Component {
       console.log('Purchase Complete!')
       this.props.handleShippingSubmit()
       this.setState({complete: true})
+      // this.modalBackdrop()
+      // $('#confirmation').modal({backdrop: 'static'})
     }
+  }
+
+  modalBackdrop() {
+    $('#submit').click(function() {
+      $('#confirmation').modal('show')
+    })
   }
 
   render() {
     return this.state.complete ? (
       <div>
-        <OrderConfirmation name={this.props.name} id={this.props.id} />
+        <OrderConfirmation
+          name={this.props.name}
+          orderNum={this.props.id}
+          id="confirmation"
+          className="modal fade"
+          role="dialog"
+        />
       </div>
     ) : (
       <div className="payment">
         <CardElement />
-        <button type="submit" onClick={this.handleSubmit}>
+        <button
+          id="submit"
+          className="btn btn-info btn-md"
+          data-toggle="modal"
+          data-target="#confirmation"
+          type="submit"
+          onClick={this.handleSubmit}
+        >
           Submit Payment
         </button>
       </div>

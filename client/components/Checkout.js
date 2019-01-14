@@ -3,6 +3,7 @@ import {connect} from 'react-redux'
 import {orderUpdate} from '../store/order'
 import Payment from './Payment'
 import {Elements, StripeProvider} from 'react-stripe-elements'
+import OrderConfirmation from './Order-Confirmation'
 
 class Checkout extends Component {
   constructor() {
@@ -11,7 +12,8 @@ class Checkout extends Component {
       firstName: '',
       lastName: '',
       address: '',
-      email: ''
+      email: '',
+      orderNum: 0
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleShippingSubmit = this.handleShippingSubmit.bind(this)
@@ -24,24 +26,19 @@ class Checkout extends Component {
         firstName,
         lastName,
         address,
-        email
+        email,
+        orderNum: this.props.order.id
       })
     }
   }
   handleChange(evt) {
     this.setState({[evt.target.name]: evt.target.value})
   }
-<<<<<<< HEAD
-  handleShippingSubmit(evt) {
-    evt.preventDefault()
-    //IF WE WANT TO SAVE SHIPPING DATA
-=======
 
-  handleShippingSubmit () {
-    const {order, user, guest, submit} = this.props;
+  handleShippingSubmit() {
+    const {order, user, guest, submit} = this.props
     const passId = user.id ? user.id : guest.id
-    submit({status: 'complete'}, order.id, passId);
->>>>>>> master
+    submit({status: 'complete'}, order.id, passId)
   }
 
   render() {
@@ -68,17 +65,24 @@ class Checkout extends Component {
         </form>
         <StripeProvider apiKey="pk_test_1nc2USEcAeJ5cuoTGVU9wDw1">
           <Elements>
-<<<<<<< HEAD
-            <Payment
-              total={this.props.order.total}
-              name={this.props.user.firstName}
-              id={this.props.order.id}
-=======
-            <Payment 
-              total={this.props.order.total}
-              handleShippingSubmit={this.handleShippingSubmit}
->>>>>>> master
-            />
+            <div>
+              {this.props.order ? (
+                <Payment
+                  total={this.props.order.total}
+                  name={this.props.user.firstName}
+                  id={this.props.order.id}
+                  handleShippingSubmit={this.handleShippingSubmit}
+                />
+              ) : (
+                <OrderConfirmation
+                  name={this.props.user.firstName}
+                  orderNum={this.state.orderNum}
+                  id="confirmation"
+                  className="modal fade"
+                  role="dialog"
+                />
+              )}
+            </div>
           </Elements>
         </StripeProvider>
       </div>
@@ -88,14 +92,9 @@ class Checkout extends Component {
 
 const mapStateToProps = state => {
   return {
-<<<<<<< HEAD
     order: state.order,
-    user: state.user
-=======
-      order: state.order,
-      user: state.user,
-      guest: state.guest
->>>>>>> master
+    user: state.user,
+    guest: state.guest
   }
 }
 
