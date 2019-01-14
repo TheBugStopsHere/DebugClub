@@ -24,10 +24,25 @@ class Cart extends Component {
         //dispatch thunk. Send data to cart.
     }
     async handleCheckout() {
+        let idToPass
+        if(this.props.user.id){
+            idToPass = this.props.user.id
+        } else {
+            idToPass = this.props.guest.id
+        }
+        if(!this.props.order) { 
+            const order = {
+                status: "in-progress",
+                guestSessionId: this.props.guest.id
+            }
+            if(this.props.user) {
+                order.userId = this.props.user.id
+            }
+        }
         const order = {
             total: getTotal(this.props.order.lineItems)
         }
-        await this.props.orderUpdate(order, this.props.order.id, this.props.user.id)
+        await this.props.orderUpdate(order, this.props.order.id, idToPass)
         //dispatch thunk. Send data to cart.
         this.props.history.push('/checkout')
     }

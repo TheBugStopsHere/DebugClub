@@ -38,7 +38,7 @@ class SingleItem extends Component {
     async handleClick() {
         //Before adding to cart, check first if there is an order. 
         let idToPass
-        if(this.props.user){
+        if(this.props.user.id){
             idToPass = this.props.user.id
         } else {
             idToPass = this.props.guest.id

@@ -38,7 +38,7 @@ class AllItems extends Component {
   async handleClick(singleItem) {
     //Before adding to cart, check first if there is an order. 
     let idToPass
-        if(this.props.user){
+        if(this.props.user.id){
             idToPass = this.props.user.id
         } else {
             idToPass = this.props.guest.id
@@ -51,8 +51,6 @@ class AllItems extends Component {
             if(this.props.user) {
                 order.userId = this.props.user.id
             }
-            console.log('order: ', order)
-            await this.props.newOrder(order, idToPass)
         }
     //price, quantity, orderId, itemId
     let item = {
