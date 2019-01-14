@@ -22,7 +22,11 @@ class Payment extends React.Component {
     let response = await axios.post('/charge', stripePostBody)
     console.log(response)
       
-    if (response.data.status === 'succeeded') console.log("Purchase Complete!") //ADD FUNCTIONALITY HERE
+    if (response.data.status === 'succeeded') {
+      console.log("Purchase Complete!") 
+      //ADD FUNCTIONALITY HERE
+      this.props.handleShippingSubmit();
+    }
   }
 
   render() {
