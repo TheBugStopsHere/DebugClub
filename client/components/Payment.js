@@ -29,8 +29,7 @@ class Payment extends React.Component {
 
     if (response.data.status === 'succeeded') {
       console.log('Purchase Complete!')
-      // alert('Order Confirmation')
-      // event.preventDefault()
+      this.props.handleShippingSubmit()
       this.setState({complete: true})
     }
   }

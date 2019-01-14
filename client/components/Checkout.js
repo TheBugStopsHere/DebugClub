@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {getOrderThunk} from '../store/order'
+import {orderUpdate} from '../store/order'
 import Payment from './Payment'
 import {Elements, StripeProvider} from 'react-stripe-elements'
 
@@ -31,9 +31,17 @@ class Checkout extends Component {
   handleChange(evt) {
     this.setState({[evt.target.name]: evt.target.value})
   }
+<<<<<<< HEAD
   handleShippingSubmit(evt) {
     evt.preventDefault()
     //IF WE WANT TO SAVE SHIPPING DATA
+=======
+
+  handleShippingSubmit () {
+    const {order, user, guest, submit} = this.props;
+    const passId = user.id ? user.id : guest.id
+    submit({status: 'complete'}, order.id, passId);
+>>>>>>> master
   }
 
   render() {
@@ -60,10 +68,16 @@ class Checkout extends Component {
         </form>
         <StripeProvider apiKey="pk_test_1nc2USEcAeJ5cuoTGVU9wDw1">
           <Elements>
+<<<<<<< HEAD
             <Payment
               total={this.props.order.total}
               name={this.props.user.firstName}
               id={this.props.order.id}
+=======
+            <Payment 
+              total={this.props.order.total}
+              handleShippingSubmit={this.handleShippingSubmit}
+>>>>>>> master
             />
           </Elements>
         </StripeProvider>
@@ -74,14 +88,20 @@ class Checkout extends Component {
 
 const mapStateToProps = state => {
   return {
+<<<<<<< HEAD
     order: state.order,
     user: state.user
+=======
+      order: state.order,
+      user: state.user,
+      guest: state.guest
+>>>>>>> master
   }
 }
 
 const mapDispatchToProps = {
   //Thunk to display all orders from the allOrders state
-  fetchOrder: getOrderThunk
+  submit: orderUpdate
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Checkout)
