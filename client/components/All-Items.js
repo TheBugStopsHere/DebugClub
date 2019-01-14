@@ -51,6 +51,7 @@ class AllItems extends Component {
             if(this.props.user) {
                 order.userId = this.props.user.id
             }
+            await this.props.newOrder(order, idToPass)
         }
     //price, quantity, orderId, itemId
     let item = {
