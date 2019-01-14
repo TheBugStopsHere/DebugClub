@@ -25,11 +25,12 @@ class UserInfo extends React.Component {
   componentDidMount() {
     this.props.getUser()
     this.setState({
-      firstName: this.props.firstName,
-      lastName: this.props.lastName,
-      imageURL: this.props.imageURL,
-      address: this.props.address,
-      email: this.props.email
+      firstName: this.props.firstName || '',
+      lastName: this.props.lastName || '',
+      imageURL: this.props.imageURL || '',
+      address: this.props.address || '',
+      email: this.props.email,
+      password: ''
     })
   }
 
@@ -42,18 +43,28 @@ class UserInfo extends React.Component {
   handleSubmit(event) {
     //the page will not refresh but the user's updated information will post to the database, their updates will still be visable with the exception of the updated password.
     event.preventDefault()
-    this.props.updateUser(this.state)
+    let infoToUpdate
+    if (this.state.password === '') {
+      infoToUpdate = {
+        ...this.state
+      }
+      infoToUpdate.password = this.props.password
+    } else {
+      infoToUpdate = this.state
+    }
+    this.props.updateUser(infoToUpdate)
     this.setState({
       firstName: this.props.firstName,
       lastName: this.props.lastName,
       imageURL: this.props.imageURL,
       address: this.props.address,
-      email: this.props.email
+      email: this.props.email,
+      password: ''
     })
   }
 
   render() {
-    const {firstName, imageURL, email, admin} = this.props
+    const {firstName, imageURL, admin} = this.props
     return (
       <div>
         <div className="flex">
