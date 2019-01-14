@@ -55,7 +55,23 @@ export const newOrder = (order, userId) => {
 
 export const addToCart = (item, userId) => {
     return async (dispatch) => {
-        await axios.post(`/api/orders/line-items/`, item);
+        // axios.get to order 
+        const prevOrder = await axios.get(`/api/orders/${userId}`)
+        const prevOrderData = prevOrder.data;
+        // filter line-items with the same .itemId  
+        const [currLineItem] = prevOrderData.lineItems.filter(lineItem => lineItem.itemId === item.itemId)
+        // If our filtered array isn't empty, do an axios.put
+        console.log('>>>>>item: ', item)
+        console.log('>>>>>currLineItem: ', currLineItem)
+        if(currLineItem){
+            // add the new line-item quantity & change line-item
+            const newQuantity = Number(currLineItem.quantity) + Number(item.quantity)
+            await axios.put(`/api/orders/line-items/${currLineItem.id}`, {quantity: newQuantity});
+        }
+        // Else, do an axios.post
+        else{
+            await axios.post(`/api/orders/line-items/`, item);
+        }
         const {data} = await axios.get(`/api/orders/${userId}`)
         dispatch(getOrder(data))
     }
