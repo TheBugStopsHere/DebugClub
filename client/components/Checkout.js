@@ -19,7 +19,7 @@ class Checkout extends Component {
   }
   componentDidMount() {
     let {firstName, lastName, address, email} = this.props.user
-    if(this.props.user){
+    if(this.props.user.id){
       if (address === null) address = this.state.address
       this.setState({
       firstName,
