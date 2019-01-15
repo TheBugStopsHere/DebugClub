@@ -77,7 +77,7 @@ const itemsData = [
   {
     name: 'CryptoLocker',
     imageURL:
-      'http://ransomwares.net/wp-content/uploads/2017/02/cryptolocker.jpg',
+      'https://cdn.grahamcluley.com/wp-content/uploads/2013/11/cryptolocker-thumb.png',
     price: 750000,
     description:
       'Released in September 2013, CryptoLocker spread through email attachments and encrypted the user’s files so that they couldn’t access them. The hackers then sent a decryption key in return for a sum of money, usually somewhere from a few hundred dollars up to a few grand.',
@@ -130,9 +130,8 @@ const itemsData = [
     inStock: 10
   },
   {
-    name: 'McAfee',
-    imageURL:
-      'https://is5-ssl.mzstatic.com/image/thumb/Purple118/v4/75/21/b3/7521b3e3-8de3-f893-5480-8c95c5f14ee7/AppIcon-1x_U007emarketing-0-0-GLES2_U002c0-512MB-sRGB-0-0-0-85-220-0-0-0-6.png/246x0w.jpg',
+    name: 'MacAfee',
+    imageURL: 'https://avatars1.githubusercontent.com/u/1475915?s=200&v=4',
     price: 0,
     description: "Everyone's favorite default software.",
     category: 'debugging',
