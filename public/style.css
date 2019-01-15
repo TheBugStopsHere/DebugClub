@@ -1,10 +1,28 @@
+html {
+  height: 100%;
+}
+
 body {
   font-family: sans-serif;
+  margin-top: 115px;
+  background-image: url('/spider.jpg');
+  background-repeat: no-repeat;
+  background-size: 100%;
+  background-attachment: fixed;
 }
 
 .container-fluid {
   margin: 0;
   padding: 0;
+}
+
+a {
+  color: rgb(174, 174, 174);
+  transition-duration: 0.4s;
+}
+
+p {
+  font-size: 20px;
 }
 
 a,
@@ -23,31 +41,38 @@ button {
   font-family: 'Source Sans Pro', sans-serif;
 }
 
+button {
+  transition-duration: 0.4s;
+}
+
 label {
   display: block;
 }
 
 .navbar {
-  height: 115px;
+  height: 110px;
   width: 100%;
-  background-color: rgb(41, 41, 41);
-  background-image: linear-gradient(rgb(65, 65, 65), rgba(34, 34, 34, 0.516));
+  background-color: rgb(36, 3, 3);
+  background-image: linear-gradient(
+    rgba(108, 38, 38, 0.7),
+    rgba(34, 34, 34, 0.516)
+  );
 }
 
 #linkHome {
   margin: 5;
-  width: 800px;
+  width: 420px;
   position: absolute;
   left: 5px;
   top: 15px;
 }
 
 #logo {
-  height: 90px;
-  width: 90px;
-  margin: 15px;
+  height: 80px;
+  width: 80px;
+  margin: 10px;
+  margin-top: 5px;
   float: left;
-  margin-top: -5px;
 }
 
 .glyphicon {
@@ -56,12 +81,9 @@ label {
 
 #title {
   color: rgb(244, 243, 240);
-  /* font-family: 'Fontdiner Swanky', cursive; */
   font-family: 'Bahiana', cursive;
-
   font-size: 46pt;
-  /* font-family: 'Slackey', cursive; */
-  /* display: inline; */
+  margin-top: 12px;
 }
 
 #navItems {
@@ -71,6 +93,7 @@ label {
   justify-content: flex-end;
   vertical-align: baseline;
   margin-right: 5px;
+  margin-top: -13px;
 }
 
 #navLinks * {
@@ -83,10 +106,19 @@ label {
 
 .navItem {
   margin: 0;
+  transition-duration: 0.4s;
 }
 
 .navItem:hover {
-  background-color: rgba(174, 167, 158, 0.906);
+  background-color: rgba(103, 25, 25, 0.79);
+  color: white;
+}
+
+.badge {
+  height: auto !important;
+  padding: 6px !important;
+  border-radius: 50%;
+  font-size: 13pt !important;
 }
 
 form div {
@@ -95,10 +127,173 @@ form div {
 }
 
 .pageContent {
-  margin-top: 115px;
-  background-color: rgb(60, 60, 60);
+  padding-bottom: 40px;
 }
 
 .allItems {
   padding: 30px;
+}
+
+#allItemsGrid {
+  margin: auto;
+}
+
+.allItemsItems {
+  display: block;
+  margin: auto;
+  margin-bottom: 40px;
+}
+
+.allItemsPics {
+  z-index: -4;
+}
+
+.linkToSingle {
+  margin: auto;
+}
+
+.linkToSingle,
+.allItemsPics {
+  height: 300px;
+  width: 300px;
+  position: relative;
+  left: 15px;
+}
+
+.allIntemsInfo {
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.allItemsName {
+  font-family: 'Bahiana', cursive;
+  font-size: 18pt;
+  color: white;
+  float: right;
+}
+
+.allItemsPrice {
+  text-align: right;
+}
+
+.thumnail {
+  width: 75%;
+  margin: auto;
+  padding-top: 30px;
+}
+
+.caption {
+  height: 400px;
+}
+
+.caption,
+.cart {
+  background-color: rgba(215, 215, 215, 0.516);
+  height: 400px;
+  padding: 50px;
+  padding-top: 10px;
+  text-align: center;
+}
+
+.cart {
+  height: auto;
+  width: 75%;
+  margin: auto;
+  padding: 30px 150px;
+}
+
+.cartItemDetail {
+  text-align: left;
+  height: 120px;
+}
+
+.cartItemPic {
+  float: right;
+  height: 100px;
+  width: 100px;
+}
+
+.cartRemoveItem {
+  float: left;
+}
+
+#cartTotal {
+  margin-top: 20px;
+  border-top: solid rgb(29, 29, 29) 3px;
+}
+
+#cartTotalLabel {
+  display: inline;
+  text-align: left;
+}
+
+#cartTotalDecimal {
+  float: right;
+}
+
+.singleItemPic {
+  float: left;
+  padding-right: 20px;
+  position: relative;
+}
+
+.singleItemName {
+  font-family: 'Bahiana', cursive;
+  font-size: 52px;
+}
+
+#inStock,
+#outOfStock {
+  float: right;
+  margin-top: 10px;
+  width: 200px;
+}
+
+.qty {
+  float: left;
+}
+
+#addToCart {
+  background-color: rgba(38, 114, 120, 0.968);
+  color: rgb(174, 174, 174);
+  border: none;
+}
+
+#addToCart:hover {
+  background-color: rgb(33, 77, 63);
+  color: white;
+}
+
+#addToCart,
+#disabled {
+  margin-left: 20px;
+}
+
+#footer {
+  height: 30px;
+  width: 100%;
+  margin: 0;
+  position: fixed;
+  bottom: 0;
+  background-color: rgb(36, 3, 3);
+  background-image: linear-gradient(
+    rgba(7, 73, 80, 0.7),
+    rgba(34, 34, 34, 0.516)
+  );
+  color: rgb(174, 174, 174);
+}
+
+#aboutUs {
+  font-size: 22px;
+  text-align: center;
+  position: relative;
+  bottom: 4px;
+}
+
+#aboutUs:hover {
+  color: white;
+}
+
+#creditCards {
+  float: right;
 }

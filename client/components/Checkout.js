@@ -67,13 +67,20 @@ class Checkout extends Component {
           <Elements>
             <div>
               {this.props.order ? (
-                <Payment
-                  total={this.props.order.total}
-                  name={this.props.user.firstName}
-                  lName={this.props.user.lastName}
-                  id={this.props.order.id}
-                  handleShippingSubmit={this.handleShippingSubmit}
-                />
+                <div>
+                  <img
+                    src="/img/credit-cards-accepted.jpg"
+                    id="creditCards"
+                    height={50}
+                  />
+                  <Payment
+                    total={this.props.order.total}
+                    name={this.props.user.firstName}
+                    lName={this.props.user.lastName}
+                    id={this.props.order.id}
+                    handleShippingSubmit={this.handleShippingSubmit}
+                  />
+                </div>
               ) : (
                 <OrderConfirmation
                   name={this.props.user.firstName}

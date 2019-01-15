@@ -1,9 +1,11 @@
 import axios from 'axios'
+import items from './items'
 
 /**
  * ACTION TYPES
  */
 const GET_ORDER = 'GET_ORDER'
+const GET_ORDER_ITEMS = 'GET_ORDER_ITEMS'
 const RESET_ORDER = 'RESET_ORDER'
 
 /**
@@ -22,7 +24,12 @@ export const getOrder = order => {
     selectedOrder: order
   }
 }
-
+export const getOrderItems = order => {
+  return {
+    type: GET_ORDER_ITEMS,
+    numItems: order.lineItems.length
+  }
+}
 export const resetOrder = () => {
   return {
     type: RESET_ORDER,
@@ -97,6 +104,8 @@ export default function(state = selectedOrder, action) {
   switch (action.type) {
     case GET_ORDER:
       return action.selectedOrder
+    case GET_ORDER_ITEMS:
+      return numItems
     case RESET_ORDER:
       return action.selectedOrder
     default:

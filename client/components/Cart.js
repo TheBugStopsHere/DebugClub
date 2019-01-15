@@ -49,7 +49,7 @@ class Cart extends Component {
   render() {
     if (!this.props.order) {
       return (
-        <div>
+        <div className="cart">
           <h1>Your Cart</h1>
           <p>Your Cart Is Empty!</p>
         </div>
@@ -58,20 +58,19 @@ class Cart extends Component {
     const {order, user, guest} = this.props
     const lineItems = order.lineItems //items in the cart
     return (
-      <div>
+      <div className="cart">
         <h1>Your Cart</h1>
         {lineItems ? (
           lineItems.map(currLineItem => {
             return (
-              <div key={currLineItem.id}>
+              <div className="cartItemDetail" key={currLineItem.id}>
                 <div>{currLineItem.item.name}</div>
-                <img src={currLineItem.item.imageURL} />
+                <img className="cartItemPic" src={currLineItem.item.imageURL} />
                 <p>Current Quantity: {currLineItem.quantity}</p>
-                <p>item price: {currLineItem.price / 100}</p>
+                <p>Price: ${currLineItem.price / 100}</p>
                 <button
-                  className="btn btn-info btn-md"
+                  className="cartRemoveItem btn btn-info btn-md"
                   type="button"
-                  id="remove"
                   onClick={() =>
                     this.handleClick(currLineItem.id, user.id || guest.id)
                   }
@@ -86,9 +85,9 @@ class Cart extends Component {
           <p>Your cart has no items in it.</p>
         )}
         {lineItems ? (
-          <div>
-            <h1>Order Total</h1>
-            <h4>{addDecimal(getTotal(lineItems))}</h4>
+          <div id="cartTotal">
+            <h3 id="cartTotalLabel">Order Total</h3>
+            <h3 id="cartTotalDecimal">${addDecimal(getTotal(lineItems))}</h3>
           </div>
         ) : (
           ''
