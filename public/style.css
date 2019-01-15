@@ -31,6 +31,10 @@ a:visited {
   text-decoration: none !important;
 }
 
+h3 {
+  font-size: 22pt;
+}
+
 a,
 h2,
 h3,
@@ -150,14 +154,18 @@ form div {
   width: 300px;
   position: absolute;
   top: 0;
-  padding: 20px;
+  padding: 50px 20px;
   text-align: center;
   transition-duration: 0.4s;
+  color: white;
 }
 
 .allItemsInfo:hover {
   opacity: 1;
-  background-color: rgba(23, 23, 23, 0.619);
+  background-image: radial-gradient(
+    rgba(23, 23, 23, 0.742),
+    rgba(23, 23, 23, 0.256)
+  );
 }
 
 .linkToSingle {
@@ -173,22 +181,24 @@ form div {
 
 .allItemsName {
   font-family: 'Bahiana', cursive;
-  font-size: 36pt;
-  color: white;
+  font-size: 46pt;
 }
 
-.allItemsPrice,
-.allItemsOutOfStock {
+.allItemsPriceInfo {
   width: 100%;
-  font-size: 22pt;
+  font-size: 34pt !important;
   color: rgb(206, 206, 206);
   position: absolute;
-  bottom: 20px;
-  text-align: right;
+  bottom: 50px;
+  margin-left: -20px;
+  text-align: center;
 }
 
-.allItemsPrice {
-  text-align: right;
+.allItemsOutOfStock {
+  color: rgb(191, 9, 9);
+  font-style: italic;
+  font-weight: bold;
+  font-size: 26pt;
 }
 
 .thumnail {
