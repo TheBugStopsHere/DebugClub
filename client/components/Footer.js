@@ -5,7 +5,7 @@ export const Footer = () => {
   return (
     <div>
       <footer id="footer">
-        <Link to="about-the-developers" id="aboutUs">
+        <Link to="/about-the-developers" id="aboutUs">
           <h4 id="aboutUs">About The Developers</h4>
         </Link>
       </footer>
