@@ -18,6 +18,11 @@ body {
 
 a {
   color: rgb(174, 174, 174);
+  transition-duration: 0.4s;
+}
+
+p {
+  font-size: 20px;
 }
 
 a,
@@ -36,12 +41,16 @@ button {
   font-family: 'Source Sans Pro', sans-serif;
 }
 
+button {
+  transition-duration: 0.4s;
+}
+
 label {
   display: block;
 }
 
 .navbar {
-  height: 115px;
+  height: 110px;
   width: 100%;
   background-color: rgb(36, 3, 3);
   background-image: linear-gradient(
@@ -59,11 +68,11 @@ label {
 }
 
 #logo {
-  height: 90px;
-  width: 90px;
-  margin: 15px;
+  height: 80px;
+  width: 80px;
+  margin: 10px;
+  margin-top: 5px;
   float: left;
-  margin-top: -5px;
 }
 
 .glyphicon {
@@ -74,7 +83,7 @@ label {
   color: rgb(244, 243, 240);
   font-family: 'Bahiana', cursive;
   font-size: 46pt;
-  margin-top: 10px;
+  margin-top: 12px;
 }
 
 #navItems {
@@ -84,6 +93,7 @@ label {
   justify-content: flex-end;
   vertical-align: baseline;
   margin-right: 5px;
+  margin-top: -13px;
 }
 
 #navLinks * {
@@ -146,13 +156,59 @@ form div {
 #inStock,
 #outOfStock {
   float: right;
+  margin-top: 10px;
+  width: 200px;
 }
 
-#addToCartSI,
-#disabledSI {
+.qty {
+  float: left;
+}
+
+#addToCart {
+  background-color: rgba(38, 114, 120, 0.968);
+  color: rgb(174, 174, 174);
+  border: none;
+}
+
+#addToCart:hover {
+  background-color: rgb(33, 77, 63);
+  color: white;
+}
+
+#addToCart,
+#disabled {
   margin-left: 20px;
 }
 
 .allItems {
   padding: 30px;
+}
+
+#footer {
+  height: 30px;
+  width: 100%;
+  margin: 0;
+  position: fixed;
+  bottom: 0;
+  background-color: rgb(36, 3, 3);
+  background-image: linear-gradient(
+    rgba(7, 73, 80, 0.7),
+    rgba(34, 34, 34, 0.516)
+  );
+  color: rgb(174, 174, 174);
+}
+
+#aboutUs {
+  font-size: 22px;
+  text-align: center;
+  position: relative;
+  bottom: 4px;
+}
+
+#aboutUs:hover {
+  color: white;
+}
+
+#creditCards {
+  float: right;
 }

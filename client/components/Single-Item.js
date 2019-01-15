@@ -75,8 +75,47 @@ class SingleItem extends Component {
           width={400}
         />
         <div className="caption">
+          {item.inStock > 0 ? (
+            <div id="inStock">
+              <button
+                type="button"
+                id="addToCart"
+                className="btn btn-info btn-lg"
+                onClick={this.handleClick}
+              >
+                {' '}
+                Add To Cart{' '}
+              </button>
+              <div className="qty">
+                <label name="purchaseQuanity">Quantity</label>
+                <select onChange={this.handleChange} name="purchaseQuanity">
+                  {stockToArr(item.inStock).map(function(num) {
+                    return (
+                      <option key={num} value={num}>
+                        {' '}
+                        {num}{' '}
+                      </option>
+                    )
+                  })}
+                </select>
+              </div>
+            </div>
+          ) : (
+            <div id="outOfStock">
+              <h4>Out of stock</h4>
+              <button
+                type="button"
+                id="addToCart"
+                className="btn btn-info btn-md"
+                onClick={this.handleClick}
+              >
+                {' '}
+                Add To Cart{' '}
+              </button>
+            </div>
+          )}
           <div>
-            <h1>{item.name}</h1>
+            <h1 className="singleItemName">{item.name}</h1>
             {item.price ? <h1>${addDecimal(item.price)}</h1> : null}
 
             {item.inStock < 10 && item.inStock > 0 ? (
@@ -88,36 +127,6 @@ class SingleItem extends Component {
             <h4>Type: {item.category}</h4>
             <p>{item.description}</p>
           </div>
-
-          {item.inStock > 0 ? (
-            <div id="inStock">
-              <label name="purchaseQuanity">Quantity</label>
-              <select onChange={this.handleChange} name="purchaseQuanity">
-                {stockToArr(item.inStock).map(function(num) {
-                  return (
-                    <option key={num} value={num}>
-                      {' '}
-                      {num}{' '}
-                    </option>
-                  )
-                })}
-              </select>
-            </div>
-          ) : (
-            <div id="outOfStock">
-              <h4>Out of stock</h4>
-            </div>
-          )}
-
-          <button
-            type="button"
-            id="addToCart"
-            className="btn btn-info btn-md"
-            onClick={this.handleClick}
-          >
-            {' '}
-            Add To Cart{' '}
-          </button>
         </div>
       </div>
     )
