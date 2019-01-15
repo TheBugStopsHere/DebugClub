@@ -7,7 +7,7 @@ body {
   margin-top: 115px;
   background-image: url('/spider.jpg');
   background-repeat: no-repeat;
-  background-size: 100%;
+  background-size: cover;
   background-attachment: fixed;
 }
 
@@ -131,7 +131,7 @@ form div {
 }
 
 .pageContent {
-  padding-bottom: 40px;
+  height: 90%;
 }
 
 .allItems {
@@ -221,39 +221,95 @@ form div {
 }
 
 .cart {
-  height: auto;
-  width: 75%;
+  height: 525px;
+  width: 60%;
   margin: auto;
-  padding: 30px 150px;
+  padding: 10px 150px;
+  overflow: scroll;
 }
 
-.cartItemDetail {
+.cartItemContainer {
   text-align: left;
-  height: 120px;
+  height: 175px;
+}
+
+.cartItemDetails {
+  padding-left: 170px;
+}
+
+.cartItemQtyPrice {
+  text-align: left;
+  font-size: 20px;
+}
+
+.cartItemTitleBtn {
+  margin-bottom: 15px;
+}
+
+.cartItemTitle {
+  font-size: 24px;
+  font-weight: bold;
+  color: rgb(80, 7, 7);
+}
+
+.cartQtyPrice {
+  float: right;
 }
 
 .cartItemPic {
-  float: right;
-  height: 100px;
-  width: 100px;
+  float: left;
+  vertical-align: top;
+  margin-right: 20px;
+  height: 150px;
+  width: 150px;
 }
 
 .cartRemoveItem {
-  float: left;
+  float: right;
+  color: rgb(203, 203, 203);
+  font-size: 22pt;
+  height: 30px;
+  width: 30px;
+  border-radius: 50%;
+  display: block;
+  margin: auto;
+  margin-top: 10px;
+  background-color: gray;
+  border: none;
+}
+
+.cartRemoveItem:hover {
+  background-color: rgba(133, 17, 17, 0.79);
+  color: white;
+}
+
+.removeCartItemX {
+  position: relative;
+  top: -12px;
+  left: -4px;
 }
 
 #cartTotal {
-  margin-top: 20px;
+  width: 100%;
   border-top: solid rgb(29, 29, 29) 3px;
-}
-
-#cartTotalLabel {
-  display: inline;
-  text-align: left;
+  text-align: right;
+  margin: 0;
+  margin-bottom: 10px;
 }
 
 #cartTotalDecimal {
+  margin: 0;
+  margin-top: 10px;
+  width: 50%;
   float: right;
+}
+
+#Checkout {
+  font-size: 16pt;
+  float: left;
+  position: relative;
+  top: 15px;
+  margin-bottom: 10px;
 }
 
 .singleItemPic {
@@ -278,13 +334,15 @@ form div {
   float: left;
 }
 
-#addToCart {
+#addToCart,
+#Checkout {
   background-color: rgba(38, 114, 120, 0.968);
   color: rgb(174, 174, 174);
   border: none;
 }
 
-#addToCart:hover {
+#addToCart:hover,
+#Checkout:hover {
   background-color: rgb(33, 77, 63);
   color: white;
 }

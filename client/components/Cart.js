@@ -59,48 +59,77 @@ class Cart extends Component {
     const lineItems = order.lineItems //items in the cart
     return (
       <div className="cart">
-        <h1>Your Cart</h1>
-        {lineItems ? (
-          lineItems.map(currLineItem => {
-            return (
-              <div className="cartItemDetail" key={currLineItem.id}>
-                <div>{currLineItem.item.name}</div>
-                <img className="cartItemPic" src={currLineItem.item.imageURL} />
-                <p>Current Quantity: {currLineItem.quantity}</p>
-                <p>Price: ${currLineItem.price / 100}</p>
-                <button
-                  className="cartRemoveItem btn btn-info btn-md"
-                  type="button"
-                  onClick={() =>
-                    this.handleClick(currLineItem.id, user.id || guest.id)
-                  }
-                >
-                  {' '}
-                  Remove Item{' '}
-                </button>
-              </div>
-            )
-          })
-        ) : (
-          <p>Your cart has no items in it.</p>
-        )}
-        {lineItems ? (
-          <div id="cartTotal">
-            <h3 id="cartTotalLabel">Order Total</h3>
-            <h3 id="cartTotalDecimal">${addDecimal(getTotal(lineItems))}</h3>
-          </div>
-        ) : (
-          ''
-        )}
-        <button
-          type="button"
-          id="Checkout"
-          className="btn btn-info btn-md"
-          onClick={this.handleCheckout}
-        >
-          {' '}
-          Checkout{' '}
-        </button>
+        <div>
+          <h1>Your Cart</h1>
+          {lineItems ? (
+            lineItems.map(currLineItem => {
+              return (
+                <div className="cartItemContainer" key={currLineItem.id}>
+                  <img
+                    className="cartItemPic"
+                    src={currLineItem.item.imageURL}
+                  />
+                  <div className="cartItemDetails">
+                    <div className="cartItemTitleBtn">
+                      <span className="cartItemTitle">
+                        {currLineItem.item.name}
+                      </span>
+                      <button
+                        className="cartRemoveItem btn btn-info btn-md"
+                        type="button"
+                        onClick={() =>
+                          this.handleClick(currLineItem.id, user.id || guest.id)
+                        }
+                      >
+                        <span className="removeCartItemX">&times;</span>
+                      </button>
+                    </div>
+                    <div className="cartItemQtyPrice">
+                      <span>Quantity:</span>
+                      <span className="cartQtyPrice">
+                        {' '}
+                        {currLineItem.quantity}
+                      </span>
+                    </div>
+                    <div className="cartItemQtyPrice">
+                      <span>Price:</span>
+                      <span className="cartQtyPrice">
+                        ${currLineItem.price / 100}
+                      </span>
+                    </div>
+                    <div className="cartItemQtyPrice">
+                      <span>Subtotal:</span>
+                      <span className="cartQtyPrice">
+                        ${currLineItem.price / 100 * currLineItem.quantity}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              )
+            })
+          ) : (
+            <p>Your cart has no items in it.</p>
+          )}
+          {lineItems ? (
+            <div id="cartTotal">
+              <h3 id="cartTotalDecimal">
+                {' '}
+                Total ${addDecimal(getTotal(lineItems))}
+              </h3>
+              <button
+                type="button"
+                id="Checkout"
+                className="btn btn-info btn-md"
+                onClick={this.handleCheckout}
+              >
+                {' '}
+                Checkout{' '}
+              </button>
+            </div>
+          ) : (
+            ''
+          )}
+        </div>
       </div>
     )
   }
