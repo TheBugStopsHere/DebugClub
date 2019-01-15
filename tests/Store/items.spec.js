@@ -1,5 +1,7 @@
 /* global describe beforeEach afterEach it */
 
+//THIS TEST IS FOR REDUX - items
+
 import {expect} from 'chai'
 import {getItemsThunk} from '../../client/store/items'
 import axios from 'axios'
