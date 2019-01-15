@@ -28,10 +28,10 @@ describe('User api routes', () => {
     // return db.sync({force: true})
   })
 
-  it('gets all items', async () => {
+  it('gets all users', async () => {
     const res = await fakeClient.get('/api/users')
     expect(res.body).to.be.an('array')
     expect(res.body[0].id).to.be.equal(5)
-  }) // end describe('gets all items')
+  }) // end describe('gets all uers')
 
-}) // end describe('Item routes')
+}) // end describe('User routes')
