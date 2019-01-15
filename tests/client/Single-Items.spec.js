@@ -1,22 +1,49 @@
+/* global describe beforeEach afterEach it */
+
 import {expect} from 'chai'
-import enzyme, { shallow } from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16'
-import React from 'react';
-import {SingleItem} from '../../client/components/Single-Item';
+import {getItemsThunk} from '../../client/store/items'
+import axios from 'axios'
+import MockAdapter from 'axios-mock-adapter'
+import configureMockStore from 'redux-mock-store'
+import thunkMiddleware from 'redux-thunk'
+import history from '../../client/history'
 
-const adapter = new Adapter()
-enzyme.configure({adapter})
+const middlewares = [thunkMiddleware]
+const mockStore = configureMockStore(middlewares)
 
-describe('SingleItem', () => {
-      let singleItem
+describe('thunk creators', () => {
+  let store
+  let mockAxios
 
-      const item = { name: 'Grasshopper'} ;
-    
-      beforeEach(() => {
-        singleItem = shallow(<SingleItem item={item} />)
-      })
+  const initialState = {items: []}
 
-    it('renders the name in an h1', () => {
-        expect(singleItem.find('h1').text()).to.be.equal('Grasshopper')
+  beforeEach(() => {
+    mockAxios = new MockAdapter(axios)
+    store = mockStore(initialState)
+  })
+
+  afterEach(() => {
+    mockAxios.restore()
+    store.clearActions()
+  })
+
+  describe('getItemThunk', () => {
+    it('eventually dispatches the GET ITEMS action', async () => {
+      const fakeItems = [{name: 'Bumblebee', price: 7500, id: 1}, {name: 'Grasshopper', price: 500, id: 2}]
+      mockAxios.onGet('/api/items').replyOnce(200, fakeItems)
+      await store.dispatch(getItemsThunk())
+      const actions = store.getActions()
+      expect(actions[0].type).to.be.equal('GET_ITEMS')
     })
+  })
+
+  // describe('logout', () => {
+  //   it('logout: eventually dispatches the REMOVE_USER action', async () => {
+  //     mockAxios.onPost('/auth/logout').replyOnce(204)
+  //     await store.dispatch(logout())
+  //     const actions = store.getActions()
+  //     expect(actions[0].type).to.be.equal('REMOVE_USER')
+  //     expect(history.location.pathname).to.be.equal('/login')
+  //   })
+  // })
 })
