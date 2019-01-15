@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {orderUpdate} from '../store/order'
+import {orderUpdate, orderUpdateConfirmation} from '../store/order'
 import Payment from './Payment'
 import {Elements, StripeProvider} from 'react-stripe-elements'
 import OrderConfirmation from './Order-Confirmation'
@@ -36,9 +36,16 @@ class Checkout extends Component {
   }
 
   handleShippingSubmit() {
-    const {order, user, guest, submit} = this.props
-    const passId = user.id ? user.id : guest.id
-    submit({status: 'complete'}, order.id, passId)
+    const {order} = this.props
+    let updatedOrderInfo = {}
+    if (this.props.user && this.props.user.id) {
+      updatedOrderInfo.userId = this.props.user.id
+      
+    } else {
+      updatedOrderInfo.guestSessionId = this.props.order.guestSessionId
+    }
+    updatedOrderInfo.status = 'complete'
+    this.props.orderUpdateConfirmation(updatedOrderInfo, order.id)
   }
 
   render() {
@@ -66,7 +73,15 @@ class Checkout extends Component {
         <StripeProvider apiKey="pk_test_1nc2USEcAeJ5cuoTGVU9wDw1">
           <Elements>
             <div>
-              {this.props.order ? (
+              {this.props.order.status === 'complete' ? (
+                <OrderConfirmation
+                  name={this.props.user.firstName}
+                  orderNum={this.state.orderNum}
+                  id="confirmation"
+                  className="modal fade"
+                  role="dialog"
+                />
+              ) : (
                 <div>
                   <img
                     src="/img/credit-cards-accepted.jpg"
@@ -81,14 +96,6 @@ class Checkout extends Component {
                     handleShippingSubmit={this.handleShippingSubmit}
                   />
                 </div>
-              ) : (
-                <OrderConfirmation
-                  name={this.props.user.firstName}
-                  orderNum={this.state.orderNum}
-                  id="confirmation"
-                  className="modal fade"
-                  role="dialog"
-                />
               )}
             </div>
           </Elements>
@@ -108,7 +115,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = {
   //Thunk to display all orders from the allOrders state
-  submit: orderUpdate
+  submit: orderUpdate,
+  orderUpdateConfirmation: orderUpdateConfirmation
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Checkout)

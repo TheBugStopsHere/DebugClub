@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import {Link} from 'react-router-dom'
 import {connect} from 'react-redux'
 import {getItemsThunk} from '../store/items'
-import {addToCart, getOrderThunk, newOrder} from '../store/order'
+import {addToCart, getOrderThunk, getOrderUser, getOrderGuest, newOrder} from '../store/order'
 import {me} from '../store'
 import {addDecimal, stockToArr} from '../../script/util'
 import {getGuest} from '../store/guest'
@@ -21,8 +21,13 @@ class AllItems extends Component {
   async componentDidMount() {
     await this.props.loadInitialData()
     await this.props.getGuest()
-    await this.props.fetchOrder(this.props.user.id || this.props.guest.id)
     await this.props.fetchItems()
+    if(this.props.user && this.props.user.id) {
+      await this.props.getOrderUser()
+    }
+    else {
+      await this.props.getOrderGuest()
+    }
   }
 
   handleChange(event) {
@@ -59,7 +64,6 @@ class AllItems extends Component {
       orderId: this.props.order.id, //MUST BE CHANGED TO VARIABLE IN FUTURE!
       itemId: singleItem.id
     }
-    console.log('item', item)
     this.props.addToCart(item, idToPass) //MUST BE CHANGED TO VARIABLE IN FUTURE!!
     //dispatch thunk. Send data to cart.
   }
@@ -158,6 +162,8 @@ const mapDispatchToProps = {
   newOrder: newOrder,
   getGuest: getGuest,
   fetchOrder: getOrderThunk,
+  getOrderGuest: getOrderGuest,
+  getOrderUser: getOrderUser,
   loadInitialData: me
 }
 
