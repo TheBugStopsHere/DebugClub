@@ -70,6 +70,7 @@ class Checkout extends Component {
                 <Payment
                   total={this.props.order.total}
                   name={this.props.user.firstName}
+                  lName={this.props.user.lastName}
                   id={this.props.order.id}
                   handleShippingSubmit={this.handleShippingSubmit}
                 />
@@ -86,7 +87,7 @@ class Checkout extends Component {
           </Elements>
         </StripeProvider>
       </div>
-    ) // IF WANTED, pass down handleShippingSubmit to Payment to be invoked when payment submitted
+    )
   }
 }
 
