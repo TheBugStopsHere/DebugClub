@@ -48,32 +48,65 @@ export const getOrderThunk = userId => {
   }
 }
 
-export const removeFromCart = (lineItemId, userId) => {
+export const getOrderUser = () => {
+  return async dispatch => {
+    const {data} = await axios.get(`/api/orders/user`)
+    dispatch(getOrder(data))
+  }
+}
+
+export const getOrderGuest = () => {
+  return async dispatch => {
+    const {data} = await axios.get(`/api/orders/guest`)
+    dispatch(getOrder(data))
+  }
+}
+
+export const removeFromCart = (lineItemId, type) => {
   return async dispatch => {
     await axios.delete(`/api/orders/line-items/${lineItemId}`)
-    const {data} = await axios.get(`/api/orders/${userId}`)
+    let data
+    if(type === 'user'){
+      const user = await axios.get('/api/orders/user')
+      data = user.data
+    } else {
+      const guest = await axios.get('/api/orders/guest')
+      data = guest.data
+    }
     dispatch(getOrder(data))
   }
 }
 
-export const newOrder = (order, userId) => {
+export const newOrder = (order, type) => {
   return async dispatch => {
     await axios.post(`/api/orders/`, order)
-    const {data} = await axios.get(`/api/orders/${userId}`)
+    let data
+    if(type === 'user'){
+      const user = await axios.get('/api/orders/user')
+      data = user.data
+    } else {
+      const guest = await axios.get('/api/orders/guest')
+      data = guest.data
+    }
     dispatch(getOrder(data))
   }
 }
 
-export const addToCart = (item, userId) => {
+export const addToCart = (item, type) => {
   return async dispatch => {
     // axios.get to order
-    const prevOrder = await axios.get(`/api/orders/${userId}`)
+    let prevOrder
+    if(type === 'user'){
+      prevOrder = await axios.get('/api/orders/user')
+    } else {
+      prevOrder = await axios.get('/api/orders/guest')
+    }
     const prevOrderData = prevOrder.data
     // filter line-items with the same .itemId
-    const [currLineItem] = prevOrderData.lineItems.filter(
+    const currLineItem = prevOrderData.lineItems.find(
       lineItem => lineItem.itemId === item.itemId
     )
-    // If our filtered array isn't empty, do an axios.put
+    // If there is already an item, do an axios.put
     if (currLineItem) {
       // add the new line-item quantity & change line-item
       const newQuantity = Number(currLineItem.quantity) + Number(item.quantity)
@@ -81,19 +114,29 @@ export const addToCart = (item, userId) => {
         quantity: newQuantity
       })
     } else {
-      // Else, do an axios.post
+      // Otherwise, we haven't added this item yet, do an axios.post
       await axios.post(`/api/orders/line-items/`, item)
     }
-    const {data} = await axios.get(`/api/orders/${userId}`)
-    dispatch(getOrder(data))
+    let updatedOrder
+    if(type === 'user'){
+      updatedOrder = await axios.get('/api/orders/user')
+    } else {
+      updatedOrder = await axios.get('/api/orders/guest')
+    }
+    dispatch(getOrder(updatedOrder.data))
   }
 }
 
-export const orderUpdate = (order, orderId, userId) => {
+export const orderUpdate = (order, orderId, type) => {
   return async dispatch => {
     await axios.put(`/api/orders/${orderId}`, order)
-    const {data} = await axios.get(`/api/orders/${userId}`)
-    dispatch(getOrder(data))
+    let updatedOrder
+    if(type === 'user'){
+      updatedOrder = await axios.get('/api/orders/user')
+    } else {
+      updatedOrder = await axios.get('/api/orders/guest')
+    }
+    dispatch(getOrder(updatedOrder.data))
   }
 }
 

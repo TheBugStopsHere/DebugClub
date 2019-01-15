@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {getItemThunk} from '../store/item'
-import {addToCart, getOrderThunk, newOrder} from '../store/order'
+import {addToCart, getOrderThunk, newOrder, getOrderGuest, getOrderUser} from '../store/order'
 import {me} from '../store'
 import {addDecimal, stockToArr} from '../../script/util'
 import {getGuest} from '../store/guest'
@@ -21,8 +21,13 @@ class SingleItem extends Component {
   async componentDidMount() {
     await this.props.loadInitialData()
     await this.props.getGuest()
-    await this.props.fetchOrder(this.props.user.id || this.props.guest.id)
     await this.props.fetchItem(this.props.match.params.itemId)
+    if(this.props.user && this.props.user.id) {
+      await this.props.getOrderUser()
+    }
+    else {
+      await this.props.getOrderGuest()
+    }
   }
 
   handleChange(event) {
@@ -35,13 +40,13 @@ class SingleItem extends Component {
 
   async handleClick() {
     //Before adding to cart, check first if there is an order.
-    let idToPass
-    if (this.props.user.id) {
-      idToPass = this.props.user.id
+    let type
+    if (this.props.user && this.props.user.id) {
+      type = 'user'
     } else {
-      idToPass = this.props.guest.id
+      type = 'guest'
     }
-    if (!this.props.order) {
+    if (!this.props.order || !this.props.order.id) {
       const order = {
         status: 'in-progress',
         guestSessionId: this.props.guest.id
@@ -49,8 +54,7 @@ class SingleItem extends Component {
       if (this.props.user) {
         order.userId = this.props.user.id
       }
-      console.log('order: ', order)
-      await this.props.newOrder(order, idToPass)
+      await this.props.newOrder(order, type)
     }
     //price, quantity, orderId, itemId
     let item = {
@@ -59,8 +63,7 @@ class SingleItem extends Component {
       orderId: this.props.order.id, //MUST BE CHANGED TO VARIABLE IN FUTURE!
       itemId: this.props.item.id
     }
-    console.log('item', item)
-    this.props.addToCart(item, idToPass) //MUST BE CHANGED TO VARIABLE IN FUTURE!!
+    this.props.addToCart(item, type) //MUST BE CHANGED TO VARIABLE IN FUTURE!!
     //dispatch thunk. Send data to cart.
   }
 
@@ -151,6 +154,8 @@ const mapDispatchToProps = {
   addToCart: addToCart,
   getGuest: getGuest,
   newOrder: newOrder,
+  getOrderGuest: getOrderGuest,
+  getOrderUser: getOrderUser,
   fetchOrder: getOrderThunk,
   loadInitialData: me
 }
