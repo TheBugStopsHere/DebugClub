@@ -12,6 +12,7 @@ describe('User model', () => {
   describe('instanceMethods', () => {
     describe('correctPassword', () => {
       describe('correctFirstName', () => {
+        describe('correctLastName', () => {
       let cody
 
       beforeEach(async () => {
@@ -31,11 +32,15 @@ describe('User model', () => {
         expect(cody.correctPassword('bonez')).to.be.equal(false)
       })
 
-      it('has correct `name` property', () => {
+      it('has correct `first name` property', () => {
         expect(cody.firstName).to.equal('Cody')
       })
 
-      }) //end describe ('correctName')
+      it('has correct `last name` property', () => {
+        expect(cody.lastName).to.equal('Coderson')
+      })
+        }) //end describe ('correctFirstName')
+      }) //end describe ('correctLastName')
     }) // end describe('correctPassword')
   }) // end describe('instanceMethods')
 }) // end describe('User model')
