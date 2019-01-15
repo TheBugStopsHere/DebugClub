@@ -32,10 +32,18 @@ utils.stockToArr = stock => {
   return arr
 }
 
-// document.ready(function() {
-//   '#submit'.click(function() {
-//     '#confirmation'.modal({backdrop: 'static'})
-//   })
-// })
-
 module.exports = utils
+
+// this function converts pressing enter to submit 'click' for updating user profile information
+if (document.getElementById('submitUpdateBtn')) {
+  var submitUpdateBtn = document.getElementById('submitUpdateBtn')
+  submitUpdateBtn.addEventListener('keyup', function(event) {
+    // cancel the default action, if needed
+    event.preventDefault()
+    // number 13 is the "Enter" key on the keyboard
+    if (event.keyCode === 13) {
+      // trigger the button element with a click
+      document.getElementById('myBtn').click()
+    }
+  })
+}
