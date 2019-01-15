@@ -9,11 +9,10 @@ class Payment extends React.Component {
   }
 
   async handleSubmit() {
-    console.log('submitted')
-    let {token} = await this.props.stripe.createToken({name: 'Name'}) //ADD USER INFO HERE
-    console.log('token returned', token)
+    let {token} = await this.props.stripe.createToken({
+      name: `${this.props.name}${this.props.lName}`
+    })
     const stripePostBody = {
-      //ADD TOTAL AMOUNT AND USER INFO IN DESC HERE FROM PROPS OR STATE
       amount: this.props.total,
       currency: 'usd',
       description: `Charge for Tester`,
@@ -21,8 +20,6 @@ class Payment extends React.Component {
     }
 
     let response = await axios.post('/charge', stripePostBody)
-    console.log(response)
-
     if (response.data.status === 'succeeded') {
       console.log('Purchase Complete!')
       this.props.handleShippingSubmit()
