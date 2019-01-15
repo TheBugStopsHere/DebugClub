@@ -33,27 +33,28 @@ class AllItems extends Component {
   }
 
   async handleClick(singleItem) {
-    //Before adding to cart, check first if there is an order. 
+    //Before adding to cart, check first if there is an order.
     const userId = this.props.user.id
-    
-    if(!this.props.order) { //if there's no order, create one.
-        const order = {
-            status: "in-progress",
-            userId
-        }
-        await this.props.newOrder(order, userId)
+
+    if (!this.props.order) {
+      //if there's no order, create one.
+      const order = {
+        status: 'in-progress',
+        userId
+      }
+      await this.props.newOrder(order, userId)
     }
     //price, quantity, orderId, itemId
     let item = {
-        price: singleItem.price,
-        quantity: this.state.quantity,
-        orderId: this.props.order.id, //MUST BE CHANGED TO VARIABLE IN FUTURE!
-        itemId: singleItem.id
+      price: singleItem.price,
+      quantity: this.state.quantity,
+      orderId: this.props.order.id, //MUST BE CHANGED TO VARIABLE IN FUTURE!
+      itemId: singleItem.id
     }
     console.log('item', item)
     this.props.addToCart(item, userId) //MUST BE CHANGED TO VARIABLE IN FUTURE!!
     //dispatch thunk. Send data to cart.
-}
+  }
 
   createGrid() {
     const {items} = this.props
@@ -73,7 +74,7 @@ class AllItems extends Component {
                   src={item.imageURL}
                   className="center-block img-rounded"
                   alt="Responsive image"
-                  height={200}
+                  height={300}
                   width={300}
                 />
               </Link>
@@ -104,7 +105,11 @@ class AllItems extends Component {
 
             {/* disables the 'Add To Cart' button if the item is no longer in stock */}
             {item.inStock > 0 ? (
-              <button type="button" id="addToCart" onClick={() => this.handleClick(item)}>
+              <button
+                type="button"
+                id="addToCart"
+                onClick={() => this.handleClick(item)}
+              >
                 Add To Cart
               </button>
             ) : (
@@ -132,7 +137,7 @@ class AllItems extends Component {
 /**
  * CONTAINER
  */
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = state => {
   return {
     items: state.items,
     order: state.order,

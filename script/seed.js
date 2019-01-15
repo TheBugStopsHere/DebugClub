@@ -1,7 +1,7 @@
 'use strict'
 
 const db = require('../server/db')
-const { User, Item, Order, LineItem } = require('../server/db/models')
+const {User, Item, Order, LineItem} = require('../server/db/models')
 
 const ordersData = require('./ordersData.json')
 const lineItemsData = require('./lineItemsData.json')
@@ -33,31 +33,37 @@ const usersData = [
     email: 'admin@example.com',
     password: 'admin',
     admin: true
-  },
+  }
 ]
 
 const itemsData = [
   {
     name: 'Bumblebee',
-    imageURL: 'https://irp-cdn.multiscreensite.com/ed883b94/dms3rep/multi/mobile/a53e985a43c4489dabf6c38d196501e9-608x681.dm.edit_rRHlBn.jpg',
+    imageURL:
+      'https://www.planetnatural.com/wp-content/uploads/2012/12/bumblebees-pollinator.jpg',
     price: 350,
-    description: 'A bumblebee (or bumble bee, bumble-bee or humble-bee) is any of over 250 species in the genus Bombus, part of Apidae, one of the bee families.',
+    description:
+      'A bumblebee (or bumble bee, bumble-bee or humble-bee) is any of over 250 species in the genus Bombus, part of Apidae, one of the bee families.',
     category: 'live bugs',
     inStock: 10
   },
   {
     name: 'Cricket',
-    imageURL: 'https://media.istockphoto.com/vectors/cartoon-cute-green-cricket-isolated-on-white-background-vector-id493601100?k=6&m=493601100&s=612x612&w=0&h=HTTxeQpYiLfrT8yQITjTB0vWlYjPBebClfv6_S9QR3I=',
+    imageURL:
+      'https://www.scidev.net/objects_store/thumbnail/68F93BBC6786363433DFE6B6122CEF6D.jpg',
     price: 199,
-    description: 'Crickets (also known as "true crickets"), of the family Gryllidae, are insects related to bush crickets, and, more distantly, to grasshoppers.',
+    description:
+      'Crickets (also known as "true crickets"), of the family Gryllidae, are insects related to bush crickets, and, more distantly, to grasshoppers.',
     category: 'live bugs',
     inStock: 5
   },
   {
     name: 'Mosquito',
-    imageURL: 'http://static-18.sinclairstoryline.com/resources/media/dc4ac45e-d04f-4c4d-b692-3d6f5a47af7c-large16x9_1280x960_61216P00MYXOA.png?1538048582493',
+    imageURL:
+      'https://cdn.shopify.com/s/files/1/1420/5180/files/Mosquito-Home-Page_2048x.jpg?v=1538422467',
     price: 350,
-    description: 'Mosquitoes (alternate spelling mosquitos) are a group of about 3500 species of small insects that are a type of fly (order Diptera). Within that order they constitute the family Culicidae (from the Latin culex meaning "gnat").',
+    description:
+      'Mosquitoes (alternate spelling mosquitos) are a group of about 3500 species of small insects that are a type of fly (order Diptera). Within that order they constitute the family Culicidae (from the Latin culex meaning "gnat").',
     category: 'live bugs',
     inStock: 0
   },
@@ -70,25 +76,31 @@ const itemsData = [
   },
   {
     name: 'CryptoLocker',
-    imageURL: 'https://cdn.arstechnica.net/wp-content/uploads/2013/11/CryptoLocker_20131120_Bitcoin-640x496.png',
+    imageURL:
+      'http://ransomwares.net/wp-content/uploads/2017/02/cryptolocker.jpg',
     price: 750000,
-    description: "Released in September 2013, CryptoLocker spread through email attachments and encrypted the user’s files so that they couldn’t access them. The hackers then sent a decryption key in return for a sum of money, usually somewhere from a few hundred dollars up to a few grand.",
+    description:
+      'Released in September 2013, CryptoLocker spread through email attachments and encrypted the user’s files so that they couldn’t access them. The hackers then sent a decryption key in return for a sum of money, usually somewhere from a few hundred dollars up to a few grand.',
     category: 'bad bugs',
     inStock: 3
   },
   {
     name: 'ILOVEYOU',
-    imageURL: 'https://people.carleton.edu/~brodiej/example2.gif',
+    imageURL:
+      'https://www.jesseweb.com/wp-content/uploads/2010/01/ILoveYouVirus1-150x150.gif',
     price: 25000,
-    description: 'ILOVEYOU is one of the most well-known and destructive viruses of all time. In 2000, The virus came in an email with a subject line that said “I love you”. The malware was a worm that was downloaded by clicking on an attachment called "LOVE-LETTER-FOR-YOU.TXT.vbs". ILOVEYOU overwrote system files and personal files and spread itself over and over and over again.',
+    description:
+      'ILOVEYOU is one of the most well-known and destructive viruses of all time. In 2000, The virus came in an email with a subject line that said “I love you”. The malware was a worm that was downloaded by clicking on an attachment called "LOVE-LETTER-FOR-YOU.TXT.vbs". ILOVEYOU overwrote system files and personal files and spread itself over and over and over again.',
     category: 'bad bugs',
     inStock: 0
   },
   {
     name: 'MyDoom',
-    imageURL: 'http://virus.wdfiles.com/local--files/mydoom/Mydomess.png',
+    imageURL:
+      'https://static1.squarespace.com/static/5a1373fa8fd4d24083a492c2/t/5beb918d575d1f12e10f66f7/1542164884866/Mydoom+Album+Art+1000px.jpg?format=1000w',
     price: 350,
-    description: 'MyDoom is considered to be the most damaging virus and fastest-spreading email-based worm ever. It launched Distributed Denial of Service attacks against tech companies like SCO, Microsoft, and Google. In 2004, roughly somewhere between 16-25% of all emails had been infected by MyDoom.',
+    description:
+      'MyDoom is considered to be the most damaging virus and fastest-spreading email-based worm ever. It launched Distributed Denial of Service attacks against tech companies like SCO, Microsoft, and Google. In 2004, roughly somewhere between 16-25% of all emails had been infected by MyDoom.',
     category: 'bad bugs',
     inStock: 2
   },
@@ -100,7 +112,8 @@ const itemsData = [
   },
   {
     name: 'Raid',
-    imageURL: 'https://www.lumierehealingcenters.com/wp-content/uploads/2018/07/RAID-245x300.jpg',
+    imageURL:
+      'https://images.uline.com/is/image//content/dam/images/HD/HD7500/HD10_7094_US.jpg?$UtilityRHD$&iccEmbed=1&icc=AdobeRGB',
     price: 599,
     description: 'Kills bugs dead.',
     category: 'debugging',
@@ -108,15 +121,18 @@ const itemsData = [
   },
   {
     name: 'Chrome Dev Tools',
-    imageURL: 'https://lh3.googleusercontent.com/GjX6Q3_FVJfc0DqE2wiPKkgOfth6otzV-D7GV-wB6sH5_t1oodMaHOBLsYOLeydb85bKWu6X=w640-h400-e365',
+    imageURL:
+      'https://d2eip9sf3oo6c2.cloudfront.net/series/square_covers/000/000/067/square_480/EGH_Chrome_Sources_Final.png',
     price: 99,
-    description: 'Chrome DevTools is a set of web developer tools built directly into the Google Chrome browser. DevTools can help you edit pages on-the-fly and diagnose problems quickly, which ultimately helps you build better websites, faster.',
+    description:
+      'Chrome DevTools is a set of web developer tools built directly into the Google Chrome browser. DevTools can help you edit pages on-the-fly and diagnose problems quickly, which ultimately helps you build better websites, faster.',
     category: 'debugging',
     inStock: 10
   },
   {
     name: 'McAfee',
-    imageURL: 'https://assets.pcmag.com/media/images/487974-mcafee-logo.png?width=810&height=456',
+    imageURL:
+      'https://is5-ssl.mzstatic.com/image/thumb/Purple118/v4/75/21/b3/7521b3e3-8de3-f893-5480-8c95c5f14ee7/AppIcon-1x_U007emarketing-0-0-GLES2_U002c0-512MB-sRGB-0-0-0-85-220-0-0-0-6.png/246x0w.jpg',
     price: 0,
     description: "Everyone's favorite default software.",
     category: 'debugging',
@@ -135,25 +151,25 @@ async function seed() {
   console.log('db synced!')
 
   for (const user of usersData) {
-    await User.create(user);
+    await User.create(user)
   }
   console.log(`seeded ${usersData.length} users`)
-  
+
   for (const item of itemsData) {
-    await Item.create(item);
+    await Item.create(item)
   }
   console.log(`seeded ${itemsData.length} items`)
-  
+
   for (const order of ordersData) {
-    await Order.create(order);
+    await Order.create(order)
   }
   console.log(`seeded ${ordersData.length} orders`)
 
   for (const lineItem of lineItemsData) {
-    await LineItem.create(lineItem);
+    await LineItem.create(lineItem)
   }
   console.log(`seeded ${lineItemsData.length} lineItems`)
-  
+
   console.log(`seeded successfully`)
 }
 

@@ -10,7 +10,7 @@ const Navbar = ({handleClick, isLoggedIn}) => (
     id="navItems"
   >
     <Link to="/" id="linkHome">
-      <img id="logo" src="/darkRedLogo.png" />
+      <img id="logo" src="/darkRedBug.png" />
       <h1 id="title">The Bug Stops Here</h1>
     </Link>
     {isLoggedIn ? (

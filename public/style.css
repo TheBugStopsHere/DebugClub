@@ -59,12 +59,9 @@ label {
 
 #title {
   color: rgb(244, 243, 240);
-  /* font-family: 'Fontdiner Swanky', cursive; */
   font-family: 'Bahiana', cursive;
-
   font-size: 46pt;
-  /* font-family: 'Slackey', cursive; */
-  /* display: inline; */
+  margin-top: 10px;
 }
 
 #navItems {
