@@ -76,11 +76,11 @@ label {
 }
 
 .glyphicon {
-  color: rgb(244, 243, 240);
+  color: white;
 }
 
 #title {
-  color: rgb(244, 243, 240);
+  color: white;
   font-family: 'Bahiana', cursive;
   font-size: 46pt;
   margin-top: 12px;
@@ -144,8 +144,20 @@ form div {
   margin-bottom: 40px;
 }
 
-.allItemsPics {
-  z-index: -4;
+.allItemsInfo {
+  opacity: 0;
+  height: 300px;
+  width: 300px;
+  position: absolute;
+  top: 0;
+  padding: 20px;
+  text-align: center;
+  transition-duration: 0.4s;
+}
+
+.allItemsInfo:hover {
+  opacity: 1;
+  background-color: rgba(23, 23, 23, 0.619);
 }
 
 .linkToSingle {
@@ -156,20 +168,23 @@ form div {
 .allItemsPics {
   height: 300px;
   width: 300px;
-  position: relative;
-  left: 15px;
-}
-
-.allIntemsInfo {
-  margin-bottom: 30px;
-  text-align: center;
+  margin: auto;
 }
 
 .allItemsName {
   font-family: 'Bahiana', cursive;
-  font-size: 18pt;
+  font-size: 36pt;
   color: white;
-  float: right;
+}
+
+.allItemsPrice,
+.allItemsOutOfStock {
+  width: 100%;
+  font-size: 22pt;
+  color: rgb(206, 206, 206);
+  position: absolute;
+  bottom: 20px;
+  text-align: right;
 }
 
 .allItemsPrice {
