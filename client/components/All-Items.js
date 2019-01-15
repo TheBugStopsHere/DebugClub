@@ -76,7 +76,6 @@ class AllItems extends Component {
           <div
             key={'td_' + i + '_' + j}
             className="allItemsItems col-sm-6 col-md-4 align-self-center"
-            no-gutters
           >
             {/* Name and image link to a component rendering the individual item */}
             <div className="linkToSingle">

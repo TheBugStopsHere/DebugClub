@@ -104,6 +104,7 @@ class SingleItem extends Component {
             <div id="outOfStock">
               <h4>Out of stock</h4>
               <button
+                disabled
                 type="button"
                 id="addToCart"
                 className="btn btn-info btn-md"
