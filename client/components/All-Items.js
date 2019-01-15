@@ -87,8 +87,16 @@ class AllItems extends Component {
                 />
                 <div className="allItemsInfo">
                   <h4 className="allItemsName">{item.name} </h4>
-                  <h4> ${addDecimal(item.price)}</h4>
-                  {item.inStock > 0 ? <div /> : <h4>Out of stock</h4>}
+                  {item.inStock > 0 ? (
+                    <div className="allItemsPrice">
+                      <h4> ${addDecimal(item.price)}</h4>
+                    </div>
+                  ) : (
+                    <div className="allItemsPrice">
+                      <h4 className="allItemsOutOfStock">Out of stock</h4>
+                      <h4> ${addDecimal(item.price)}</h4>
+                    </div>
+                  )}
                 </div>
               </Link>
             </div>
