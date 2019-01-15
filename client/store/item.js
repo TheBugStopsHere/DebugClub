@@ -3,7 +3,7 @@ import axios from 'axios'
 /**
  * ACTION TYPES
  */
-const GET_ITEM = 'GET_ITEM'
+export const GET_ITEM = 'GET_ITEM'
 
 /**
  * INITIAL STATE
@@ -15,7 +15,8 @@ const selectedItem = {}
  * ACTION CREATORS
  */
 //this action will receive an item object. We will set the item as our selected item object
-const getItem = item => {
+export const getItem = item => {
+    // console.log('action creator initiated')
     return(
         {
             type: GET_ITEM, 
