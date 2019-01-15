@@ -58,16 +58,46 @@ class SingleItem extends Component {
     const {item} = this.props
     return (
       <div className="thumnail">
+        <img
+          className="singleItemPic"
+          src={item.imageURL}
+          height={400}
+          width={400}
+        />
         <div className="caption">
-          <img
-            className="singleItemPic"
-            src={item.imageURL}
-            height={400}
-            width={400}
-          />
           <div>
-            <h1>{item.name}</h1>
-            {item.price ? <h1>${addDecimal(item.price)}</h1> : null}
+            {item.inStock > 0 ? (
+              <div id="inStock">
+                <label name="purchaseQuanity">Quantity</label>
+                <select onChange={this.handleChange} name="purchaseQuanity">
+                  {stockToArr(item.inStock).map(function(num) {
+                    return (
+                      <option key={num} value={num}>
+                        {' '}
+                        {num}{' '}
+                      </option>
+                    )
+                  })}
+                </select>
+                <button
+                  type="button"
+                  id="addToCartSI"
+                  onClick={this.handleClick}
+                >
+                  {' '}
+                  Add To Cart{' '}
+                </button>
+              </div>
+            ) : (
+              <div id="outOfStock">
+                <span>Out of stock</span>
+                <button type="button" id="disabledSI" disabled>
+                  Add To Cart
+                </button>
+              </div>
+            )}
+            <h1 className="singleItemName">{item.name}</h1>
+            {item.price ? <h2>${addDecimal(item.price)}</h2> : null}
 
             {item.inStock < 10 && item.inStock > 0 ? (
               <div id="buyNowWarning">
@@ -78,31 +108,6 @@ class SingleItem extends Component {
             <h4>Type: {item.category}</h4>
             <p>{item.description}</p>
           </div>
-
-          {item.inStock > 0 ? (
-            <div id="inStock">
-              <label name="purchaseQuanity">Quantity</label>
-              <select onChange={this.handleChange} name="purchaseQuanity">
-                {stockToArr(item.inStock).map(function(num) {
-                  return (
-                    <option key={num} value={num}>
-                      {' '}
-                      {num}{' '}
-                    </option>
-                  )
-                })}
-              </select>
-            </div>
-          ) : (
-            <div id="outOfStock">
-              <h4>This is is current out of stock</h4>
-            </div>
-          )}
-
-          <button type="button" id="addToCart" onClick={this.handleClick}>
-            {' '}
-            Add To Cart{' '}
-          </button>
         </div>
       </div>
     )

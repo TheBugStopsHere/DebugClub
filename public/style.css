@@ -96,11 +96,19 @@ label {
 
 .navItem {
   margin: 0;
+  transition-duration: 0.4s;
 }
 
 .navItem:hover {
   background-color: rgba(103, 25, 25, 0.79);
   color: white;
+}
+
+.badge {
+  height: auto !important;
+  padding: 6px !important;
+  border-radius: 50%;
+  font-size: 13pt !important;
 }
 
 form div {
@@ -114,12 +122,35 @@ form div {
 .thumnail {
   width: 75%;
   margin: auto;
-  padding-top: 15px;
+  padding-top: 30px;
+}
+
+.caption {
+  background-color: rgba(215, 215, 215, 0.516);
+  height: 400px;
+  padding-top: 10px;
+  padding-right: 30px;
 }
 
 .singleItemPic {
   float: left;
-  padding-right: 15px;
+  padding-right: 20px;
+  position: relative;
+}
+
+.singleItemName {
+  font-family: 'Bahiana', cursive;
+  font-size: 52px;
+}
+
+#inStock,
+#outOfStock {
+  float: right;
+}
+
+#addToCartSI,
+#disabledSI {
+  margin-left: 20px;
 }
 
 .allItems {
