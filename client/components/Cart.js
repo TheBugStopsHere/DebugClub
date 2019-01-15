@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {getOrderThunk, removeFromCart, orderUpdate} from '../store/order'
+import {getOrderThunk, removeFromCart, orderUpdate, getOrderUser, getOrderGuest} from '../store/order'
 import {me} from '../store'
 import {addDecimal, getTotal} from '../../script/util'
 import {getGuest} from '../store/guest'
@@ -14,34 +14,35 @@ class Cart extends Component {
   async componentDidMount() {
     await this.props.loadInitialData()
     await this.props.getGuest()
-    await this.props.fetchOrder(this.props.user.id || this.props.guest.id)
-    this.handleClick = this.handleClick.bind(this)
+    if(this.props.user && this.props.user.id) {
+      await this.props.getOrderUser()
+    } 
+    else {
+      await this.props.getOrderGuest()
+    }
   }
-  handleClick(lineItemId, userId) {
-    this.props.removeFromCart(lineItemId, userId)
+  handleClick(lineItemId) {
+    let type
+    if (this.props.user && this.props.user.id) {
+      type = 'user'
+    } else {
+      type = 'guest'
+    }
+    this.props.removeFromCart(lineItemId, type)
     // await this.props.fetchOrder(this.props.user.id || this.props.guest.id)
     //dispatch thunk. Send data to cart.
   }
   async handleCheckout() {
-    let idToPass
-    if (this.props.user.id) {
-      idToPass = this.props.user.id
+    let type
+    if (this.props.user && this.props.user.id) {
+      type = 'user'
     } else {
-      idToPass = this.props.guest.id
-    }
-    if (!this.props.order) {
-      const order = {
-        status: 'in-progress',
-        guestSessionId: this.props.guest.id
-      }
-      if (this.props.user) {
-        order.userId = this.props.user.id
-      }
+      type = 'guest'
     }
     const order = {
       total: getTotal(this.props.order.lineItems)
     }
-    await this.props.orderUpdate(order, this.props.order.id, idToPass)
+    await this.props.orderUpdate(order, this.props.order.id, type)
     //dispatch thunk. Send data to cart.
     this.props.history.push('/checkout')
   }
@@ -151,6 +152,8 @@ const mapDispatchToProps = {
   fetchOrder: getOrderThunk,
   removeFromCart: removeFromCart,
   orderUpdate: orderUpdate,
+  getOrderGuest: getOrderGuest,
+  getOrderUser: getOrderUser,
   getGuest: getGuest,
   loadInitialData: me
 }

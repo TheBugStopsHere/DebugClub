@@ -38,7 +38,6 @@ export const auth = (formData) => async dispatch => {
   let body 
   try {
     method === 'signup' ? body = signupData : body = {email, password};
-    console.log('>>>>>>>>>>>>> New User Signup:', method, body)
     res = await axios.post(`/auth/${method}`, body)
   } catch (authError) {
     return dispatch(getUser({error: authError}))
