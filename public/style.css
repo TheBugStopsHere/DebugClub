@@ -183,10 +183,52 @@ form div {
 }
 
 .caption {
+  height: 400px;
+}
+
+.caption,
+.cart {
   background-color: rgba(215, 215, 215, 0.516);
   height: 400px;
+  padding: 50px;
   padding-top: 10px;
-  padding-right: 30px;
+  text-align: center;
+}
+
+.cart {
+  height: auto;
+  width: 75%;
+  margin: auto;
+  padding: 30px 150px;
+}
+
+.cartItemDetail {
+  text-align: left;
+  height: 120px;
+}
+
+.cartItemPic {
+  float: right;
+  height: 100px;
+  width: 100px;
+}
+
+.cartRemoveItem {
+  float: left;
+}
+
+#cartTotal {
+  margin-top: 20px;
+  border-top: solid rgb(29, 29, 29) 3px;
+}
+
+#cartTotalLabel {
+  display: inline;
+  text-align: left;
+}
+
+#cartTotalDecimal {
+  float: right;
 }
 
 .singleItemPic {
