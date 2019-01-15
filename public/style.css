@@ -129,6 +129,43 @@ label {
   margin-top: 20px;
 }
 
+.signupInputs > label > small {
+  font-size: 16pt;
+}
+
+.signupInputs {
+  margin: 0;
+}
+
+#googleLogin {
+  font-size: 18pt;
+}
+
+#notMem {
+  font-size: 23pt;
+  margin: 0;
+  margin-top: 10px;
+  font-size: 18pt;
+}
+
+#googleLogin,
+#signupLink {
+  color: rgb(103, 25, 25);
+  font-size: 18pt;
+}
+
+#googleLogin:hover,
+#signupLink:hover {
+  color: rgb(177, 16, 16);
+}
+
+.submitLogin {
+  font-size: 18pt;
+  display: block;
+  margin: auto;
+  margin: 15px;
+}
+
 #orderHistBtn,
 #updateInfoBtn,
 #submitUpdateBtn {
@@ -227,7 +264,8 @@ form div {
 .caption,
 .cart,
 #profileContainer,
-#updateInfoContainer {
+#updateInfoContainer,
+.loginSignup {
   background-color: rgba(215, 215, 215, 0.516);
   height: 400px;
   padding: 50px;
@@ -237,7 +275,8 @@ form div {
 
 .cart,
 #profileContainer,
-#updateInfoContainer {
+#updateInfoContainer,
+.loginSignup {
   height: 525px;
   width: 60%;
   margin: auto;
@@ -355,7 +394,8 @@ form div {
 #Checkout,
 #updateInfoBtn,
 #orderHistBtn,
-#submitUpdateBtn {
+#submitUpdateBtn,
+.submitLoginBtn {
   background-color: rgba(38, 114, 120, 0.968);
   color: rgb(174, 174, 174);
   border: none;
@@ -365,7 +405,8 @@ form div {
 #Checkout:hover,
 #updateInfoBtn:hover,
 #orderHistBtn:hover,
-#submitUpdateBtn:hover {
+#submitUpdateBtn:hover,
+.submitLoginBtn:hover {
   background-color: rgb(33, 77, 63);
   color: white;
 }
