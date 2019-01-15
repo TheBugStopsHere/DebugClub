@@ -73,45 +73,28 @@ class AllItems extends Component {
       for (let j = 0; j < 3; j++) {
         let item = items[j + 3 * i]
         row.push(
-          <div key={'td_' + i + '_' + j} className="col-sm-6 col-md-4">
+          <div
+            key={'td_' + i + '_' + j}
+            className="allItemsItems col-sm-6 col-md-4 align-self-center"
+            no-gutters
+          >
             {/* Name and image link to a component rendering the individual item */}
-            <div id="linkToSingle">
+            <div className="linkToSingle">
               <Link to={`item/${item.id}`}>
-                <h4>{item.name} </h4>
                 <img
                   src={item.imageURL}
-                  className="center-block img-rounded"
+                  className="allItemsPics center-block img-rounded"
                   alt="Responsive image"
-                  height={300}
-                  width={300}
                 />
+                <div className="allItemsInfo">
+                  <h4 className="allItemsName">{item.name} </h4>
+                  <h4> ${addDecimal(item.price)}</h4>
+                  {item.inStock > 0 ? <div /> : <h4>Out of stock</h4>}
+                </div>
               </Link>
             </div>
 
-            <h4> ${addDecimal(item.price)} </h4>
-
-            {/* If the item is in stock, renders a drop down starting at 1 to allow the user to choose the quantity of the items they want to add to their cart. This puts the quantity on local state of this component using handleChange. If the item is not in stock, renders a string indicating such. */}
-            {item.inStock > 0 ? (
-              <div id="inStock">
-                <label name="purchaseQuanity">Quantity</label>
-                <select onChange={this.handleChange} name="purchaseQuanity">
-                  {stockToArr(item.inStock).map(function(num) {
-                    return (
-                      <option key={num} value={num}>
-                        {' '}
-                        {num}{' '}
-                      </option>
-                    )
-                  })}
-                </select>
-              </div>
-            ) : (
-              <div id="outOfStock">
-                <h4>This item is current out of stock</h4>
-              </div>
-            )}
-
-            {/* disables the 'Add To Cart' button if the item is no longer in stock */}
+            {/* disables the 'Add To Cart' button if the item is no longer in stock
             {item.inStock > 0 ? (
               <button
                 type="button"
@@ -130,17 +113,13 @@ class AllItems extends Component {
               >
                 Add To Cart
               </button>
-            )}
+            )} */}
           </div>
         )
       }
-      grid.push(
-        <div key={'tr_' + i} className="row">
-          {row}
-        </div>
-      )
+      grid.push(<div key={'tr_' + i}>{row}</div>)
     }
-    return grid
+    return <div id="addItemsGrid">{grid}</div>
   }
 
   render() {

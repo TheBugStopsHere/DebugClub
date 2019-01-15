@@ -61,7 +61,7 @@ label {
 
 #linkHome {
   margin: 5;
-  width: 800px;
+  width: 420px;
   position: absolute;
   left: 5px;
   top: 15px;
@@ -129,6 +129,45 @@ form div {
 .pageContent {
 }
 
+.allItems {
+  padding: 30px;
+}
+
+.allItemsItems {
+  display: block;
+  margin: auto;
+  margin-bottom: 40px;
+}
+
+#allItemsGrid {
+  margin: auto;
+}
+
+.linkToSingle,
+.allItemsPics {
+  height: 300px;
+  width: 300px;
+  position: relative;
+  left: 15px;
+}
+
+.allIntemsInfo {
+  position: relative;
+  bottom: 30px;
+  text-align: center;
+}
+
+.allItemsName {
+  font-family: 'Bahiana', cursive;
+  font-size: 18pt;
+  color: white;
+  float: left;
+}
+
+.allItemsPrice {
+  text-align: right;
+}
+
 .thumnail {
   width: 75%;
   margin: auto;
@@ -178,10 +217,6 @@ form div {
 #addToCart,
 #disabled {
   margin-left: 20px;
-}
-
-.allItems {
-  padding: 30px;
 }
 
 #footer {
