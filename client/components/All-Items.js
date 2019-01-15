@@ -4,9 +4,8 @@ import {connect} from 'react-redux'
 import {getItemsThunk} from '../store/items'
 import {addToCart, getOrderThunk, newOrder} from '../store/order'
 import {me} from '../store'
-import {addDecimal, stockToArr} from '../../script/util' 
+import {addDecimal, stockToArr} from '../../script/util'
 import {getGuest} from '../store/guest'
-
 
 class AllItems extends Component {
   constructor() {
@@ -36,34 +35,34 @@ class AllItems extends Component {
   }
 
   async handleClick(singleItem) {
-    //Before adding to cart, check first if there is an order. 
+    //Before adding to cart, check first if there is an order.
     let idToPass
-        if(this.props.user.id){
-            idToPass = this.props.user.id
-        } else {
-            idToPass = this.props.guest.id
-        }
-        if(!this.props.order) { 
-            const order = {
-                status: "in-progress",
-                guestSessionId: this.props.guest.id
-            }
-            if(this.props.user) {
-                order.userId = this.props.user.id
-            }
-            await this.props.newOrder(order, idToPass)
-        }
+    if (this.props.user.id) {
+      idToPass = this.props.user.id
+    } else {
+      idToPass = this.props.guest.id
+    }
+    if (!this.props.order) {
+      const order = {
+        status: 'in-progress',
+        guestSessionId: this.props.guest.id
+      }
+      if (this.props.user) {
+        order.userId = this.props.user.id
+      }
+      await this.props.newOrder(order, idToPass)
+    }
     //price, quantity, orderId, itemId
     let item = {
-        price: singleItem.price,
-        quantity: this.state.quantity,
-        orderId: this.props.order.id, //MUST BE CHANGED TO VARIABLE IN FUTURE!
-        itemId: singleItem.id
+      price: singleItem.price,
+      quantity: this.state.quantity,
+      orderId: this.props.order.id, //MUST BE CHANGED TO VARIABLE IN FUTURE!
+      itemId: singleItem.id
     }
     console.log('item', item)
     this.props.addToCart(item, idToPass) //MUST BE CHANGED TO VARIABLE IN FUTURE!!
     //dispatch thunk. Send data to cart.
-}
+  }
 
   createGrid() {
     const {items} = this.props
@@ -74,64 +73,60 @@ class AllItems extends Component {
       for (let j = 0; j < 3; j++) {
         let item = items[j + 3 * i]
         row.push(
-          <div key={'td_' + i + '_' + j} className="col-sm-6 col-md-4">
+          <div
+            key={'td_' + i + '_' + j}
+            className="allItemsItems col-sm-6 col-md-4 align-self-center"
+          >
             {/* Name and image link to a component rendering the individual item */}
-            <div id="linkToSingle">
+            <div className="linkToSingle">
               <Link to={`item/${item.id}`}>
-                <h4>{item.name} </h4>
                 <img
                   src={item.imageURL}
-                  className="center-block img-rounded"
+                  className="allItemsPics center-block img-rounded"
                   alt="Responsive image"
-                  height={200}
-                  width={300}
                 />
+                <div className="allItemsInfo">
+                  <h4 className="allItemsName">{item.name} </h4>
+                  {item.inStock > 0 ? (
+                    <div className="allItemsPrice">
+                      <h4> ${addDecimal(item.price)}</h4>
+                    </div>
+                  ) : (
+                    <div className="allItemsPrice">
+                      <h4 className="allItemsOutOfStock">Out of stock</h4>
+                      <h4> ${addDecimal(item.price)}</h4>
+                    </div>
+                  )}
+                </div>
               </Link>
             </div>
 
-            <h4> ${addDecimal(item.price)} </h4>
-
-            {/* If the item is in stock, renders a drop down starting at 1 to allow the user to choose the quantity of the items they want to add to their cart. This puts the quantity on local state of this component using handleChange. If the item is not in stock, renders a string indicating such. */}
+            {/* disables the 'Add To Cart' button if the item is no longer in stock
             {item.inStock > 0 ? (
-              <div id="inStock">
-                <label name="purchaseQuanity">Quantity</label>
-                <select onChange={this.handleChange} name="purchaseQuanity">
-                  {stockToArr(item.inStock).map(function(num) {
-                    return (
-                      <option key={num} value={num}>
-                        {' '}
-                        {num}{' '}
-                      </option>
-                    )
-                  })}
-                </select>
-              </div>
-            ) : (
-              <div id="outOfStock">
-                <h4>This item is current out of stock</h4>
-              </div>
-            )}
-
-            {/* disables the 'Add To Cart' button if the item is no longer in stock */}
-            {item.inStock > 0 ? (
-              <button type="button" id="addToCart" onClick={() => this.handleClick(item)}>
+              <button
+                type="button"
+                id="addToCart"
+                className="btn btn-info btn-md"
+                onClick={() => this.handleClick(item)}
+              >
                 Add To Cart
               </button>
             ) : (
-              <button type="button" id="disabled" disabled>
+              <button
+                type="button"
+                className="btn btn-info btn-md"
+                id="disabled"
+                disabled
+              >
                 Add To Cart
               </button>
-            )}
+            )} */}
           </div>
         )
       }
-      grid.push(
-        <div key={'tr_' + i} className="row">
-          {row}
-        </div>
-      )
+      grid.push(<div key={'tr_' + i}>{row}</div>)
     }
-    return grid
+    return <div id="addItemsGrid">{grid}</div>
   }
 
   render() {
@@ -142,7 +137,7 @@ class AllItems extends Component {
 /**
  * CONTAINER
  */
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = state => {
   return {
     items: state.items,
     order: state.order,

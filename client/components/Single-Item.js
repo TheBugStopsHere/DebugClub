@@ -1,117 +1,137 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import { getItemThunk } from '../store/item';
+import {getItemThunk} from '../store/item'
 import {addToCart, getOrderThunk, newOrder} from '../store/order'
 import {me} from '../store'
-import {addDecimal, stockToArr} from '../../script/util';
+import {addDecimal, stockToArr} from '../../script/util'
 import {getGuest} from '../store/guest'
 
-
 class SingleItem extends Component {
-
-    constructor(){
-        super()
-        //default state is one
-        this.state = {
-            quantity:1
-        }
-
-        this.handleChange = this.handleChange.bind(this);
-        this.handleClick = this.handleClick.bind(this);
+  constructor() {
+    super()
+    //default state is one
+    this.state = {
+      quantity: 1
     }
 
-    async componentDidMount() {
-        await this.props.loadInitialData()
-        await this.props.getGuest()
-        await this.props.fetchOrder(this.props.user.id || this.props.guest.id)
-        await this.props.fetchItem(this.props.match.params.itemId)
+    this.handleChange = this.handleChange.bind(this)
+    this.handleClick = this.handleClick.bind(this)
+  }
+
+  async componentDidMount() {
+    await this.props.loadInitialData()
+    await this.props.getGuest()
+    await this.props.fetchOrder(this.props.user.id || this.props.guest.id)
+    await this.props.fetchItem(this.props.match.params.itemId)
+  }
+
+  handleChange(event) {
+    //this captures the option being selected, but not submitted
+    const quantity = Number(event.target.value)
+    this.setState({
+      quantity
+    })
+  }
+
+  async handleClick() {
+    //Before adding to cart, check first if there is an order.
+    let idToPass
+    if (this.props.user.id) {
+      idToPass = this.props.user.id
+    } else {
+      idToPass = this.props.guest.id
     }
-
-    handleChange(event) {
-        //this captures the option being selected, but not submitted
-        const quantity = Number(event.target.value)
-        this.setState({
-            quantity
-        })
+    if (!this.props.order) {
+      const order = {
+        status: 'in-progress',
+        guestSessionId: this.props.guest.id
+      }
+      if (this.props.user) {
+        order.userId = this.props.user.id
+      }
+      console.log('order: ', order)
+      await this.props.newOrder(order, idToPass)
     }
-
-    async handleClick() {
-        //Before adding to cart, check first if there is an order. 
-        let idToPass
-        if(this.props.user.id){
-            idToPass = this.props.user.id
-        } else {
-            idToPass = this.props.guest.id
-        }
-        if(!this.props.order) { 
-            const order = {
-                status: "in-progress",
-                guestSessionId: this.props.guest.id
-            }
-            if(this.props.user) {
-                order.userId = this.props.user.id
-            }
-            console.log('order: ', order)
-            await this.props.newOrder(order, idToPass)
-        }
-        //price, quantity, orderId, itemId
-        let item = {
-            price: this.props.item.price,
-            quantity: this.state.quantity,
-            orderId: this.props.order.id, //MUST BE CHANGED TO VARIABLE IN FUTURE!
-            itemId: this.props.item.id
-        }
-        console.log('item', item)
-        this.props.addToCart(item, idToPass) //MUST BE CHANGED TO VARIABLE IN FUTURE!!
-        //dispatch thunk. Send data to cart.
+    //price, quantity, orderId, itemId
+    let item = {
+      price: this.props.item.price,
+      quantity: this.state.quantity,
+      orderId: this.props.order.id, //MUST BE CHANGED TO VARIABLE IN FUTURE!
+      itemId: this.props.item.id
     }
-    
-    render(){
-        const {item} = this.props
-        return (
-            <div>
-                
-                <div>
-                    <h1>{item.name}</h1>
-                    {item.price
-                        ? <h1>${addDecimal(item.price)}</h1>
-                        : null
-                    }
-                    
-                    <img src={item.imageURL} height={500} width={800} />
-                    {item.inStock<10 && item.inStock>0
-                        ? <div id="buyNowWarning">
-                            <h4>There are only {item.inStock} left in stock!</h4>
-                        </div>
-                        : null
-                    }
+    console.log('item', item)
+    this.props.addToCart(item, idToPass) //MUST BE CHANGED TO VARIABLE IN FUTURE!!
+    //dispatch thunk. Send data to cart.
+  }
 
-                    <h4>Type: {item.category}</h4>
-                    <p>{item.description}</p>
-                </div>
-
-                {item.inStock > 0
-                        ? <div id='inStock'>
-                            <label name="purchaseQuanity">Quantity</label>
-                                <select onChange={this.handleChange} name="purchaseQuanity">
-                                    {stockToArr(item.inStock).map(function(num){
-                                        return (
-                                            <option key={num} value={num}> {num} </option>
-                                        )
-                                    })}
-                                </select>
-                        </div>
-                        : <div id='outOfStock'>
-                            <h4>This is is current out of stock</h4>
-                        </div>
-                }
-
-                <button type='button' id='addToCart' onClick={this.handleClick}> Add To Cart </button>
-
-
+  render() {
+    const {item} = this.props
+    return (
+      <div className="thumnail">
+        <img
+          className="singleItemPic"
+          src={item.imageURL}
+          height={400}
+          width={400}
+        />
+        <div className="caption">
+          {item.inStock > 0 ? (
+            <div id="inStock">
+              <button
+                type="button"
+                id="addToCart"
+                className="btn btn-info btn-lg"
+                onClick={this.handleClick}
+              >
+                {' '}
+                Add To Cart{' '}
+              </button>
+              <div className="qty">
+                <label name="purchaseQuanity">Quantity</label>
+                <select onChange={this.handleChange} name="purchaseQuanity">
+                  {stockToArr(item.inStock).map(function(num) {
+                    return (
+                      <option key={num} value={num}>
+                        {' '}
+                        {num}{' '}
+                      </option>
+                    )
+                  })}
+                </select>
+              </div>
             </div>
-        )
-    }
+          ) : (
+            <div id="outOfStock">
+              <h4>Out of stock</h4>
+              <button
+                disabled
+                type="button"
+                id="addToCart"
+                className="btn btn-info btn-md"
+                onClick={this.handleClick}
+              >
+                {' '}
+                Add To Cart{' '}
+              </button>
+            </div>
+          )}
+          <div>
+            <h1 className="singleItemName">{item.name}</h1>
+            {item.price ? <h1>${addDecimal(item.price)}</h1> : null}
+
+            {item.inStock < 10 && item.inStock > 0 ? (
+              <div id="buyNowWarning">
+                <h4>There are only {item.inStock} left in stock!</h4>
+              </div>
+            ) : null}
+
+            <h4>Type: {item.category}</h4>
+            <p>{item.description}</p>
+          </div>
+        </div>
+      </div>
+    )
+  }
 }
 
 /**
@@ -127,13 +147,13 @@ const mapStateToProps = (state, ownProps) => {
 }
 
 const mapDispatchToProps = {
-    //Thunk to display an item from the selectedItem state. Takes an itemId as input to invoke the function.
-    fetchItem: getItemThunk,
-    addToCart: addToCart,
-    getGuest: getGuest,
-    newOrder: newOrder,
-    fetchOrder: getOrderThunk,
-    loadInitialData: me
+  //Thunk to display an item from the selectedItem state. Takes an itemId as input to invoke the function.
+  fetchItem: getItemThunk,
+  addToCart: addToCart,
+  getGuest: getGuest,
+  newOrder: newOrder,
+  fetchOrder: getOrderThunk,
+  loadInitialData: me
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(SingleItem)

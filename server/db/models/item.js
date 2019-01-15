@@ -8,11 +8,7 @@ const Item = db.define('item', {
   },
   imageURL: {
     type: Sequelize.STRING,
-    defaultValue:
-      'https://www.clipartmax.com/png/middle/245-2454629_ants-clipart-cute-bug-clipart-my-cute-graphics.png',
-    validate: {
-      isUrl: true
-    }
+    defaultValue: '/darkRedBug.png'
   },
   price: {
     type: Sequelize.INTEGER,
