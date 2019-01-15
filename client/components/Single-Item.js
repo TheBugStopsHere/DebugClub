@@ -6,7 +6,7 @@ import {me} from '../store'
 import {addDecimal, stockToArr} from '../../script/util'
 import {getGuest} from '../store/guest'
 
-class SingleItem extends Component {
+export class SingleItem extends Component {
   constructor() {
     super()
     //default state is one
