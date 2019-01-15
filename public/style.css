@@ -30,8 +30,11 @@ label {
 .navbar {
   height: 115px;
   width: 100%;
-  background-color: rgb(41, 41, 41);
-  background-image: linear-gradient(rgb(65, 65, 65), rgba(34, 34, 34, 0.516));
+  background-color: rgb(2, 15, 69);
+  background-image: linear-gradient(
+    rgba(0, 49, 92, 0.7),
+    rgba(34, 34, 34, 0.516)
+  );
 }
 
 #linkHome {
@@ -86,7 +89,8 @@ label {
 }
 
 .navItem:hover {
-  background-color: rgba(174, 167, 158, 0.906);
+  background-color: rgba(25, 27, 103, 0.79);
+  color: white;
 }
 
 form div {
@@ -96,7 +100,12 @@ form div {
 
 .pageContent {
   margin-top: 115px;
-  background-color: rgb(60, 60, 60);
+  background-color: rgb(167, 196, 201);
+  background-image: linear-gradient(
+    45deg,
+    rgba(190, 227, 255, 0.571),
+    rgba(69, 144, 201, 0.708)
+  );
 }
 
 .allItems {
