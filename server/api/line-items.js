@@ -46,18 +46,14 @@ router.delete('/:lineItemId', async (req, res, next) => {
 //this route is accessible to all users. This route allows  users to update items in their cart and returns a 200 response as updating returns a promsie for the number of rows updated and an array of the updated items if multiple items were updated.  As a GUEST or LOGGED-IN user, we should only allow to change quantity.
 router.put('/:lineItemId', async (req, res, next) => {
     try {
-        const [numAffected, affected] = await LineItem.update(
+        await LineItem.update(
             req.body,
             {
                 where: {id: req.params.lineItemId},
                 returning: true,
                 plain: true
             })
-        if (numAffected && affected) {
-            res.sendStatus(200)
-        } else {
-            res.sendStatus(400)
-        }
+        res.sendStatus(200)
     } catch (error) {
         next(error)
     }

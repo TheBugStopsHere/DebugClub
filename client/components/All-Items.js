@@ -4,7 +4,8 @@ import {connect} from 'react-redux'
 import {getItemsThunk} from '../store/items'
 import {addToCart, getOrderThunk, newOrder} from '../store/order'
 import {me} from '../store'
-import {addDecimal, stockToArr} from '../../script/util' //utility functions
+import {addDecimal, stockToArr} from '../../script/util'
+import {getGuest} from '../store/guest'
 
 class AllItems extends Component {
   constructor() {
@@ -18,9 +19,10 @@ class AllItems extends Component {
   }
 
   async componentDidMount() {
-    this.props.fetchItems()
     await this.props.loadInitialData()
-    await this.props.fetchOrder(this.props.user.id)
+    await this.props.getGuest()
+    await this.props.fetchOrder(this.props.user.id || this.props.guest.id)
+    await this.props.fetchItems()
   }
 
   handleChange(event) {
@@ -34,15 +36,21 @@ class AllItems extends Component {
 
   async handleClick(singleItem) {
     //Before adding to cart, check first if there is an order.
-    const userId = this.props.user.id
-
+    let idToPass
+    if (this.props.user.id) {
+      idToPass = this.props.user.id
+    } else {
+      idToPass = this.props.guest.id
+    }
     if (!this.props.order) {
-      //if there's no order, create one.
       const order = {
         status: 'in-progress',
-        userId
+        guestSessionId: this.props.guest.id
       }
-      await this.props.newOrder(order, userId)
+      if (this.props.user) {
+        order.userId = this.props.user.id
+      }
+      await this.props.newOrder(order, idToPass)
     }
     //price, quantity, orderId, itemId
     let item = {
@@ -52,7 +60,7 @@ class AllItems extends Component {
       itemId: singleItem.id
     }
     console.log('item', item)
-    this.props.addToCart(item, userId) //MUST BE CHANGED TO VARIABLE IN FUTURE!!
+    this.props.addToCart(item, idToPass) //MUST BE CHANGED TO VARIABLE IN FUTURE!!
     //dispatch thunk. Send data to cart.
   }
 
@@ -108,12 +116,18 @@ class AllItems extends Component {
               <button
                 type="button"
                 id="addToCart"
+                className="btn btn-info btn-md"
                 onClick={() => this.handleClick(item)}
               >
                 Add To Cart
               </button>
             ) : (
-              <button type="button" id="disabled" disabled>
+              <button
+                type="button"
+                className="btn btn-info btn-md"
+                id="disabled"
+                disabled
+              >
                 Add To Cart
               </button>
             )}
@@ -141,6 +155,7 @@ const mapStateToProps = state => {
   return {
     items: state.items,
     order: state.order,
+    guest: state.guest,
     user: state.user
   }
 }
@@ -150,6 +165,7 @@ const mapDispatchToProps = {
   fetchItems: getItemsThunk,
   addToCart: addToCart,
   newOrder: newOrder,
+  getGuest: getGuest,
   fetchOrder: getOrderThunk,
   loadInitialData: me
 }

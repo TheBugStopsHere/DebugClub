@@ -6,6 +6,7 @@ import items from './items'
  */
 const GET_ORDER = 'GET_ORDER'
 const GET_ORDER_ITEMS = 'GET_ORDER_ITEMS'
+const RESET_ORDER = 'RESET_ORDER'
 
 /**
  * INITIAL STATE
@@ -27,6 +28,12 @@ export const getOrderItems = order => {
   return {
     type: GET_ORDER_ITEMS,
     numItems: order.lineItems.length
+  }
+}
+export const resetOrder = () => {
+  return {
+    type: RESET_ORDER,
+    selectedOrder: {}
   }
 }
 
@@ -59,7 +66,24 @@ export const newOrder = (order, userId) => {
 
 export const addToCart = (item, userId) => {
   return async dispatch => {
-    await axios.post(`/api/orders/line-items/`, item)
+    // axios.get to order
+    const prevOrder = await axios.get(`/api/orders/${userId}`)
+    const prevOrderData = prevOrder.data
+    // filter line-items with the same .itemId
+    const [currLineItem] = prevOrderData.lineItems.filter(
+      lineItem => lineItem.itemId === item.itemId
+    )
+    // If our filtered array isn't empty, do an axios.put
+    if (currLineItem) {
+      // add the new line-item quantity & change line-item
+      const newQuantity = Number(currLineItem.quantity) + Number(item.quantity)
+      await axios.put(`/api/orders/line-items/${currLineItem.id}`, {
+        quantity: newQuantity
+      })
+    } else {
+      // Else, do an axios.post
+      await axios.post(`/api/orders/line-items/`, item)
+    }
     const {data} = await axios.get(`/api/orders/${userId}`)
     dispatch(getOrder(data))
   }
@@ -82,6 +106,8 @@ export default function(state = selectedOrder, action) {
       return action.selectedOrder
     case GET_ORDER_ITEMS:
       return numItems
+    case RESET_ORDER:
+      return action.selectedOrder
     default:
       return state
   }

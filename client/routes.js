@@ -7,6 +7,10 @@ import {me} from './store'
 import AllItems from './components/All-Items';
 import SingleItem from './components/Single-Item';
 import Cart from './components/Cart';
+import OrderHistory from './components/Order-History';
+import UserInfo from './components/User-Info';
+import Inventory from './components/Inventory';
+import { AboutUs } from './components/About-Us';
 
 /**
  * COMPONENT
@@ -28,10 +32,14 @@ class Routes extends Component {
         <Route exact path="/login" component={Login} />
         <Route exact path="/signup" component={Signup} />
         <Route exact path="/checkout" component={Checkout} />
+        <Route exact path="/about-the-developers" component={AboutUs} />
         {isLoggedIn && (
           <Switch>
             {/* Routes placed here are only available after logging in */}
             <Route exact path="/home" component={UserHome} />
+            <Route exact path="/orders" component={OrderHistory} />
+            <Route exact path="/update" component={UserInfo} />
+            <Route exact path="/inventory" component={Inventory} />
           </Switch>
         )}
         {/* Displays our Login component as a fallback */}
