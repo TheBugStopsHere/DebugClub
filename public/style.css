@@ -127,10 +127,15 @@ form div {
 }
 
 .pageContent {
+  padding-bottom: 40px;
 }
 
 .allItems {
   padding: 30px;
+}
+
+#allItemsGrid {
+  margin: auto;
 }
 
 .allItemsItems {
@@ -139,7 +144,11 @@ form div {
   margin-bottom: 40px;
 }
 
-#allItemsGrid {
+.allItemsPics {
+  z-index: -4;
+}
+
+.linkToSingle {
   margin: auto;
 }
 
@@ -152,8 +161,7 @@ form div {
 }
 
 .allIntemsInfo {
-  position: relative;
-  bottom: 30px;
+  margin-bottom: 30px;
   text-align: center;
 }
 
@@ -161,7 +169,7 @@ form div {
   font-family: 'Bahiana', cursive;
   font-size: 18pt;
   color: white;
-  float: left;
+  float: right;
 }
 
 .allItemsPrice {
