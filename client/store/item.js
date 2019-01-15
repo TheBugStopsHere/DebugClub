@@ -16,7 +16,6 @@ const selectedItem = {}
  */
 //this action will receive an item object. We will set the item as our selected item object
 const getItem = item => {
-    // console.log('action creator initiated')
     return(
         {
             type: GET_ITEM, 

@@ -64,7 +64,6 @@ class AllItems extends Component {
       orderId: this.props.order.id, //MUST BE CHANGED TO VARIABLE IN FUTURE!
       itemId: singleItem.id
     }
-    console.log('item', item)
     this.props.addToCart(item, idToPass) //MUST BE CHANGED TO VARIABLE IN FUTURE!!
     //dispatch thunk. Send data to cart.
   }

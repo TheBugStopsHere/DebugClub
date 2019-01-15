@@ -15,11 +15,9 @@ class Cart extends Component {
     await this.props.loadInitialData()
     await this.props.getGuest()
     if(this.props.user && this.props.user.id) {
-      console.log('there is a user!')
       await this.props.getOrderUser()
     } 
     else {
-      console.log('there is ONLY A GUEST')
       await this.props.getOrderGuest()
     }
   }

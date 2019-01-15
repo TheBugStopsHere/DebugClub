@@ -128,10 +128,8 @@ export const addToCart = (item, type) => {
 }
 
 export const orderUpdateConfirmation = (order, orderId) => {
-  console.log('put request going in')
   return async dispatch => {
     const {data} = await axios.put(`/api/orders/checkout/${orderId}`, order)
-    console.log('put request went in')
     dispatch(getOrder(data))
   } 
 }

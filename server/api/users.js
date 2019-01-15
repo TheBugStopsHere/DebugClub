@@ -40,6 +40,5 @@ router.put('/', async(req, res, next) => {
     returning: true,
     plain: true
   })
-  console.log(instances, 'total instances updated')
   res.json(rows)
 })

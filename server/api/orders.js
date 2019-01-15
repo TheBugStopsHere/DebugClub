@@ -127,7 +127,6 @@ router.delete('/:orderId', async (req, res, next) => {
 // ADMIN users: used for changing orders in general
 router.put('/:orderId', async (req, res, next) => {
   try {
-    console.log('orderId', req.params.orderId)
     if (!isNaN(req.params.orderId)) {
       //number means it's a user id
       // if(req.user){

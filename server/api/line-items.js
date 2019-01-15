@@ -7,7 +7,6 @@ module.exports = router
 
 //this route gets a single item in an order. It's accessible to all users.
 router.get('/:lineItemId', async (req, res, next) => {
-    console.log('req.session.id',req.session.id)
     try {
         // if (req.session.id === )
         res.json(await LineItem.findById(req.params.lineItemId))

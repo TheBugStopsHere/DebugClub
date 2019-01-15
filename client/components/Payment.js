@@ -21,7 +21,6 @@ class Payment extends React.Component {
 
     let response = await axios.post('/charge', stripePostBody)
     if (response.data.status === 'succeeded') {
-      console.log('Purchase Complete!')
       this.props.handleShippingSubmit()
     }
   }

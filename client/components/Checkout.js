@@ -36,21 +36,16 @@ class Checkout extends Component {
   }
 
   handleShippingSubmit() {
-    const {order, submit} = this.props
+    const {order} = this.props
     let updatedOrderInfo = {}
-    let type
     if (this.props.user && this.props.user.id) {
-      type = 'user'
       updatedOrderInfo.userId = this.props.user.id
       
     } else {
-      type = 'guest'
       updatedOrderInfo.guestSessionId = this.props.order.guestSessionId
     }
     updatedOrderInfo.status = 'complete'
-    console.log('updatedOrderInfo', updatedOrderInfo)
     this.props.orderUpdateConfirmation(updatedOrderInfo, order.id)
-    console.log('thunk went through')
   }
 
   render() {
