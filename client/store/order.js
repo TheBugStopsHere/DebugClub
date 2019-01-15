@@ -19,7 +19,7 @@ export const getOrder = order => {
     // console.log('action creator initiated')
     return(
         {
-            type: GET_ORDER, 
+            type: GET_ORDER,
             selectedOrder: order
         }
     )
@@ -53,12 +53,14 @@ export const newOrder = (order, userId) => {
     }
 }
 
+// OB/JD: could try to make this one route, "pushing" logic to the backend that can / should go there
 export const addToCart = (item, userId) => {
     return async (dispatch) => {
-        // axios.get to order 
+        // axios.get to order
         const prevOrder = await axios.get(`/api/orders/${userId}`)
         const prevOrderData = prevOrder.data;
-        // filter line-items with the same .itemId  
+        // filter line-items with the same .itemId
+        // OB/JD: `.find` instead of `.filter`
         const [currLineItem] = prevOrderData.lineItems.filter(lineItem => lineItem.itemId === item.itemId)
         // If our filtered array isn't empty, do an axios.put
         console.log('>>>>>item: ', item)

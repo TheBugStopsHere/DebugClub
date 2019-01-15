@@ -64,6 +64,7 @@ class AllItems extends Component {
     //dispatch thunk. Send data to cart.
   }
 
+  // OB/JD: could make another component
   createGrid() {
     const {items} = this.props
     const numRows = Math.ceil(items.length / 3)

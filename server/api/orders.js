@@ -2,6 +2,8 @@ const router = require('express').Router()
 const {Order, LineItem, Item} = require('../db/models')
 module.exports = router
 
+// OB/JD: when route handlers get large think about splitting it up into more functions
+
 //These routes are mounted on /api/orders
 
 router.use('/line-items', require('./line-items'))
@@ -24,6 +26,11 @@ router.get('/', async (req, res, next) => {
 })
 
 //this route gets a single order. It's accessible to all users.  When logged in as a user, it is their cart data. When logged in as an ADMIN user, it is a specific order (usually a completed order, but could also be in progress)
+// OB/JD: alternative...
+/*
+GET /api/cart
+and either lookup by req.user.id or req.session.id and then the frontend does not even need that OR in the frontend
+*/
 router.get('/:userId', async (req, res, next) => {
   try {
     if (!isNaN(req.params.userId)) {
@@ -82,7 +89,9 @@ router.post('/', async (req, res, next) => {
   }
   */
   try {
+    // OB/JD: could use some access control
     const order = await Order.create(req.body)
+    // OB/JD: does not seem necessary
     const returnMessage = order.toJSON()
     res.send(returnMessage)
   } catch (err) {
