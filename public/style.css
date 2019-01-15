@@ -125,6 +125,18 @@ label {
   font-size: 13pt !important;
 }
 
+#profilePic {
+  margin-top: 20px;
+}
+
+#orderHistBtn,
+#updateInfoBtn,
+#submitUpdateBtn {
+  font-size: 18px;
+  padding: 8px;
+  margin: 5px;
+}
+
 form div {
   margin: 1em;
   display: inline-block;
@@ -201,7 +213,8 @@ form div {
   font-size: 26pt;
 }
 
-.thumnail {
+.thumnail,
+#profileContainer {
   width: 75%;
   margin: auto;
   padding-top: 30px;
@@ -212,7 +225,9 @@ form div {
 }
 
 .caption,
-.cart {
+.cart,
+#profileContainer,
+#updateInfoContainer {
   background-color: rgba(215, 215, 215, 0.516);
   height: 400px;
   padding: 50px;
@@ -220,7 +235,9 @@ form div {
   text-align: center;
 }
 
-.cart {
+.cart,
+#profileContainer,
+#updateInfoContainer {
   height: 525px;
   width: 60%;
   margin: auto;
@@ -335,14 +352,20 @@ form div {
 }
 
 #addToCart,
-#Checkout {
+#Checkout,
+#updateInfoBtn,
+#orderHistBtn,
+#submitUpdateBtn {
   background-color: rgba(38, 114, 120, 0.968);
   color: rgb(174, 174, 174);
   border: none;
 }
 
 #addToCart:hover,
-#Checkout:hover {
+#Checkout:hover,
+#updateInfoBtn:hover,
+#orderHistBtn:hover,
+#submitUpdateBtn:hover {
   background-color: rgb(33, 77, 63);
   color: white;
 }
