@@ -61,8 +61,6 @@ export const addToCart = (item, userId) => {
         // filter line-items with the same .itemId  
         const [currLineItem] = prevOrderData.lineItems.filter(lineItem => lineItem.itemId === item.itemId)
         // If our filtered array isn't empty, do an axios.put
-        console.log('>>>>>item: ', item)
-        console.log('>>>>>currLineItem: ', currLineItem)
         if(currLineItem){
             // add the new line-item quantity & change line-item
             const newQuantity = Number(currLineItem.quantity) + Number(item.quantity)
