@@ -41,15 +41,6 @@ class Cart extends Component {
     } else {
       type = 'guest'
     }
-    if (!this.props.order) {
-      const order = {
-        status: 'in-progress',
-        guestSessionId: this.props.guest.id
-      }
-      if (this.props.user) {
-        order.userId = this.props.user.id
-      }
-    }
     const order = {
       total: getTotal(this.props.order.lineItems)
     }
