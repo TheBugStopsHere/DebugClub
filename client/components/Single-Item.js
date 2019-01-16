@@ -1,7 +1,13 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {getItemThunk} from '../store/item'
-import {addToCart, getOrderThunk, newOrder, getOrderGuest, getOrderUser} from '../store/order'
+import {
+  addToCart,
+  getOrderThunk,
+  newOrder,
+  getOrderGuest,
+  getOrderUser
+} from '../store/order'
 import {me} from '../store'
 import {addDecimal, stockToArr} from '../../script/util'
 import {getGuest} from '../store/guest'
@@ -22,10 +28,9 @@ export class SingleItem extends Component {
     await this.props.loadInitialData()
     await this.props.getGuest()
     await this.props.fetchItem(this.props.match.params.itemId)
-    if(this.props.user && this.props.user.id) {
+    if (this.props.user && this.props.user.id) {
       await this.props.getOrderUser()
-    }
-    else {
+    } else {
       await this.props.getOrderGuest()
     }
   }
