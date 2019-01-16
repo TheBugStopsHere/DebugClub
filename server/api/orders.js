@@ -82,30 +82,28 @@ router.get('/guest', async (req, res, next) => {
 })
 
 
-// adds a new order to the database. Accessible to all users, but for a logged in user it should only be possible to create an order that is "in-progress" not "complete". ADMIN users should be able to create an order that is "complete".
+// adds a new order to the database. Accessible to all users, but non-admin users/guests should only be able to create an order that is "in-progress" not "complete". ADMIN users should be able to create an order that is "complete".
 router.post('/', async (req, res, next) => {
-  /*
-  Expecting req.body to be something like this:
-  {
-    "status": "in-progress", //only necessary if it's an admin user creating a past order for records
-    "guestSessionId": "testSessionId2",  // either this or userId
-    "userId": "2" // either this or guestSessionId
+  if(req.body.status === 'in-progress' || req.user.admin === true) {
+    try {
+       const order = await Order.create(req.body)
+       const returnMessage = order.toJSON()
+       res.send(returnMessage)
+     } catch (err) {
+       next(err)
+     }
   }
-  */
- try {
-    const order = await Order.create(req.body)
-    const returnMessage = order.toJSON()
-    res.send(returnMessage)
-  } catch (err) {
-    next(err)
+  else {
+    res.status(401).send('Cannot start an order as complete!')
   }
 })
 
 // DELETE /api/orders/:orderId
-//this would be used if a user empties their cart.
+// Only accessible by admin users.
 router.delete('/:orderId', async (req, res, next) => {
   try {
-    if (req.user.id == req.params.userId || req.user.admin === true) {
+    const order = await Order.findById(req.params.orderId)
+    if ((order && (order.userId === req.user.id)) || req.user.admin === true) {
       //user has the same id as the id for whom the order belongs to and should not have access to delete this data.
       await Order.destroy({
         where: {
@@ -114,13 +112,14 @@ router.delete('/:orderId', async (req, res, next) => {
       })
     } else {
       //user is getting a 401 because they do not have the same id as the id for whom the order belongs to and should not be able to delete this order.
-      res.sendStatus(401)
+      res.status(401).send('Insufficient Permission!')
     }
     res.send('order has been deleted from the database')
   } catch (err) {
     next(err)
   }
 })
+
 
 // PUT /api/orders/:orderId
 // users: used for checkout, changing order status to "complete"
