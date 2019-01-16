@@ -5,7 +5,7 @@ html {
 body {
   font-family: sans-serif;
   margin-top: 115px;
-  background-image: url('/spider.jpg');
+  background-image: url('/img/spider.jpg');
   background-repeat: no-repeat;
   background-size: cover;
   background-attachment: fixed;
@@ -265,7 +265,8 @@ form div {
 .cart,
 #profileContainer,
 #updateInfoContainer,
-.loginSignup {
+.loginSignup,
+#aboutUsContainer {
   background-color: rgba(215, 215, 215, 0.516);
   height: 400px;
   padding: 50px;
@@ -276,7 +277,8 @@ form div {
 .cart,
 #profileContainer,
 #updateInfoContainer,
-.loginSignup {
+.loginSignup,
+#aboutUsContainer {
   height: 525px;
   width: 60%;
   margin: auto;
@@ -443,4 +445,48 @@ form div {
 
 #creditCards {
   float: right;
+}
+
+#aboutUsContainer {
+  width: 85%;
+}
+
+#helloWorld {
+  font-family: 'Bahiana', cursive;
+  font-size: 46pt;
+  color: rgb(0, 63, 91);
+}
+
+#aboutUsContent {
+  font-size: 18pt;
+}
+
+.aboutUsPics {
+  margin: 20px;
+}
+
+#devs {
+  margin-bottom: -20px;
+}
+
+#github {
+  font-size: 18pt;
+}
+
+.devNames,
+#github,
+#fsLink {
+  font-weight: bold;
+  color: rgb(74, 5, 5);
+  transition-duration: 0.4s;
+}
+
+.devNames:hover,
+#github:hover,
+#fsLink:hover {
+  color: darkred;
+}
+
+li {
+  text-align: left;
 }

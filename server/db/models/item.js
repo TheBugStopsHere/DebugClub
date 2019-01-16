@@ -8,7 +8,7 @@ const Item = db.define('item', {
   },
   imageURL: {
     type: Sequelize.STRING,
-    defaultValue: '/darkRedBug.png'
+    defaultValue: '/img/darkRedBug.png'
   },
   price: {
     type: Sequelize.INTEGER,

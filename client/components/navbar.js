@@ -16,7 +16,7 @@ class Navbar extends Component {
         id="navItems"
       >
         <Link to="/" id="linkHome">
-          <img id="logo" src="/darkRedBug.png" />
+          <img id="logo" src="/img/darkRedBug.png" />
           <h1 id="title">The Bug Stops Here</h1>
         </Link>
         {this.props.isLoggedIn ? (
