@@ -66,7 +66,11 @@ class UserInfo extends React.Component {
     return (
       <div id="updateInfoContainer">
         <div className="flex">
-          <h1>{firstName}, how would you like to update your information?</h1>
+          {firstName === ''
+            ? <h1>{email}, how would you like to update your information?</h1>
+            : <h1>{firstName}, how would you like to update your information?</h1>
+          }
+          
 
           <form onSubmit={this.handleSubmit}>
             <div>
