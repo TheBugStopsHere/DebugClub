@@ -21,6 +21,10 @@ a {
   transition-duration: 0.4s;
 }
 
+a:visited {
+  color: rgb(174, 174, 174);
+}
+
 p {
   font-size: 20px;
 }
@@ -142,10 +146,9 @@ label {
 }
 
 #notMem {
-  font-size: 23pt;
+  font-size: 18pt !important;
   margin: 0;
   margin-top: 10px;
-  font-size: 18pt;
 }
 
 #googleLogin,

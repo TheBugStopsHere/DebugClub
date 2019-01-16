@@ -62,12 +62,12 @@ const AuthForm = props => {
         </div>
         {name === 'login' ? (
           <div id="notMem">
-            <h4>
+            <h2>
               Not a member?{' '}
               <Link to="/signup" id="signupLink">
                 Sign Up
               </Link>
-            </h4>
+            </h2>
           </div>
         ) : (
           ''

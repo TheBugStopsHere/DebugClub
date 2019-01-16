@@ -7,6 +7,13 @@ import {logout} from '../store'
 class Navbar extends Component {
   constructor() {
     super()
+    this.getOrderNum = this.getOrderNum.bind(this)
+  }
+
+  getOrderNum(lineItems) {
+    return lineItems.reduce((total, item) => {
+      return (total += item.quantity)
+    }, 0)
   }
 
   render() {
@@ -39,8 +46,10 @@ class Navbar extends Component {
                 aria-hidden="true"
               />
               <span>Cart</span>
-              {this.props.order ? (
-                <span className="badge">{this.props.order && this.props.order.lineItems ? this.props.order.lineItems.length : null}</span>
+              {this.props.order && this.props.order.lineItems ? (
+                <span className="badge">
+                  {this.getOrderNum(this.props.order.lineItems)}
+                </span>
               ) : (
                 <span className="badge">0</span>
               )}
@@ -59,6 +68,13 @@ class Navbar extends Component {
                 aria-hidden="true"
               />
               <div>Cart</div>
+              {this.props.order && this.props.order.lineItems ? (
+                <span className="badge">
+                  {this.getOrderNum(this.props.order.lineItems)}
+                </span>
+              ) : (
+                <span className="badge">0</span>
+              )}
             </Link>
           </div>
         )}
