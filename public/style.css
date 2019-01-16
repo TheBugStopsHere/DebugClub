@@ -270,8 +270,7 @@ form div {
 .cart,
 #profileContainer,
 #updateInfoContainer,
-.loginSignup,
-#aboutUsContainer {
+.loginSignup {
   background-color: rgba(215, 215, 215, 0.516);
   height: 400px;
   padding: 50px;
@@ -448,14 +447,24 @@ form div {
 
 #aboutUsContainer {
   font-size: 22px;
-  text-align: center;
-  width: 80%;
+  width: 70%;
   margin: auto;
+  background-color: rgba(215, 215, 215, 0.516);
+  height: 525px;
+  padding: 10px 120px;
+  text-align: center;
 }
 
 #aboutUs {
-  margin: auto;
-  padding: 0 20px;
+  font-size: 14pt;
+  font-weight: bold;
+  text-align: center;
+  position: relative;
+  bottom: 2px;
+}
+
+#aboutUs:hover {
+  color: white;
 }
 
 #creditCards {
