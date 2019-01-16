@@ -19,7 +19,7 @@ utils.addDecimal = price => {
 //prototype method not working, so here is a utility function to get the total of prices off an array of items objects
 utils.getTotal = items => {
   const total = items.reduce((accum, currVal) => {
-    return accum + currVal.price
+    return accum + currVal.price * currVal.quantity
   }, 0)
   return total
 }
@@ -32,10 +32,18 @@ utils.stockToArr = stock => {
   return arr
 }
 
-// document.ready(function() {
-//   '#submit'.click(function() {
-//     '#confirmation'.modal({backdrop: 'static'})
-//   })
-// })
-
 module.exports = utils
+
+// this function converts pressing enter to submit 'click' for updating user profile information
+if (document.getElementById('submitUpdateBtn')) {
+  var submitUpdateBtn = document.getElementById('submitUpdateBtn')
+  submitUpdateBtn.addEventListener('keyup', function(event) {
+    // cancel the default action, if needed
+    event.preventDefault()
+    // number 13 is the "Enter" key on the keyboard
+    if (event.keyCode === 13) {
+      // trigger the button element with a click
+      document.getElementById('myBtn').click()
+    }
+  })
+}
