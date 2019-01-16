@@ -99,25 +99,26 @@ router.post('/', async (req, res, next) => {
 })
 
 // DELETE /api/orders/:orderId
-//this would be used if a user empties their cart.
-// router.delete('/:orderId', async (req, res, next) => {
-//   try {
-//     if (req.user.id == req.params.userId || req.user.admin === true) {
-//       //user has the same id as the id for whom the order belongs to and should not have access to delete this data.
-//       await Order.destroy({
-//         where: {
-//           id: req.params.orderId
-//         }
-//       })
-//     } else {
-//       //user is getting a 401 because they do not have the same id as the id for whom the order belongs to and should not be able to delete this order.
-//       res.sendStatus(401)
-//     }
-//     res.send('order has been deleted from the database')
-//   } catch (err) {
-//     next(err)
-//   }
-// })
+// Only accessible by admin users.
+router.delete('/:orderId', async (req, res, next) => {
+  try {
+    const order = await Order.findById(req.params.orderId)
+    if ((order && (order.userId === req.user.id)) || req.user.admin === true) {
+      //user has the same id as the id for whom the order belongs to and should not have access to delete this data.
+      await Order.destroy({
+        where: {
+          id: req.params.orderId
+        }
+      })
+    } else {
+      //user is getting a 401 because they do not have the same id as the id for whom the order belongs to and should not be able to delete this order.
+      res.status(401).send('Insufficient Permission!')
+    }
+    res.send('order has been deleted from the database')
+  } catch (err) {
+    next(err)
+  }
+})
 
 
 // PUT /api/orders/:orderId
