@@ -50,7 +50,8 @@ class Checkout extends Component {
   render() {
     const {firstName, lastName, address, email} = this.state
     return (
-      <div id="checkout">
+      <div className="checkout">
+        <h3 id="paymentTitle">Payment</h3>
         <form onSubmit={this.handleSubmit} onChange={this.handleChange}>
           <label>
             First Name:
@@ -82,11 +83,6 @@ class Checkout extends Component {
                 />
               ) : (
                 <div>
-                  <img
-                    src="/img/credit-cards-accepted.jpg"
-                    id="creditCards"
-                    height={50}
-                  />
                   <Payment
                     total={this.props.order.total}
                     name={this.props.user.firstName}

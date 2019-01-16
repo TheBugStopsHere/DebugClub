@@ -271,7 +271,7 @@ form div {
 #profileContainer,
 #updateInfoContainer,
 .loginSignup,
-#checkout {
+.checkout {
   background-color: rgba(215, 215, 215, 0.516);
   height: 400px;
   padding: 50px;
@@ -279,8 +279,13 @@ form div {
   text-align: center;
 }
 
-#checkout {
+.checkout {
   text-align: right;
+  padding-top: 40px !important;
+}
+
+#paymentTitle {
+  text-align: center !important;
 }
 
 .caption {
@@ -293,7 +298,7 @@ form div {
 #updateInfoContainer,
 .loginSignup,
 #aboutUsContainer,
-#checkout {
+.checkout {
   height: 525px;
   width: 60%;
   margin: auto;
@@ -377,12 +382,25 @@ form div {
   float: right;
 }
 
-#Checkout {
-  font-size: 16pt;
+.creditCards {
+  display: block;
+  margin: auto;
   float: left;
+}
+
+#Checkout {
+  float: left;
+  font-size: 16pt;
   position: relative;
   top: 15px;
   margin-bottom: 10px;
+}
+
+.creditCardInput {
+  background-color: white;
+  width: 226px;
+  float: right;
+  padding: 10px;
 }
 
 .singleItemPic {
@@ -476,7 +494,14 @@ form div {
 }
 
 #creditCards {
-  float: right;
+  margin: auto;
+}
+
+#submit {
+  font-size: 16pt;
+  display: block;
+  margin: auto;
+  margin-top: 20px;
 }
 
 #helloWorld {
