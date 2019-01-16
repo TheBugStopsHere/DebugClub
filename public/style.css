@@ -270,12 +270,17 @@ form div {
 .cart,
 #profileContainer,
 #updateInfoContainer,
-.loginSignup {
+.loginSignup,
+#checkout {
   background-color: rgba(215, 215, 215, 0.516);
   height: 400px;
   padding: 50px;
   padding-top: 10px;
   text-align: center;
+}
+
+#checkout {
+  text-align: right;
 }
 
 .caption {
@@ -287,7 +292,8 @@ form div {
 #profileContainer,
 #updateInfoContainer,
 .loginSignup,
-#aboutUsContainer {
+#aboutUsContainer,
+#checkout {
   height: 525px;
   width: 60%;
   margin: auto;
@@ -410,7 +416,8 @@ form div {
 #updateInfoBtn,
 #orderHistBtn,
 #submitUpdateBtn,
-.submitLoginBtn {
+.submitLoginBtn,
+.paySubmit {
   background-color: rgba(38, 114, 120, 0.968);
   color: rgb(174, 174, 174);
   border: none;
@@ -421,7 +428,8 @@ form div {
 #updateInfoBtn:hover,
 #orderHistBtn:hover,
 #submitUpdateBtn:hover,
-.submitLoginBtn:hover {
+.submitLoginBtn:hover,
+.paySubmit:hover {
   background-color: rgb(33, 77, 63);
   color: white;
 }
