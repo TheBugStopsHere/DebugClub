@@ -40,7 +40,6 @@ class Checkout extends Component {
     let updatedOrderInfo = {}
     if (this.props.user && this.props.user.id) {
       updatedOrderInfo.userId = this.props.user.id
-      
     } else {
       updatedOrderInfo.guestSessionId = this.props.order.guestSessionId
     }
@@ -51,7 +50,7 @@ class Checkout extends Component {
   render() {
     const {firstName, lastName, address, email} = this.state
     return (
-      <div>
+      <div id="checkout">
         <form onSubmit={this.handleSubmit} onChange={this.handleChange}>
           <label>
             First Name:

@@ -31,7 +31,7 @@ class Payment extends React.Component {
         <CardElement />
         <button
           id="submit"
-          className="btn btn-info btn-md"
+          className="paySubmit btn btn-info btn-md"
           data-toggle="modal"
           data-target="#confirmation"
           type="submit"
