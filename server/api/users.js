@@ -43,10 +43,16 @@ router.get('/find', async (req, res, next) => {
 
 // Allows updating user information.  Available to logged in users only by default.
 router.put('/', async(req, res, next) => {
-  const [instances, rows] = await User.update(req.body,{
+  if(req.body.admin && req.user.admin === false) {
+    res.status(401).send('Insufficient Permission to update that piece of user information!')
+  }
+  else {
+    const [instances, rows] = await User.update(req.body,{
     where: {id: req.user.id},
     returning: true,
     plain: true
   })
   res.json(rows)
+  }
+  
 })
