@@ -1,6 +1,12 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {getOrderThunk, removeFromCart, orderUpdate, getOrderUser, getOrderGuest} from '../store/order'
+import {
+  getOrderThunk,
+  removeFromCart,
+  orderUpdate,
+  getOrderUser,
+  getOrderGuest
+} from '../store/order'
 import {me} from '../store'
 import {addDecimal, getTotal} from '../../script/util'
 import {getGuest} from '../store/guest'
@@ -14,10 +20,9 @@ class Cart extends Component {
   async componentDidMount() {
     await this.props.loadInitialData()
     await this.props.getGuest()
-    if(this.props.user && this.props.user.id) {
+    if (this.props.user && this.props.user.id) {
       await this.props.getOrderUser()
-    } 
-    else {
+    } else {
       await this.props.getOrderGuest()
     }
   }
@@ -95,13 +100,15 @@ class Cart extends Component {
                     <div className="cartItemQtyPrice">
                       <span>Price:</span>
                       <span className="cartQtyPrice">
-                        ${currLineItem.price / 100}
+                        ${addDecimal(currLineItem.price)}
                       </span>
                     </div>
                     <div className="cartItemQtyPrice">
                       <span>Subtotal:</span>
                       <span className="cartQtyPrice">
-                        ${currLineItem.price / 100 * currLineItem.quantity}
+                        ${addDecimal(
+                          currLineItem.price * currLineItem.quantity
+                        )}
                       </span>
                     </div>
                   </div>
