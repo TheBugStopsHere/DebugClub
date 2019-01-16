@@ -7,17 +7,9 @@ const defaultImgURL = '/img/defaultImg.png'
 const User = db.define('user', {
   firstName: {
     type: Sequelize.STRING,
-    allowNull: false,
-    validate: {
-      notEmpty: true
-    }
   },
   lastName: {
     type: Sequelize.STRING,
-    allowNull: false,
-    validate: {
-      notEmpty: true
-    }
   },
   imageURL: {
     type: Sequelize.STRING,
@@ -82,7 +74,8 @@ User.prototype.correctPassword = function(candidatePwd) {
  * classMethods
  */
 User.beforeValidate('Capitalize', user => {
-  let firstName = user.firstName.split(' ');
+  if(user.firstName || user.lastName){
+    let firstName = user.firstName.split(' ');
   let lastName = user.lastName.split(' ');
   user.firstName = firstName.map(function(firstName){
       return firstName[0].toUpperCase().concat(firstName.slice(1).toLowerCase())
@@ -90,6 +83,7 @@ User.beforeValidate('Capitalize', user => {
   user.lastName = lastName.map(function(lastName){
       return lastName[0].toUpperCase().concat(lastName.slice(1).toLowerCase())
   }).join(' ')
+  }
 })
 
 User.generateSalt = function() {
@@ -97,6 +91,7 @@ User.generateSalt = function() {
 }
 
 User.encryptPassword = function(plainText, salt) {
+  console.log('***********>>>>>>>>         encryption is happening!')
   return crypto
     .createHash('RSA-SHA256')
     .update(plainText)
@@ -108,6 +103,7 @@ User.encryptPassword = function(plainText, salt) {
  * hooks
  */
 const setSaltAndPassword = user => {
+  console.log('***********>>>>>>>>         before update should be happening')
   if (user.changed('password')) {
     user.salt = User.generateSalt()
     user.password = User.encryptPassword(user.password(), user.salt())
@@ -116,3 +112,4 @@ const setSaltAndPassword = user => {
 
 User.beforeCreate(setSaltAndPassword)
 User.beforeUpdate(setSaltAndPassword)
+User.beforeBulkUpdate(setSaltAndPassword)

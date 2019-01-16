@@ -35,7 +35,8 @@ router.get('/find', async (req, res, next) => {
 })
 
 router.put('/', async(req, res, next) => {
-  const [instances, rows] = await User.update(req.body,{
+  console.log('REQUEST BODY', req.body)
+  const [x, rows] = await User.update(req.body,{
     where: {id: req.user.id},
     returning: true,
     plain: true
