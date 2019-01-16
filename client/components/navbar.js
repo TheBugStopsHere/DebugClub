@@ -40,7 +40,7 @@ class Navbar extends Component {
               />
               <span>Cart</span>
               {this.props.order ? (
-                <span className="badge">{this.props.orderItems}</span>
+                <span className="badge">{this.props.order && this.props.order.lineItems ? this.props.order.lineItems.length : null}</span>
               ) : (
                 <span className="badge">0</span>
               )}
