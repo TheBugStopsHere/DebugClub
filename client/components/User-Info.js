@@ -53,18 +53,16 @@ class UserInfo extends React.Component {
       infoToUpdate = this.state
     }
     this.props.updateUser(infoToUpdate)
-    this.setState({
-      firstName: this.props.firstName,
-      lastName: this.props.lastName,
-      imageURL: this.props.imageURL,
-      address: this.props.address,
-      email: this.props.email,
-      password: ''
-    })
+    //information submitted
+
+    let newState = this.state
+    newState.password = ''
+    this.setState(newState)
+
   }
 
   render() {
-    const {firstName, admin} = this.props
+    const {firstName, admin, email} = this.props
     return (
       <div id="updateInfoContainer">
         <div className="flex">
@@ -77,7 +75,7 @@ class UserInfo extends React.Component {
                 name="firstName"
                 type="text"
                 onChange={this.handleChange}
-                value={this.state.firstName || ''}
+                value={this.state.firstName}
               />
             </div>
 
@@ -87,7 +85,7 @@ class UserInfo extends React.Component {
                 name="lastName"
                 type="text"
                 onChange={this.handleChange}
-                value={this.state.lastName || ''}
+                value={this.state.lastName}
               />
             </div>
 
@@ -97,7 +95,7 @@ class UserInfo extends React.Component {
                 name="imageURL"
                 type="text"
                 onChange={this.handleChange}
-                value={this.state.imageURL || ''}
+                value={this.state.imageURL}
               />
             </div>
 
@@ -107,7 +105,7 @@ class UserInfo extends React.Component {
                 name="address"
                 type="text"
                 onChange={this.handleChange}
-                value={this.state.address || ''}
+                value={this.state.address}
               />
             </div>
 
@@ -117,7 +115,7 @@ class UserInfo extends React.Component {
                 name="email"
                 type="text"
                 onChange={this.handleChange}
-                value={this.state.email || ''}
+                value={this.state.email}
               />
             </div>
 
@@ -127,7 +125,7 @@ class UserInfo extends React.Component {
                 name="password"
                 type="text"
                 onChange={this.handleChange}
-                value={this.state.password || ''}
+                value={this.state.password}
               />
             </div>
             <button

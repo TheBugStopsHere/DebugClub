@@ -35,11 +35,9 @@ router.get('/find', async (req, res, next) => {
 })
 
 router.put('/', async(req, res, next) => {
-  console.log('REQUEST BODY', req.body)
-  const [x, rows] = await User.update(req.body,{
-    where: {id: req.user.id},
-    returning: true,
-    plain: true
-  })
-  res.json(rows)
+  console.log(req.body)
+  User.findById(req.user.id)
+    .then(user => user.update(req.body))
+    .then(user => res.json(user))
+    .catch(next)
 })

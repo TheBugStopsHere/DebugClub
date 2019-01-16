@@ -91,7 +91,6 @@ User.generateSalt = function() {
 }
 
 User.encryptPassword = function(plainText, salt) {
-  console.log('***********>>>>>>>>         encryption is happening!')
   return crypto
     .createHash('RSA-SHA256')
     .update(plainText)
@@ -103,7 +102,6 @@ User.encryptPassword = function(plainText, salt) {
  * hooks
  */
 const setSaltAndPassword = user => {
-  console.log('***********>>>>>>>>         before update should be happening')
   if (user.changed('password')) {
     user.salt = User.generateSalt()
     user.password = User.encryptPassword(user.password(), user.salt())
