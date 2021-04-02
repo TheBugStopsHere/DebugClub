@@ -33,7 +33,7 @@ passport.serializeUser((user, done) => done(null, user.id))
 
 passport.deserializeUser(async (id, done) => {
   try {
-    const user = await db.models.user.findById(id)
+    const user = await db.models.user.findByPk(id)
     done(null, user)
   } catch (err) {
     done(err)
@@ -119,7 +119,10 @@ const startListening = () => {
   require('./socket')(io)
 }
 
-const syncDb = () => db.sync({force: false})
+const syncDb = async () => {
+  console.log('syncing db')
+  await db.sync({force: false});
+}
 
 async function bootApp() {
   await sessionStore.sync()

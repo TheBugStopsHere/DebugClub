@@ -50,7 +50,7 @@ const itemsData = [
   {
     name: 'Cricket',
     imageURL:
-      'https://www.scidev.net/objects_store/thumbnail/68F93BBC6786363433DFE6B6122CEF6D.jpg',
+      '/img/cricket.png',
     price: 199,
     description:
       'Crickets (also known as "true crickets"), of the family Gryllidae, are insects related to bush crickets, and, more distantly, to grasshoppers.',
@@ -77,7 +77,7 @@ const itemsData = [
   {
     name: 'CryptoLocker',
     imageURL:
-      'https://cdn.grahamcluley.com/wp-content/uploads/2013/11/cryptolocker-thumb.png',
+      '/img/cryptolocker.png',
     price: 750000,
     description:
       'Released in September 2013, CryptoLocker spread through email attachments and encrypted the user’s files so that they couldn’t access them. The hackers then sent a decryption key in return for a sum of money, usually somewhere from a few hundred dollars up to a few grand.',
@@ -97,7 +97,7 @@ const itemsData = [
   {
     name: 'MyDoom',
     imageURL:
-      'https://static1.squarespace.com/static/5a1373fa8fd4d24083a492c2/t/5beb918d575d1f12e10f66f7/1542164884866/Mydoom+Album+Art+1000px.jpg?format=1000w',
+      '/img/mydoom.jpeg',
     price: 350,
     description:
       'MyDoom is considered to be the most damaging virus and fastest-spreading email-based worm ever. It launched Distributed Denial of Service attacks against tech companies like SCO, Microsoft, and Google. In 2004, roughly somewhere between 16-25% of all emails had been infected by MyDoom.',
