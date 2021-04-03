@@ -9,7 +9,7 @@ module.exports = router
 router.get('/:lineItemId', async (req, res, next) => {
     try {
         // if (req.session.id === )
-        res.json(await LineItem.findById(req.params.lineItemId))
+        res.json(await LineItem.findByPk(req.params.lineItemId))
     } catch (err) {
         next(err)
     }

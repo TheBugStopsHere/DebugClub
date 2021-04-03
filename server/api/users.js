@@ -34,7 +34,7 @@ router.get('/session', async (req, res, next) => {
 //this route is used when accessing the data of an existing user. Available to logged in users only by default.
 router.get('/find', async (req, res, next) => {
   try {
-    const user = await User.findById(req.user.id)
+    const user = await User.findByPk(req.user.id)
     res.json(user)
   } catch (err) {
     next(err)

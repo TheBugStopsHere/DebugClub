@@ -102,7 +102,7 @@ router.post('/', async (req, res, next) => {
 // Only accessible by admin users.
 router.delete('/:orderId', async (req, res, next) => {
   try {
-    const order = await Order.findById(req.params.orderId)
+    const order = await Order.findByPk(req.params.orderId)
     if ((order && (order.userId === req.user.id)) || req.user.admin === true) {
       //user has the same id as the id for whom the order belongs to and should not have access to delete this data.
       await Order.destroy({
@@ -136,7 +136,7 @@ router.put('/:orderId', async (req, res, next) => {
         }
       })
       res.json(
-        await Order.findById(req.params.orderId, {
+        await Order.findByPk(req.params.orderId, {
           include: [
             {
               model: LineItem,
@@ -181,7 +181,7 @@ router.get('/:orderId', async (req, res, next) => {
     
     if (req.user) {
       //user has the same id as the id for whom the order belongs to and should not have access to delete this data.
-      const order = await Order.findById(req.params.orderId)
+      const order = await Order.findByPk(req.params.orderId)
       if(order.userId === req.user.id || req.user.admin === true) {
         res.json(order)
       }
@@ -191,7 +191,7 @@ router.get('/:orderId', async (req, res, next) => {
     } 
     else if (req.session.id === req.body.guestSessionId) {
       //user has the same id as the id for whom the order belongs to and should not have access to delete this data.
-      const order = await Order.findById(req.params.orderId)
+      const order = await Order.findByPk(req.params.orderId)
       res.json(order)
     } 
     else {
@@ -218,7 +218,7 @@ router.put('/checkout/:orderId', async (req, res, next) => {
       }
     })
       res.json(
-        await Order.findById(req.params.orderId, {
+        await Order.findByPk(req.params.orderId, {
           include: [
             {
               model: LineItem,
@@ -237,7 +237,7 @@ router.put('/checkout/:orderId', async (req, res, next) => {
         }
       })
         res.json(
-          await Order.findById(req.params.orderId, {
+          await Order.findByPk(req.params.orderId, {
             include: [
               {
                 model: LineItem,
