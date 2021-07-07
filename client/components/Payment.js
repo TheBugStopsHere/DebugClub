@@ -28,7 +28,14 @@ class Payment extends React.Component {
   render() {
     return (
       <div className="payment">
-        <CardElement />
+        <div className="creditCardInput">
+          <img
+            src="/img/credit-cards-accepted.jpg"
+            id="creditCards"
+            height={50}
+          />
+          <CardElement />
+        </div>
         <button
           id="submit"
           className="paySubmit btn btn-info btn-md"
